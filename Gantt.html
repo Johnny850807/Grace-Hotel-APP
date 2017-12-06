@@ -1,0 +1,76 @@
+﻿<html>
+<head>
+<meta charset="UTF-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function daysToMilliseconds(days) {
+      return days * 24 * 60 * 60 * 1000;
+    }
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Task ID');
+      data.addColumn('string', 'Task Name');
+      data.addColumn('string', 'Resource');
+      data.addColumn('date', 'Start Date');
+      data.addColumn('date', 'End Date');
+      data.addColumn('number', 'Duration');
+      data.addColumn('number', 'Percent Complete');
+      data.addColumn('string', 'Dependencies');
+	  
+	  var rows = [
+          ['1', 'I/O設計書', '文案',
+              new Date(2017, 10, 29), new Date(2017, 10, 30), daysToMilliseconds(1), 100, null],
+        ['3', '葛瑞絲觀光資訊蒐集', '資源蒐集',
+            new Date(2017, 11, 1), new Date(2017, 11, 14), daysToMilliseconds(13), 0, null],
+        ['4', '房內道具圖片繪製', '資源蒐集',
+            new Date(2017, 11, 8), new Date(2017, 11, 25), daysToMilliseconds(19), 0, '18'],
+        ['5', '房間圖片全景拍攝', '資源蒐集',
+            new Date(2017, 11, 1), new Date(2017, 11, 14), daysToMilliseconds(13), 0, null],
+        ['7', 'UML分析', 'SD開發設計',
+            new Date(2017, 11, 10), new Date(2017, 11, 12), daysToMilliseconds(2), 0, '14'],
+        ['8', '遊戲架構實現', '開發',
+            new Date(2017, 11, 13), new Date(2017, 11, 14), daysToMilliseconds(2), 0, '7'],
+        ['2', 'SA/SD 設計書', '文案',
+            new Date(2017, 11, 13), new Date(2017, 11, 20), daysToMilliseconds(1), 30, '7'],
+        ['9', '遊戲畫面開發', '開發',
+            new Date(2017, 11, 15), new Date(2017, 11, 20), daysToMilliseconds(4), 0, '8'],
+        ['17', 'OpenGL 學習', 'AR可行性分析',
+            new Date(2017, 11, 1), new Date(2017, 11, 3), daysToMilliseconds(9), 15, null],
+        ['18', '3D圖片可行性分析', 'AR可行性分析',
+            new Date(2017, 11, 1), new Date(2017, 11, 6), daysToMilliseconds(9), 7, null],
+        ['19', 'AR CORE學習', 'AR可行性分析',
+            new Date(2017, 11, 4), new Date(2017, 11, 6), daysToMilliseconds(9), 15, '17'],
+        ['10 ', '問卷遊戲中置入開發', '開發',
+            new Date(2017, 11, 15), new Date(2017, 11, 20), daysToMilliseconds(4), 0, '15'],
+        ['12', 'APP介面設計', '設計',
+            new Date(2017, 11, 4), new Date(2017, 11, 5), daysToMilliseconds(9), 40, '13'],
+        ['13', 'APP功能設計', '設計',
+            new Date(2017, 11, 1), new Date(2017, 11, 3), daysToMilliseconds(9), 40, null],
+        ['14', 'APP遊戲設計', '設計',
+            new Date(2017, 11, 6), new Date(2017, 11, 7), daysToMilliseconds(9), 30, '12'],
+        ['15', '問卷內容設計', '設計',
+            new Date(2017, 11, 1), new Date(2017, 11, 10), daysToMilliseconds(9), 0, null],
+        ['16', '作品簡報呈現', '呈現',
+            new Date(2017, 11, 20), new Date(2017, 11, 30), daysToMilliseconds(9), 0, '4']
+      ];
+      data.addRows(rows);
+
+      var options = {
+        height:  rows.length * 55
+      };
+
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+    </script>
+</head>
+<body style="background-color: #01190C;">
+    <div id="chart_div"></div>
+</body>
+</html>
