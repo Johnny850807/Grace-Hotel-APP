@@ -5,10 +5,16 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 public class Sprite implements Cloneable{
 	private int x;
 	private int y;
+	private int width;
+	private int height;
+	private Direction direction = Direction.RIGHT;
+	private Status status = Status.HALT;
 	private SpriteName spriteName;
 	private ImageSequence imageSequence;
 
-	public Sprite(ImageSequence imageSequence) {
+	public Sprite(int width, int height, ImageSequence imageSequence) {
+		this.width = width;
+		this.height = height;
 		this.imageSequence = imageSequence;
 	}
 
@@ -48,6 +54,43 @@ public class Sprite implements Cloneable{
 		this.imageSequence = imageSequence;
 	}
 
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void move(int dx, int dy){
+		setX(getX() + dx);
+		setY(getY() + dy);
+	}
+
 	public Sprite clone(){
 		try {
 			Sprite sprite = (Sprite) super.clone();
@@ -57,5 +100,13 @@ public class Sprite implements Cloneable{
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public enum Status{
+		HALT, MOVING
+	}
+
+	public enum Direction{
+		RIGHT, LEFT
 	}
 }

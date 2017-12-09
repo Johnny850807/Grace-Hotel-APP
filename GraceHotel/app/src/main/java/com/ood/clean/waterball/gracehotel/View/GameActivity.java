@@ -17,4 +17,17 @@ public class GameActivity extends AppCompatActivity {
         setContentView(new GameSurfaceView(this));
         Log.d(TAG, "GameSurfaceView added");
     }
+
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "Destroying...");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "Stopping...");
+        super.onStop();
+    }
 }

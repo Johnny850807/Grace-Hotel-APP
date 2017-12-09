@@ -4,8 +4,8 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 
 public class GameItem extends Sprite {
 
-	public GameItem(ImageSequence imageSequence, SpriteName spriteName) {
-		super(imageSequence);
+	public GameItem(int width, int height, ImageSequence imageSequence, SpriteName spriteName) {
+		super(width, height, imageSequence);
 		setSpriteName(spriteName);
 	}
 
