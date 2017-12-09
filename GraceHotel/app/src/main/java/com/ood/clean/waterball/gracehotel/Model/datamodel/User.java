@@ -1,15 +1,14 @@
 package com.ood.clean.waterball.gracehotel.Model.datamodel;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.Collection;
 
-public class User {
-
+public class User implements Serializable{
 	private int money;
-
 	private String roomNumber;
-
 	private Collection<Permission> permission;
-
 	public User(String roomNumber) {
 		this.roomNumber = roomNumber;
 	}
@@ -38,8 +37,8 @@ public class User {
 		getPermission().add(permission);
 	}
 
-	public boolean hasPermission(PermissionName permissionName){
-		return getPermission().contains(permissionName);
+	public boolean hasPermission(Permission permission){
+		return getPermission().contains(permission);
 	}
 
 	public void setPermission(Collection<Permission> permission) {

@@ -1,10 +1,11 @@
 package com.ood.clean.waterball.gracehotel.Model.sprite;
 
-public class Sprite implements Cloneable{
+import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 
+public class Sprite implements Cloneable{
 	private int x;
 	private int y;
-
+	private SpriteName spriteName;
 	private ImageSequence imageSequence;
 
 	public Sprite(ImageSequence imageSequence) {
@@ -29,6 +30,14 @@ public class Sprite implements Cloneable{
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public SpriteName getSpriteName() {
+		return spriteName;
+	}
+
+	public void setSpriteName(SpriteName spriteName) {
+		this.spriteName = spriteName;
 	}
 
 	public ImageSequence getImageSequence() {

@@ -1,5 +1,7 @@
 package com.ood.clean.waterball.gracehotel.Model.sprite;
 
+import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
+
 import java.util.Collection;
 
 public class Background extends Sprite {
@@ -8,6 +10,7 @@ public class Background extends Sprite {
 
 	public Background(ImageSequence imageSequence) {
 		super(imageSequence);
+		setSpriteName(SpriteName.BACKGROUND);
 	}
 
 	@Override

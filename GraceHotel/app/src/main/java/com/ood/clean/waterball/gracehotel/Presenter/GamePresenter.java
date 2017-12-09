@@ -1,10 +1,17 @@
 package com.ood.clean.waterball.gracehotel.Presenter;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.AnswerModel;
+import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
+import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GamePresenter {
+	private Background background;
+	private List<Sprite> gameItems = new ArrayList<>();
 
-	public void scrollBackground(int dx, int dy) {
+	public GamePresenter(){
 
 	}
 
@@ -12,11 +19,15 @@ public class GamePresenter {
 
 	}
 
-	public void executeItemEffect() {
+	public void scrollBackground(int dx, int dy) {
 
 	}
 
-	public void fillQuestion(AnswerModel am) {
+	public void executeItemEffect(Sprite gameItem) {
+
+	}
+
+	public void fillQuestion(AnswerModel answerModel) {
 
 	}
 

@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">GraceHotel</string>
+    <string name="app_name">葛瑞絲商務旅館</string>
+    <string name="checkIn">Check In</string>
+    <string name="chhoseRoomNumber">請選擇房間號碼</string>
+    <string name="graceHotel">葛瑞絲商旅</string>
+    <string name="pleaseChooseRoomNumbers">請選擇正確的房間號碼</string>
 </resources>
