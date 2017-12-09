@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     private void init() {
         presenter = new MainPresenter(new AndroidThreadExecutor(), new UserLocalRepository(this));
+        presenter.setMainView(this);
     }
 
     public void checkInOnClick(View view) {
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         roomNumberSpn.setEnabled(false);
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("User", user);
-        startActivity(intent);
-        finish();
+        //startActivity(intent);
+        //finish();
     }
 }

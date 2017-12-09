@@ -1,16 +1,15 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 
-import com.ood.clean.waterball.gracehotel.Model.datamodel.AnswerModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
 
+import java.util.List;
+
 public interface GameView {
 
-	public abstract void onGameStatusUpdated(Sprite background, Sprite[] sprites);
+	public void onGameStatusUpdated(Sprite background, List<Sprite> sprites);
 
-	public abstract void onShowQuestionaire(QuestionModel[] qts);
-
-	public abstract void onAnswerFillingSuccessfully(AnswerModel ans);
+	public void onShowQuestionnaire(List<QuestionModel> questionModels);
 
 }

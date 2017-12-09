@@ -4,6 +4,6 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 
 public interface MainView {
 
-	public abstract void onSignInSucessfully(User user);
+	public void onSignInSucessfully(User user);
 
 }

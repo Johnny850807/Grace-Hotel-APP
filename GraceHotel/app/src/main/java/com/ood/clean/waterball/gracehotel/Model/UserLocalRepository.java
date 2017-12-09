@@ -3,6 +3,7 @@ package com.ood.clean.waterball.gracehotel.Model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.provider.Settings;
 
 import com.google.gson.Gson;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.Permission;
@@ -13,10 +14,12 @@ public class UserLocalRepository implements UserRepository{
     private static final String ERROR = "ERROR";
     private static final String USER = "USER";
     private static final String ITEM_ARRANGEMENT = "item arrangement";
+    private Context context;
     private SharedPreferences sp;
     private Gson gson = new Gson();
 
     public UserLocalRepository(Context context){
+        this.context = context;
         sp = context.getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
     }
 
@@ -33,9 +36,16 @@ public class UserLocalRepository implements UserRepository{
 
     @Override
     public User createUser(String roomNumber) {
-        User user = new User(roomNumber);
+        String deviceId = getDeviceUID();
+        User user = new User(roomNumber, deviceId);
         updateUser(user);
         return user;
+    }
+
+    private String getDeviceUID(){
+        //TODO find better solution
+        return Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
     }
 
     @Override

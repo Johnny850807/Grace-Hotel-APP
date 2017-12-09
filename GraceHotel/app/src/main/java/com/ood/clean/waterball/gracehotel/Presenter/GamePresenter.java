@@ -1,6 +1,6 @@
 package com.ood.clean.waterball.gracehotel.Presenter;
 
-import com.ood.clean.waterball.gracehotel.Model.datamodel.AnswerModel;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
 
@@ -27,7 +27,7 @@ public class GamePresenter {
 
 	}
 
-	public void fillQuestion(AnswerModel answerModel) {
+	public void fillQuestion(QuestionModel questionModel) {
 
 	}
 

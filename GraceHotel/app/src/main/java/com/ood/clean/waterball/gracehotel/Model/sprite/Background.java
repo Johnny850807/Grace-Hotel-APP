@@ -18,13 +18,7 @@ public class Background extends Sprite {
 
 	@Override
 	public void update() {
-		if (getStatus() == Status.MOVING )
-		{
-			if (getDirection() == Direction.LEFT && getX() >= 0)
-				move(4, 0);
-			else if (getDirection() == Direction.RIGHT && getX() + getWidth() <= screenWidth)
-				move(-4, 0);
-		}
+
 	}
 
 	@Override

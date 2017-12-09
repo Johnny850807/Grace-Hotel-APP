@@ -7,8 +7,6 @@ public class Sprite implements Cloneable{
 	private int y;
 	private int width;
 	private int height;
-	private Direction direction = Direction.RIGHT;
-	private Status status = Status.HALT;
 	private SpriteName spriteName;
 	private ImageSequence imageSequence;
 
@@ -54,21 +52,6 @@ public class Sprite implements Cloneable{
 		this.imageSequence = imageSequence;
 	}
 
-	public Direction getDirection() {
-		return direction;
-	}
-
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
 
 	public int getWidth() {
 		return width;
@@ -102,11 +85,4 @@ public class Sprite implements Cloneable{
 		}
 	}
 
-	public enum Status{
-		HALT, MOVING
-	}
-
-	public enum Direction{
-		RIGHT, LEFT
-	}
 }
