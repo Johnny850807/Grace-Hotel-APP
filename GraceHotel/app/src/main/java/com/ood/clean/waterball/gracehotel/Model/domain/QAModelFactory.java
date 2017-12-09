@@ -9,10 +9,12 @@ import com.ood.clean.waterball.gracehotel.Model.entity.Question;
 public class QAModelFactory {
 
 	public QuestionModel createQuestionModel(Question question) {
+		//TODO
 		return null;
 	}
 
 	public Answer createAnswerFeedback(AnswerModel answerModel) {
+		//TODO
 		return null;
 	}
 

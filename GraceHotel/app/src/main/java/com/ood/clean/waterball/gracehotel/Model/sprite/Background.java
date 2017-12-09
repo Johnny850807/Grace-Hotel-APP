@@ -6,6 +6,11 @@ public class Background extends Sprite {
 
 	private Collection<GameItem> gameItem;
 
+	public Background(ImageSequence imageSequence) {
+		super(imageSequence);
+	}
+
+	@Override
 	public void update() {
 
 	}

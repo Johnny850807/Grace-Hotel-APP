@@ -1,11 +1,25 @@
 package com.ood.clean.waterball.gracehotel.Model.sprite;
 
 
+import android.content.Context;
+
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 
-public class SpritePrototypeFactory {
+import java.util.HashMap;
+import java.util.Map;
 
-	public void addPrototype(SpriteName name, Sprite sp) {
+public class SpritePrototypeFactory {
+	private Map<SpriteName, Sprite> spriteMap = new HashMap<>();
+
+	public SpritePrototypeFactory(Context context){
+		preparePrototypes(context);
+	}
+
+	private void preparePrototypes(Context context) {
+
+	}
+
+	public void addPrototype(SpriteName name, Sprite sprite) {
 
 	}
 

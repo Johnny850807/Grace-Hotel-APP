@@ -12,8 +12,8 @@ public interface UserRepository {
 
 	public abstract User createUser(String roomNumber);
 
-	public abstract void addPoint(int point);
+	public abstract void addMoney(User user, int point);
 
-	public abstract void buyPermission(Permission permission, User user);
+	public abstract void buyPermission(User user, Permission permission);
 
 }
