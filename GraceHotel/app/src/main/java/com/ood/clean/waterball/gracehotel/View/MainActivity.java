@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     public void onSignInSucessfully(User user) {
         Log.d(TAG,"User got " + user);
         roomNumberSpn.setEnabled(false);
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("User", user);
         startActivity(intent);
         finish();
