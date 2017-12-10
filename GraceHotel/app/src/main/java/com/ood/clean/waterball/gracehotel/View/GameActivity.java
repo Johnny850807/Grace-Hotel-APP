@@ -10,7 +10,9 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
+import com.ood.clean.waterball.gracehotel.Model.domain.Permissions;
 import com.ood.clean.waterball.gracehotel.R;
 
 import butterknife.BindView;
@@ -47,7 +49,7 @@ public class GameActivity extends AppCompatActivity {
     private void setupViews(){
         initAndAddGameSurfaceView();
         setupIconButtons();
-        roomNumberTxt.setText(user.getRoomNumber());
+        roomNumberTxt.setText("  " + user.getRoomNumber());  // spaces for margin left
         moneyTxt.setText(String.valueOf(user.getMoney()));
     }
 
@@ -59,13 +61,18 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setupIconButtons(){
+        icon3Btn.setEnabled(user.hasPermission(Permissions.WATCH_WEATHER));
+        icon4Btn.setEnabled(user.hasPermission(Permissions.TRAVEL_INFO));
 
+        Glide.with(this).load(R.drawable.icon1).fitCenter().into(icon1Btn);
+        Glide.with(this).load(R.drawable.icon2).fitCenter().into(icon2Btn);
+        Glide.with(this).load(R.drawable.icon3).fitCenter().into(icon3Btn);
+        Glide.with(this).load(R.drawable.icon4).fitCenter().into(icon4Btn);
     }
 
     @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
-
         super.onDestroy();
     }
 
@@ -75,7 +82,7 @@ public class GameActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    public void onQuesitonnaireOnClick(View view) {
+    public void onQuestionnaireOnClick(View view) {
 
     }
 }

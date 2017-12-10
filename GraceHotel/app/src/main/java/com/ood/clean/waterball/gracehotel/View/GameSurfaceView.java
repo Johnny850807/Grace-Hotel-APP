@@ -116,8 +116,27 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Override
-    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float vX, float vY) {
+    public boolean onFling(final MotionEvent motionEvent, final MotionEvent motionEvent1, final float vX, final float vY) {
         Log.d(TAG, "Flinging... vX: " + vX + ", vY" + vY);
+
+        new Thread(){
+            @Override
+            public void run() {
+                int deltaX = (int)vX / 100;
+                int deltaY = (int)vY / 100;
+                int diffX = (int)(motionEvent.getX() - motionEvent1.getX());
+                int diffY = (int)(motionEvent.getY() - motionEvent1.getY());
+                int factorX = diffX > 0 ? 1 : -1;
+                int factorY = diffY > 0 ? 1 : -1;
+                while(Math.abs(deltaX) < 5 || Math.abs(deltaY) < 5)
+                {
+                    gamePresenter.scrollBackground(deltaX, deltaY);
+                    deltaX = deltaX - (5*factorX) > 0 ? deltaX - 5 : 0;
+                    deltaY = deltaY - 5 > 0 ? deltaY - 5 : 0;
+                }
+            }
+        }.start();
+
         return false;
     }
 }

@@ -1,6 +1,7 @@
 package com.ood.clean.waterball.gracehotel.Model.datamodel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
 
@@ -8,11 +9,12 @@ public class User implements Serializable{
 	private int money;
 	private String roomNumber;
 	private String deviceId;
-	private Collection<Permission> permission;
+	private Collection<Permission> permissions = new ArrayList<>();
 
 	public User(String roomNumber, String deviceId) {
 		this.roomNumber = roomNumber;
 		this.deviceId = deviceId;
+
 	}
 
 	public int getMoney() {
@@ -31,20 +33,20 @@ public class User implements Serializable{
 		this.roomNumber = roomNumber;
 	}
 
-	public Collection<Permission> getPermission() {
-		return permission;
+	public Collection<Permission> getPermissions() {
+		return permissions;
 	}
 
 	public void addPermission(Permission permission){
-		getPermission().add(permission);
+		getPermissions().add(permission);
 	}
 
 	public boolean hasPermission(Permission permission){
-		return getPermission().contains(permission);
+		return getPermissions().contains(permission);
 	}
 
-	public void setPermission(Collection<Permission> permission) {
-		this.permission = permission;
+	public void setPermissions(Collection<Permission> permissions) {
+		this.permissions = permissions;
 	}
 
 	public String getDeviceId() {
