@@ -31,7 +31,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         super(context);
         setFocusable(true);
         getHolder().addCallback(this);
-        gestureDetector = new GestureDetector(context, this);
+        gestureDetector = new GestureDetector(getContext(), this);
     }
 
     @Override
