@@ -22,6 +22,14 @@ public class CheckboxQuestion extends QuestionModel implements Iterable<Checkbox
         return options.iterator();
     }
 
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public Option getOption(int index){
+        return options.get(index);
+    }
+
     public static class Option{
         private String optionName;
         private boolean value;  // checked or not checked

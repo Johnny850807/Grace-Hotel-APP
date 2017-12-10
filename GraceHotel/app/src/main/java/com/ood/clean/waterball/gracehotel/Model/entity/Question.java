@@ -7,6 +7,12 @@ public class Question {
 	private String options;
 	private QuestionType type;
 
+	public Question(int id, String question, String options, QuestionType type) {
+		this.id = id;
+		this.question = question;
+		this.options = options;
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;

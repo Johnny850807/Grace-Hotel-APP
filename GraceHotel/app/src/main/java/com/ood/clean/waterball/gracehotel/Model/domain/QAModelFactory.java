@@ -30,7 +30,7 @@ import javax.xml.transform.stream.StreamResult;
 
 
 public class QAModelFactory {
-	private static final String OPTION = "options";
+	private static final String OPTIONS = "options";
 	private static final String ITEM = "item";
 	private static final String VALUE = "value";
 
@@ -57,7 +57,7 @@ public class QAModelFactory {
 	private static CheckboxQuestion createCheckBoxQuestion(Question question){
 			CheckboxQuestion checkboxQuestion = new CheckboxQuestion(question.getId(), question.getQuestion(), QuestionType.CHECKBOXES);
 			Document document = createDocument(question.getOptions());
-			NodeList nodeList = document.getElementsByTagName(OPTION);
+			NodeList nodeList = document.getElementsByTagName(ITEM);
 			for (int i = 0 ; i < nodeList.getLength() ; i ++)
 			{
 				Element element = (Element) nodeList.item(i);
@@ -78,7 +78,7 @@ public class QAModelFactory {
 
 	public static Answer createAnswerFeedback(String deviceUID, CheckboxQuestion question) {
 		Document document = newDocument();
-		Element optionElm = document.createElement(OPTION);
+		Element optionElm = document.createElement(OPTIONS);
 		for(CheckboxQuestion.Option option : question)
 		{
 			Element itemElm = document.createElement(ITEM);
@@ -86,18 +86,18 @@ public class QAModelFactory {
 			itemElm.setTextContent(option.getOptionName());
 			optionElm.appendChild(itemElm);
 		}
-		document.getDocumentElement().appendChild(optionElm);
+		document.appendChild(optionElm);
 		return new Answer(question.getQuestionId(), domToString(document), deviceUID);
 	}
 
 	public static Answer createAnswerFeedback(String deviceUID, FillingQuestion question) {
 		Document document = newDocument();
-		Element optionElm = document.createElement(OPTION);
+		Element optionElm = document.createElement(OPTIONS);
 		Element itemElm = document.createElement(ITEM);
 		itemElm.setTextContent(question.getHint());
 		itemElm.setAttribute(VALUE, question.getAnswer());
 		optionElm.appendChild(itemElm);
-		document.getDocumentElement().appendChild(optionElm);
+		document.appendChild(optionElm);
 		return new Answer(question.getQuestionId(), domToString(document), deviceUID);
 	}
 
