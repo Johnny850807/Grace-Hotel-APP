@@ -33,11 +33,11 @@ public class MainPresenter {
 		});
 	}
 
-	public boolean hasUser(){
+	public boolean hasLocalUser(){
 		return userRepository.userExists();
 	}
 
-	public void getUser(){
+	public void loadLocalUser(){
 		threadExecutor.execute(new Runnable() {
 			@Override
 			public void run() {

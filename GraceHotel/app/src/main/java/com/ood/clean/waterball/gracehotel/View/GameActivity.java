@@ -3,6 +3,7 @@ package com.ood.clean.waterball.gracehotel.View;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -45,6 +46,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void setupViews(){
         initAndAddGameSurfaceView();
+        setupIconButtons();
         roomNumberTxt.setText(user.getRoomNumber());
         moneyTxt.setText(String.valueOf(user.getMoney()));
     }
@@ -54,6 +56,10 @@ public class GameActivity extends AppCompatActivity {
         gameSurfaceView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT));
         container.addView(gameSurfaceView);
+    }
+
+    private void setupIconButtons(){
+
     }
 
     @Override
@@ -67,5 +73,9 @@ public class GameActivity extends AppCompatActivity {
     protected void onStop() {
         Log.d(TAG, "Stopping...");
         super.onStop();
+    }
+
+    public void onQuesitonnaireOnClick(View view) {
+
     }
 }
