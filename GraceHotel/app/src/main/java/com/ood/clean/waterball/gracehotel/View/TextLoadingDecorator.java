@@ -4,7 +4,7 @@ package com.ood.clean.waterball.gracehotel.View;
 import android.os.Handler;
 import android.widget.TextView;
 
-public class TextLoadingDecorator extends Thread{
+public class TextLoadingDecorator implements Runnable{
     private Handler handler = new Handler();
     private TextView textView;
     private String nowText = "";

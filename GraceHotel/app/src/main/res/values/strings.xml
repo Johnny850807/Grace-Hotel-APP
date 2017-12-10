@@ -4,4 +4,8 @@
     <string name="chhoseRoomNumber">請選擇房間號碼</string>
     <string name="graceHotel">葛瑞絲商旅</string>
     <string name="pleaseChooseRoomNumbers">請選擇正確的房間號碼</string>
+    <string name="checkRoomExists">檢查房間是否存在</string>
+    <string name="imgPreparedCompleted">圖片資源準備完畢</string>
+    <string name="gameItemArrangementCompleted">房間環境佈置完畢</string>
+    <string name="loadingCompleted">載入完畢</string>
 </resources>

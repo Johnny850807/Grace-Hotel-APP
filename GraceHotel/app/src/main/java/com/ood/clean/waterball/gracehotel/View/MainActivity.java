@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ood.clean.waterball.gracehotel.Model.UserLocalRepository;
@@ -21,8 +23,11 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements MainView{
     private final static String TAG = "MainActivity";
     private MainPresenter presenter;
+    private TextLoadingDecorator textLoadingDecorator;
+    @BindView(R.id.loadingText) TextView loadingTxt;
     @BindView(R.id.loadingBar) ProgressBar loadingBar;
     @BindView(R.id.roomNumbersSpin) Spinner roomNumberSpn;
+    @BindView(R.id.checkInBtn) Button checkInBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         setContentView(R.layout.activity_main);
         init();
         ButterKnife.bind(this);
+        textLoadingDecorator = new TextLoadingDecorator(loadingTxt, 7);
         checkUserExists();
     }
 
@@ -37,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
         if (presenter.hasUser())
         {
             presenter.getUser();
-            //TODO loading UX
+            textLoadingDecorator.setText(getString(R.string.checkRoomExists));
+            new Thread(textLoadingDecorator).start();
         }
     }
 
@@ -57,29 +64,35 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 presenter.getUser();
             else
                 presenter.signIn(roomNumber);
-            //TODO loading UX
+            loadingBar.setVisibility(View.VISIBLE);
+            new Thread(textLoadingDecorator).start();
         }
     }
 
     @Override
     public void onPrototypePreparedCompleted() {
         Log.d(TAG,"Prototype prepared completed");
-
+        textLoadingDecorator.setText(getString(R.string.imgPreparedCompleted));
     }
 
     @Override
     public void onGameItemArrangementCompleted() {
         Log.d(TAG,"GameItem Arrangement completed");
-
+        textLoadingDecorator.setText(getString(R.string.gameItemArrangementCompleted));
     }
 
     @Override
     public void onSignInSucessfully(User user) {
+        textLoadingDecorator.setRunning(false);
         Log.d(TAG,"User got " + user);
-        roomNumberSpn.setEnabled(false);
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("User", user);
-        //startActivity(intent);
-        //finish();
+
+        startActivity(intent);
+
+        loadingBar.setVisibility(View.GONE);
+        checkInBtn.setEnabled(false);
+        roomNumberSpn.setEnabled(false);
+        finish();
     }
 }

@@ -65,7 +65,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/checkIn"
                 android:background="@drawable/white_corner"
-                android:onClick="checkInOnClick"/>
+                android:onClick="checkInOnClick"
+                android:id="@+id/checkInBtn"/>
             <ProgressBar
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -83,7 +84,8 @@
         android:layout_height="30dp"
         android:background="#4e4e4e"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"/>
+        android:layout_marginBottom="40dp"
+        android:id="@+id/loadingText"/>
 
 
 </RelativeLayout>
