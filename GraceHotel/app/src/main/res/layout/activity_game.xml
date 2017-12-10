@@ -1,11 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/testbg"
     tools:context="com.ood.clean.waterball.gracehotel.View.GameActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container">
+    </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true">
+            <ImageButton
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:id="@+id/icon1"
+                android:src="@drawable/icon1"
+                android:background="@android:color/transparent"/>
+            <ImageButton
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:id="@+id/icon2"
+                android:src="@drawable/icon2"
+                android:background="@android:color/transparent"/>
+            <ImageButton
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:id="@+id/icon3"
+                android:src="@drawable/icon3"
+                android:background="@android:color/transparent"/>
+            <ImageButton
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:id="@+id/icon4"
+                android:src="@drawable/icon4"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/surveyBtn"
+            android:layout_margin="4dp"
+            android:src="@drawable/survey"
+            android:background="@android:color/transparent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/basicTextStyle"
+                android:layout_margin="6dp"
+                android:textColor="#fff"
+                android:textSize="22sp"
+                android:text="@string/roomNumber" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/basicTextStyle"
+                android:layout_margin="6dp"
+                android:textColor="#fff"
+                android:textSize="22sp"
+                android:id="@+id/roomNumberTxt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/basicTextStyle"
+                android:layout_margin="6dp"
+                android:textColor="#fff"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/coin"
+                android:drawableStart="@drawable/coin"
+                android:id="@+id/moneyTxt"
+                android:textSize="22sp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

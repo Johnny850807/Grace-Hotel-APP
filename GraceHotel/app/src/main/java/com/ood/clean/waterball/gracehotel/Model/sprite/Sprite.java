@@ -1,6 +1,7 @@
 package com.ood.clean.waterball.gracehotel.Model.sprite;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 
@@ -78,6 +79,12 @@ public class Sprite implements Cloneable{
 	public void move(int dx, int dy){
 		setX(getX() + dx);
 		setY(getY() + dy);
+	}
+
+	public void draw(Canvas canvas){
+		Bitmap bitmap = nextBitmap();
+		if (bitmap != null && canvas != null)
+			canvas.drawBitmap(nextBitmap(), getX(), getY(), null);
 	}
 
 	public Sprite clone(){

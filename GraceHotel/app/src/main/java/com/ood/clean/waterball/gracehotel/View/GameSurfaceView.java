@@ -12,18 +12,16 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
-import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
+import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
 import com.ood.clean.waterball.gracehotel.Presenter.GamePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
-
 
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, GameView, GestureDetector.OnGestureListener {
-    private Sprite background;
-    private List<Sprite> gameItems;
+    private static final String TAG = "GameSurfaceView";
+    private Background background;
     private GamePresenter gamePresenter;
     private GestureDetector gestureDetector;
 
@@ -36,7 +34,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
+        Log.v(TAG, "Touch, " + event.getAction());
+        gestureDetector.onTouchEvent(event);
+        return true;
     }
 
     @Override
@@ -66,9 +66,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @SuppressLint("WrongCall")
     @Override
-    public void onGameStatusUpdated(Sprite background, List<Sprite> sprites) {
+    public void onGameStatusUpdated(Background background) {
         this.background = background;
-        this.gameItems = sprites;
         Canvas canvas = getHolder().lockCanvas();
         onDraw(canvas);
         getHolder().unlockCanvasAndPost(canvas);
@@ -76,11 +75,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     protected void onDraw(Canvas canvas) {
-        drawSprite(canvas, background);
-    }
-
-    private void drawSprite(Canvas canvas, Sprite sprite){
-        canvas.drawBitmap(sprite.nextBitmap(), sprite.getX(), sprite.getY(), null);
+        background.draw(canvas);
     }
 
     @Override
@@ -109,17 +104,20 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Override
-    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        return false;
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float dx, float dy) {
+        Log.d(TAG, "Scrolling... dx: " + dx + ", dy: " + dy );
+        gamePresenter.scrollBackground((int)dx, (int)dy);
+        return true;
     }
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-
+        Log.d(TAG, "Long pressing");
     }
 
     @Override
-    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float vX, float vY) {
+        Log.d(TAG, "Flinging... vX: " + vX + ", vY" + vY);
         return false;
     }
 }

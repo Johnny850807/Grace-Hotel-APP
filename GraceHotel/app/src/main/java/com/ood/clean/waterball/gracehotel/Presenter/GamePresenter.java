@@ -4,11 +4,11 @@ import android.util.Log;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
+import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
 import com.ood.clean.waterball.gracehotel.Model.sprite.SpritePrototypeFactory;
 import com.ood.clean.waterball.gracehotel.View.GameView;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class GamePresenter {
@@ -16,9 +16,8 @@ public class GamePresenter {
 	private GameView gameView;
 	private boolean running;
 	private SpritePrototypeFactory prototypeFactory = SpritePrototypeFactory.getInstance();
-	private Sprite background;
+	private Background background;
 	private List<Sprite> gameItems;
-	private List<Delta> unhandleScrollRequesnt = new LinkedList<Delta>();
 
 	public GamePresenter(){}
 
@@ -27,9 +26,25 @@ public class GamePresenter {
 	}
 
 	public void gameStart() {
-		background = prototypeFactory.createSprite(SpriteName.BACKGROUND);
+		background = (Background) prototypeFactory.createSprite(SpriteName.BACKGROUND);
+		testMoney(); //TODO
 		running = true;
 		gameCycleThread.start();
+	}
+
+	private void testMoney(){
+		Sprite money1 = prototypeFactory.createSprite(SpriteName.MONEY);
+		money1.setX(150);
+		money1.setY(200);
+		Sprite money2 = prototypeFactory.createSprite(SpriteName.MONEY);
+		money2.setX(3250);
+		money2.setY(1000);
+		Sprite money3 = prototypeFactory.createSprite(SpriteName.MONEY);
+		money3.setX(2000);
+		money3.setY(300);
+		background.addGameItem(money1);
+		background.addGameItem(money3);
+		background.addGameItem(money2);
 	}
 
 	private Thread gameCycleThread = new Thread(){
@@ -38,8 +53,9 @@ public class GamePresenter {
 			try {
 				while (running)
 				{
-					gameView.onGameStatusUpdated(background, gameItems);
-					Thread.sleep(35);
+					background.update();
+					gameView.onGameStatusUpdated(background);
+					Thread.sleep(25);
 				}
 			} catch (InterruptedException e) {
 				Log.d(TAG, "Game cycle thread interrupted.");
@@ -56,10 +72,11 @@ public class GamePresenter {
 	}
 
 	public void scrollBackground(int dx, int dy) {
-		unhandleScrollRequesnt.add(new Delta(dx, dy));
+		background.tryMove(dx*-1, dy*-1);
+		gameView.onGameStatusUpdated(background);
 	}
 
-	public void executeItemEffect(Sprite gameItem) {
+	public void touch(int x, int y) {
 
 	}
 
@@ -69,13 +86,5 @@ public class GamePresenter {
 
 
 
-	private static class Delta{
-		int x;
-		int y;
 
-		public Delta(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
 }
