@@ -10,4 +10,8 @@
     <string name="loadingCompleted">載入完畢</string>
     <string name="loading">載入中</string>
     <string name="roomNumber">房間號碼:</string>
+    <string name="dialog_questionnaire">填寫問卷</string>
+    <string name="dialog_equipmentInformation">設備資訊</string>
+    <string name="dialog_travelInformation">旅遊資訊</string>
+    <string name="dialog_map">葛瑞絲俯視圖</string>
 </resources>
