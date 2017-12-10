@@ -24,7 +24,7 @@ public class TextLoadingDecorator implements Runnable{
                 String txt = nowText + getDotStr(cycle);
                 emitText(txt);
                 cycle = cycle + 1 >= dotCount ? 0 : cycle + 1;
-                Thread.sleep(700);
+                Thread.sleep(350);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

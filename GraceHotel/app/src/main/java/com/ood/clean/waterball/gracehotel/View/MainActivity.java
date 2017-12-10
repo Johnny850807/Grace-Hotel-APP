@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
             else
                 presenter.signIn(roomNumber);
             loadingBar.setVisibility(View.VISIBLE);
+            textLoadingDecorator.setText(getString(R.string.loading));
             new Thread(textLoadingDecorator).start();
         }
     }
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         intent.putExtra("User", user);
 
         startActivity(intent);
-
+        Toast.makeText(getApplicationContext(), "登入", Toast.LENGTH_SHORT).show();
         loadingBar.setVisibility(View.GONE);
         checkInBtn.setEnabled(false);
         roomNumberSpn.setEnabled(false);

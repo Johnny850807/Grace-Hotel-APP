@@ -8,4 +8,5 @@
     <string name="imgPreparedCompleted">圖片資源準備完畢</string>
     <string name="gameItemArrangementCompleted">房間環境佈置完畢</string>
     <string name="loadingCompleted">載入完畢</string>
+    <string name="loading">載入中</string>
 </resources>

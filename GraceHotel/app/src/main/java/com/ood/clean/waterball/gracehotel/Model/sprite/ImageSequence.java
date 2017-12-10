@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import java.util.List;
 
 public class ImageSequence implements Cloneable{
-	private int position = -1;
+	private int position = 0;
 	private boolean cycle = true;
 	private List<Bitmap> images;
 

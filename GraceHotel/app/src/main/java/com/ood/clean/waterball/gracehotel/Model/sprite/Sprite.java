@@ -1,5 +1,7 @@
 package com.ood.clean.waterball.gracehotel.Model.sprite;
 
+import android.graphics.Bitmap;
+
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 
 public class Sprite implements Cloneable{
@@ -50,6 +52,10 @@ public class Sprite implements Cloneable{
 
 	public void setImageSequence(ImageSequence imageSequence) {
 		this.imageSequence = imageSequence;
+	}
+
+	public Bitmap nextBitmap(){
+		return imageSequence.next();
 	}
 
 

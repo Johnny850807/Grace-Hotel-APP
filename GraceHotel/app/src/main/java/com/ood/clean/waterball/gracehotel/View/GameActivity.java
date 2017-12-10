@@ -22,6 +22,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
+
         super.onDestroy();
     }
 
