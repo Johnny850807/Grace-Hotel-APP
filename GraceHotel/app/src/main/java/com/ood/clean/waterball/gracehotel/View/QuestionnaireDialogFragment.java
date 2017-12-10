@@ -1,9 +1,11 @@
 package com.ood.clean.waterball.gracehotel.View;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
+import com.ood.clean.waterball.gracehotel.R;
 
 import java.util.ArrayList;
 
@@ -32,7 +34,8 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
     @Override
     protected View createView() {
-        return null;  //TODO
+        View mView = getActivity().getLayoutInflater().inflate(R.layout.dialog_questionnaire , null);
+        return mView;  //TODO
     }
 
     @Override
