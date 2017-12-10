@@ -9,10 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SpritePrototypeFactory {
+	private static SpritePrototypeFactory instance;
 	private Map<SpriteName, Sprite> spriteMap = new HashMap<>();
 
-	public SpritePrototypeFactory(Context context){
-		preparePrototypes(context);
+	private SpritePrototypeFactory(){}
+
+	public static SpritePrototypeFactory getInstance(){
+		if (instance == null)
+			instance = new SpritePrototypeFactory();
+		return instance;
 	}
 
 	private void preparePrototypes(Context context) {

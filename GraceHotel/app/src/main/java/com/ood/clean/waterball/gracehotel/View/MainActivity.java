@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements MainView{
     private final static String TAG = "MainActivity";
     private MainPresenter presenter;
+    @BindView(R.id.loadingBar) ProgressBar loadingBar;
     @BindView(R.id.roomNumbersSpin) Spinner roomNumberSpn;
 
     @Override
@@ -57,6 +59,18 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 presenter.signIn(roomNumber);
             //TODO loading UX
         }
+    }
+
+    @Override
+    public void onPrototypePreparedCompleted() {
+        Log.d(TAG,"Prototype prepared completed");
+
+    }
+
+    @Override
+    public void onGameItemArrangementCompleted() {
+        Log.d(TAG,"GameItem Arrangement completed");
+
     }
 
     @Override

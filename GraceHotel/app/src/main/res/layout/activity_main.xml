@@ -53,14 +53,28 @@
                 android:id="@+id/roomNumbersSpin"/>
         </RelativeLayout>
 
-        <Button
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="50dp"
-            android:text="@string/checkIn"
-            android:background="@drawable/white_corner"
-            android:onClick="checkInOnClick"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkIn"
+                android:background="@drawable/white_corner"
+                android:onClick="checkInOnClick"/>
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                android:id="@+id/loadingBar"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 
