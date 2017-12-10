@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--For checkboxes question, each item represents a checkbox with a option name inside the text node.-->
+<options>
+    <item value="false">滿意</item>
+    <item value="false">普通</item>
+    <item value="false">不滿意</item>
+</options>

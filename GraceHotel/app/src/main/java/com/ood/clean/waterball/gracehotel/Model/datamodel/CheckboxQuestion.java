@@ -1,20 +1,28 @@
 package com.ood.clean.waterball.gracehotel.Model.datamodel;
 
+import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class CheckboxQuestion extends QuestionModel {
+public class CheckboxQuestion extends QuestionModel implements Iterable<CheckboxQuestion.Option>{
     private List<Option> options = new ArrayList<>();
 
-    public CheckboxQuestion(int questionId, String question) {
-        super(questionId, question);
+    public CheckboxQuestion(int questionId, String question, QuestionType questionType) {
+        super(questionId, question, questionType);
     }
 
     public void addOption(Option option){
         options.add(option);
     }
 
-    public class Option{
+    @Override
+    public Iterator<Option> iterator() {
+        return options.iterator();
+    }
+
+    public static class Option{
         private String optionName;
         private boolean value;  // checked or not checked
 
@@ -31,7 +39,7 @@ public class CheckboxQuestion extends QuestionModel {
             this.optionName = optionName;
         }
 
-        public boolean isValue() {
+        public boolean getValue() {
             return value;
         }
 

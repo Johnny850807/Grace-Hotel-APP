@@ -5,6 +5,12 @@ public class Answer {
 	private String deviceUID;
 	private String responses;
 
+	public Answer(int id, String responses, String deviceUID) {
+		this.id = id;
+		this.deviceUID = deviceUID;
+		this.responses = responses;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -1,13 +1,15 @@
 package com.ood.clean.waterball.gracehotel.Model.datamodel;
 
+import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
+
 public class FillingQuestion extends QuestionModel {
     private String hint = "";
     private String answer;
 
-    public FillingQuestion(int questionId, String question, String hint) {
-        super(questionId, question);
-        this.hint = hint;
+    public FillingQuestion(int questionId, String question, QuestionType questionType) {
+        super(questionId, question, questionType);
     }
+
 
     public String getAnswer() {
         return answer;
