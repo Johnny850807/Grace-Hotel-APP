@@ -57,7 +57,8 @@
             android:background="@android:color/transparent"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:onClick="onQuesitonnaireOnClick"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

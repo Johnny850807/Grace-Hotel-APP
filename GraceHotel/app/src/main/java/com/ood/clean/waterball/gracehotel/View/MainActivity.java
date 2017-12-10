@@ -33,25 +33,23 @@ public class MainActivity extends AppCompatActivity implements MainView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
+        presenter = new MainPresenter(new AndroidThreadExecutor(), new UserLocalRepository(this));
+        presenter.setMainView(this);
         ButterKnife.bind(this);
         textLoadingDecorator = new TextLoadingDecorator(loadingTxt, 7);
         checkUserExists();
     }
 
     private void checkUserExists() {
-        if (presenter.hasUser())
+        if (presenter.hasLocalUser())
         {
-            presenter.getUser();
+            disableViews(checkInBtn, roomNumberSpn);
+            presenter.loadLocalUser();
             textLoadingDecorator.setText(getString(R.string.checkRoomExists));
             new Thread(textLoadingDecorator).start();
         }
     }
 
-    private void init() {
-        presenter = new MainPresenter(new AndroidThreadExecutor(), new UserLocalRepository(this));
-        presenter.setMainView(this);
-    }
 
     public void checkInOnClick(View view) {
         if (roomNumberSpn.getSelectedItemPosition() == 0)
@@ -60,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
         {
             String roomNumber = (String) roomNumberSpn.getSelectedItem();
             Log.d(TAG, "Room number:" +  roomNumber + ", checking in.");
-            if (presenter.hasUser())
-                presenter.getUser();
+            if (presenter.hasLocalUser())
+                presenter.loadLocalUser();
             else
                 presenter.signIn(roomNumber);
             loadingBar.setVisibility(View.VISIBLE);
@@ -92,8 +90,12 @@ public class MainActivity extends AppCompatActivity implements MainView{
         startActivity(intent);
         Toast.makeText(getApplicationContext(), "登入", Toast.LENGTH_SHORT).show();
         loadingBar.setVisibility(View.GONE);
-        checkInBtn.setEnabled(false);
-        roomNumberSpn.setEnabled(false);
+        disableViews(checkInBtn, roomNumberSpn);
         finish();
+    }
+
+    private void disableViews(View... views){
+        for (View view : views)
+            view.setEnabled(false);
     }
 }

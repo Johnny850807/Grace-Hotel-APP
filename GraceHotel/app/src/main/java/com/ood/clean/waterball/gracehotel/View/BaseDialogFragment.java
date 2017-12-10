@@ -11,9 +11,13 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getActivity())
-                .setView(createView())
-                .create();
+        return onBuilding(new AlertDialog.Builder(getActivity())
+                .setView(createView())).create();
+    }
+
+    protected AlertDialog.Builder onBuilding(AlertDialog.Builder builder){
+        //HOOK METHOD
+        return builder;
     }
 
     protected abstract View createView();
