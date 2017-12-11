@@ -25,11 +25,7 @@ import java.nio.channels.WritableByteChannel;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Instrumentation test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
+
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     public String questionTxt = "question";
@@ -41,7 +37,7 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
         AssetManager assetManager = appContext.getAssets();
         String xml = readInputStream(assetManager.open("test_chbx.xml"));
-        Question question = new Question(1, questionTxt, xml, QuestionType.CHECKBOXES);
+        Question question = new Question(1, questionTxt, xml, QuestionType.RADIOGROUP);
         CheckboxQuestion questionModel = (CheckboxQuestion) QAModelFactory.createQuestionModel(question);
         assertEquals(questionTxt, questionModel.getQuestion());
         for ( int i = 0 ; i < questionModel.getOptions().size() ; i ++ )

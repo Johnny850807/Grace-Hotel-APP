@@ -10,7 +10,7 @@
         android:text="@string/dialog_travelInformation"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="black"/>
+        android:textColor="#000"/>
 
     <ListView
         android:layout_width="match_parent"

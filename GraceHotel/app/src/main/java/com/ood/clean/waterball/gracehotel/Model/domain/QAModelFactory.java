@@ -36,7 +36,7 @@ public class QAModelFactory {
 
 	public static QuestionModel createQuestionModel(Question question) {
 		QuestionType type = question.getType();
-		if (type == QuestionType.CHECKBOXES)
+		if (type == QuestionType.RADIOGROUP)
 			return createCheckBoxQuestion(question);
 		else
 			return createFillingQuestion(question);
@@ -55,7 +55,7 @@ public class QAModelFactory {
 	}
 
 	private static CheckboxQuestion createCheckBoxQuestion(Question question){
-			CheckboxQuestion checkboxQuestion = new CheckboxQuestion(question.getId(), question.getQuestion(), QuestionType.CHECKBOXES);
+			CheckboxQuestion checkboxQuestion = new CheckboxQuestion(question.getId(), question.getQuestion(), QuestionType.RADIOGROUP);
 			Document document = createDocument(question.getOptions());
 			NodeList nodeList = document.getElementsByTagName(ITEM);
 			for (int i = 0 ; i < nodeList.getLength() ; i ++)
