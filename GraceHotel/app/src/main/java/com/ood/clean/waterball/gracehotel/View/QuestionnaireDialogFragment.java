@@ -1,26 +1,30 @@
 package com.ood.clean.waterball.gracehotel.View;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
+import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
+import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
+import com.ood.clean.waterball.gracehotel.MyApplication;
+import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 import com.ood.clean.waterball.gracehotel.R;
-
-import java.util.ArrayList;
 
 
 public class QuestionnaireDialogFragment extends BaseDialogFragment implements QuestionnaireView {
     private static final String QUESTIONS = "questions";
-    private ArrayList<QuestionModel> questionModels;
+    private static final String USER = "user";
+    private QuestionnairePresenter questionnairePresenter;
+    private User user;
 
     //required empty constructor
     public QuestionnaireDialogFragment(){}
 
-    public static QuestionnaireDialogFragment newInstance(ArrayList<QuestionModel> questionModels){
+    public static QuestionnaireDialogFragment newInstance(User user){
         QuestionnaireDialogFragment fragment = new QuestionnaireDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(QUESTIONS, questionModels);
+        bundle.putSerializable(USER, user);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -29,7 +33,11 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        questionModels = (ArrayList<QuestionModel>) getArguments().getSerializable(QUESTIONS);
+        Bundle bundle = getArguments();
+        user = (User) bundle.getSerializable(USER);
+
+        questionnairePresenter = new QuestionnairePresenter(user,
+                MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
     }
 
     @Override
@@ -38,18 +46,19 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         return mView;  //TODO
     }
 
+
     @Override
-    public void onAnswerFillingSuccessfully(QuestionModel filledQuestion) {
+    public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
 
     }
 
     @Override
-    public void onQuestionnaireCommitedSuccessfully() {
+    public void onAnswerCommittingError(QuestionModel question, Exception err) {
 
     }
 
     @Override
-    public void onQuestionnaireCommitedFailed() {
+    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
 
     }
 }

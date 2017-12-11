@@ -1,6 +1,7 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -84,5 +85,9 @@ public class GameActivity extends AppCompatActivity {
 
     public void onQuestionnaireOnClick(View view) {
 
+    }
+
+    public void showAlertDialogFragment(DialogFragment dialogFragment) {
+        dialogFragment.show(getSupportFragmentManager(), "dialog");
     }
 }

@@ -9,6 +9,7 @@ public class User implements Serializable{
 	private int money;
 	private String roomNumber;
 	private String deviceId;
+	private String email;
 	private Collection<Permission> permissions = new ArrayList<>();
 
 	public User(String roomNumber, String deviceId) {
@@ -55,6 +56,14 @@ public class User implements Serializable{
 
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override

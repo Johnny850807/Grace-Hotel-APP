@@ -22,12 +22,13 @@ import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
 
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class TestQAFactory {
     public String questionTxt = "question";
     public String hintTxt = "綜合意見";
     public String[] options = new String[]{"滿意", "普通", "不滿意"};
@@ -79,5 +80,11 @@ public class ExampleInstrumentedTest {
         channel.close();
         outChannel.close();
         return bout.toString("UTF-8");
+    }
+
+    @Test
+    public void testLanguage(){
+        String display = Locale.getDefault().getDisplayLanguage();
+        assertEquals("中文", display);
     }
 }

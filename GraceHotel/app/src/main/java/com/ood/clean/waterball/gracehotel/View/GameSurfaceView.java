@@ -3,8 +3,6 @@ package com.ood.clean.waterball.gracehotel.View;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -15,7 +13,6 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
 import com.ood.clean.waterball.gracehotel.Presenter.GamePresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -80,12 +77,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void onShowQuestionnaire(List<QuestionModel> questionModels) {
-        QuestionnaireDialogFragment fragment = QuestionnaireDialogFragment.newInstance((ArrayList<QuestionModel>) questionModels);
-        showAlertDialogFragment(fragment);
-    }
 
-    public void showAlertDialogFragment(DialogFragment dialogFragment) {
-        dialogFragment.show(((FragmentActivity)getContext()).getSupportFragmentManager(), "dialog");
     }
 
     @Override

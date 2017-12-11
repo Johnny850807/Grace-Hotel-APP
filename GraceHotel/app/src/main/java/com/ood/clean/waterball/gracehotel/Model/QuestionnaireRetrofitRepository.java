@@ -40,6 +40,10 @@ public class QuestionnaireRetrofitRepository implements QuestionnaireRepository{
     private void validateResponse(Response<?> response){
         if (response.code() == 400)
             throw new RuntimeException("BadRequest Response");
+        if (response.code() == 404)
+            throw new RuntimeException("Not found Response");
+        else if (response.code() != 200)
+            throw new RuntimeException("Error code : " + response.code());
     }
 
     private interface QuestionnaireAPI{
