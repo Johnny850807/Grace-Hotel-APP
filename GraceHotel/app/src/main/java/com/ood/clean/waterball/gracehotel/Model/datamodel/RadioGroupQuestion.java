@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CheckboxQuestion extends QuestionModel implements Iterable<CheckboxQuestion.Option>{
+public class RadioGroupQuestion extends QuestionModel implements Iterable<RadioGroupQuestion.Option>{
     private List<Option> options = new ArrayList<>();
 
-    public CheckboxQuestion(int questionId, String question, QuestionType questionType) {
+    public RadioGroupQuestion(int questionId, String question, QuestionType questionType) {
         super(questionId, question, questionType);
     }
 

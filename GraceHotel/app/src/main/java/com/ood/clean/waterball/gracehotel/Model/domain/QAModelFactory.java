@@ -1,7 +1,7 @@
 package com.ood.clean.waterball.gracehotel.Model.domain;
 
 
-import com.ood.clean.waterball.gracehotel.Model.datamodel.CheckboxQuestion;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
@@ -35,7 +35,7 @@ public class QAModelFactory {
 	private static final String VALUE = "value";
 
 	public static QuestionModel createQuestionModel(Question question) {
-		QuestionType type = question.getType();
+		QuestionType type = question.getQuestionType();
 		if (type == QuestionType.RADIOGROUP)
 			return createCheckBoxQuestion(question);
 		else
@@ -54,32 +54,33 @@ public class QAModelFactory {
 		}
 	}
 
-	private static CheckboxQuestion createCheckBoxQuestion(Question question){
-			CheckboxQuestion checkboxQuestion = new CheckboxQuestion(question.getId(), question.getQuestion(), QuestionType.RADIOGROUP);
-			Document document = createDocument(question.getOptions());
+	private static RadioGroupQuestion createCheckBoxQuestion(Question question){
+			RadioGroupQuestion radioGroupQuestion = new RadioGroupQuestion(question.getId(), question.getQuestion(), QuestionType.RADIOGROUP);
+			Document document = createDocument(question.getOptionsXml());
 			NodeList nodeList = document.getElementsByTagName(ITEM);
 			for (int i = 0 ; i < nodeList.getLength() ; i ++)
 			{
 				Element element = (Element) nodeList.item(i);
 				String optionName = element.getTextContent();
-				checkboxQuestion.addOption(new CheckboxQuestion.Option(optionName, false));
+				radioGroupQuestion.addOption(new RadioGroupQuestion.Option(optionName, false));
 			}
-			return checkboxQuestion;
+			return radioGroupQuestion;
 
 	}
 
 	private static FillingQuestion createFillingQuestion(Question question){
 		FillingQuestion fillingQuestion = new FillingQuestion(question.getId(), question.getQuestion(), QuestionType.FILLING);
-		Document document = createDocument(question.getOptions());
+		Document document = createDocument(question.getOptionsXml());
 		Element itemElement = ((Element) document.getElementsByTagName(ITEM).item(0));
 		fillingQuestion.setHint(itemElement.getTextContent());
 		return fillingQuestion;
 	}
 
-	public static Answer createAnswerFeedback(String deviceUID, CheckboxQuestion question) {
+	public static Answer createAnswerFeedback(String deviceUID, String roomNumber, String email,
+											  RadioGroupQuestion question) {
 		Document document = newDocument();
 		Element optionElm = document.createElement(OPTIONS);
-		for(CheckboxQuestion.Option option : question)
+		for(RadioGroupQuestion.Option option : question)
 		{
 			Element itemElm = document.createElement(ITEM);
 			itemElm.setAttribute(VALUE, String.valueOf(option.getValue()));
@@ -87,10 +88,11 @@ public class QAModelFactory {
 			optionElm.appendChild(itemElm);
 		}
 		document.appendChild(optionElm);
-		return new Answer(question.getQuestionId(), domToString(document), deviceUID);
+		return new Answer(question.getQuestionId(), domToString(document), deviceUID, roomNumber, email);
 	}
 
-	public static Answer createAnswerFeedback(String deviceUID, FillingQuestion question) {
+	public static Answer createAnswerFeedback(String deviceUID, String roomNumber, String email,
+											  FillingQuestion question) {
 		Document document = newDocument();
 		Element optionElm = document.createElement(OPTIONS);
 		Element itemElm = document.createElement(ITEM);
@@ -98,7 +100,7 @@ public class QAModelFactory {
 		itemElm.setAttribute(VALUE, question.getAnswer());
 		optionElm.appendChild(itemElm);
 		document.appendChild(optionElm);
-		return new Answer(question.getQuestionId(), domToString(document), deviceUID);
+		return new Answer(question.getQuestionId(), domToString(document), deviceUID, roomNumber, email);
 	}
 
 	private static Document newDocument(){

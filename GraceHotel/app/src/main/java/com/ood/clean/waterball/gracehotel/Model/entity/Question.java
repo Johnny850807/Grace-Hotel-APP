@@ -1,17 +1,16 @@
 package com.ood.clean.waterball.gracehotel.Model.entity;
 
 public class Question {
-
 	private int id;
 	private String question;
-	private String options;
-	private QuestionType type;
+	private String optionsXml;
+	private QuestionType questionType;
 
-	public Question(int id, String question, String options, QuestionType type) {
+	public Question(int id, String question, String optionsXml, QuestionType questionType) {
 		this.id = id;
 		this.question = question;
-		this.options = options;
-		this.type = type;
+		this.optionsXml = optionsXml;
+		this.questionType = questionType;
 	}
 
 	public int getId() {
@@ -30,19 +29,19 @@ public class Question {
 		this.question = question;
 	}
 
-	public String getOptions() {
-		return options;
+	public String getOptionsXml() {
+		return optionsXml;
 	}
 
-	public void setOptions(String options) {
-		this.options = options;
+	public void setOptionsXml(String optionsXml) {
+		this.optionsXml = optionsXml;
 	}
 
-	public QuestionType getType() {
-		return type;
+	public QuestionType getQuestionType() {
+		return questionType;
 	}
 
-	public void setType(QuestionType type) {
-		this.type = type;
+	public void setQuestionType(QuestionType questionType) {
+		this.questionType = questionType;
 	}
 }

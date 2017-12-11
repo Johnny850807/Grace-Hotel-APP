@@ -7,7 +7,7 @@ public class Questionnaire {
 	private int id;
 	private Date createdDate;
 	private String name;
-	private List<Question> questions;
+	private List<QuestionGroup> questionGroups;
 
 	public int getId() {
 		return id;
@@ -33,11 +33,11 @@ public class Questionnaire {
 		this.name = name;
 	}
 
-	public List<Question> getQuestions() {
-		return questions;
+	public List<QuestionGroup> getQuestionGroups() {
+		return questionGroups;
 	}
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
+	public void setQuestionGroups(List<QuestionGroup> questionGroups) {
+		this.questionGroups = questionGroups;
 	}
 }

@@ -5,7 +5,7 @@ import android.content.res.AssetManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.ood.clean.waterball.gracehotel.Model.datamodel.CheckboxQuestion;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
 import com.ood.clean.waterball.gracehotel.Model.domain.QAModelFactory;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
@@ -38,14 +38,14 @@ public class ExampleInstrumentedTest {
         AssetManager assetManager = appContext.getAssets();
         String xml = readInputStream(assetManager.open("test_chbx.xml"));
         Question question = new Question(1, questionTxt, xml, QuestionType.RADIOGROUP);
-        CheckboxQuestion questionModel = (CheckboxQuestion) QAModelFactory.createQuestionModel(question);
+        RadioGroupQuestion questionModel = (RadioGroupQuestion) QAModelFactory.createQuestionModel(question);
         assertEquals(questionTxt, questionModel.getQuestion());
         for ( int i = 0 ; i < questionModel.getOptions().size() ; i ++ )
             assertEquals(options[i], questionModel.getOption(i).getOptionName());
 
         questionModel.getOption(0).setValue(true);
         questionModel.getOption(1).setValue(true);
-        Answer answer = QAModelFactory.createAnswerFeedback("", questionModel);
+        Answer answer = QAModelFactory.createAnswerFeedback("", "", "", questionModel);
         assertEquals("", answer.getDeviceUID());
         System.out.println("Checkboxes xml: " + answer.getResponses());
     }
@@ -61,7 +61,7 @@ public class ExampleInstrumentedTest {
         assertEquals(hintTxt, questionModel.getHint());
 
         questionModel.setAnswer("Hi, it's my answer.");
-        Answer answer = QAModelFactory.createAnswerFeedback("", questionModel);
+        Answer answer = QAModelFactory.createAnswerFeedback("", "", "", questionModel);
         assertEquals("", answer.getDeviceUID());
         System.out.println("Filling xml: " + answer.getResponses());
     }
