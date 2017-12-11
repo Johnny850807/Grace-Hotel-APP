@@ -11,11 +11,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ood.clean.waterball.gracehotel.Model.UserLocalRepository;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
+import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.MainPresenter;
 import com.ood.clean.waterball.gracehotel.R;
-import com.ood.clean.waterball.gracehotel.Threading.AndroidThreadExecutor;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        presenter = new MainPresenter(new AndroidThreadExecutor(), new UserLocalRepository(this));
+        presenter = new MainPresenter(MyApplication.getThreadExecutor(), MyApplication.getUserRepository());
         presenter.setMainView(this);
         ButterKnife.bind(this);
         textLoadingDecorator = new TextLoadingDecorator(loadingTxt, 7);

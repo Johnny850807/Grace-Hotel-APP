@@ -8,6 +8,7 @@ import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 public interface QuestionnaireView {
 
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question);
-    public void onAnswerCommittingError(QuestionModel question, Exception err);
+    public void onAnswerCommittingError(QuestionModel question);
+    public void onError(Exception err);
     public void onQuestionnaireLoaded(Questionnaire questionnaire);
 }

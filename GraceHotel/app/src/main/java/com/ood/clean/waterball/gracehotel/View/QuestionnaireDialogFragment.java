@@ -36,7 +36,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         Bundle bundle = getArguments();
         user = (User) bundle.getSerializable(USER);
 
-        questionnairePresenter = new QuestionnairePresenter(user,
+        questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user,
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
     }
 
@@ -53,7 +53,12 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     }
 
     @Override
-    public void onAnswerCommittingError(QuestionModel question, Exception err) {
+    public void onAnswerCommittingError(QuestionModel question) {
+
+    }
+
+    @Override
+    public void onError(Exception err) {
 
     }
 

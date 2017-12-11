@@ -9,6 +9,10 @@ import com.google.gson.GsonBuilder;
 import com.ood.clean.waterball.gracehotel.Model.QuestionnaireRepository;
 import com.ood.clean.waterball.gracehotel.Model.QuestionnaireRetrofitRepository;
 import com.ood.clean.waterball.gracehotel.Model.Secret;
+import com.ood.clean.waterball.gracehotel.Model.UserLocalRepository;
+import com.ood.clean.waterball.gracehotel.Model.UserRepository;
+import com.ood.clean.waterball.gracehotel.Threading.AndroidThreadExecutor;
+import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.utils.DateDeserializer;
 
 import java.util.Date;
@@ -20,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MyApplication extends Application{
     private static Context context;
     private static Resources resources;
+    private static ThreadExecutor threadExecutor;
     private static Retrofit retrofit;
 
     @Override
@@ -60,5 +65,13 @@ public class MyApplication extends Application{
         if (display.equals("中文"))
             return "CH";
         return "EN";
+    }
+
+    public static ThreadExecutor getThreadExecutor(){
+        return threadExecutor == null ? new AndroidThreadExecutor() : threadExecutor;
+    }
+
+    public static UserRepository getUserRepository(){
+        return new UserLocalRepository(getDefaultContext());
     }
 }

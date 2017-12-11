@@ -12,10 +12,10 @@ public class User implements Serializable{
 	private String email;
 	private Collection<Permission> permissions = new ArrayList<>();
 
-	public User(String roomNumber, String deviceId) {
+	public User(String roomNumber, String deviceId, String email) {
 		this.roomNumber = roomNumber;
 		this.deviceId = deviceId;
-
+		this.email = email;
 	}
 
 	public int getMoney() {

@@ -37,7 +37,7 @@ public class UserLocalRepository implements UserRepository{
     @Override
     public User createUser(String roomNumber) {
         String deviceId = getDeviceUID();
-        User user = new User(roomNumber, deviceId);
+        User user = new User(roomNumber, deviceId, "");  //TODO
         updateUser(user);
         return user;
     }
