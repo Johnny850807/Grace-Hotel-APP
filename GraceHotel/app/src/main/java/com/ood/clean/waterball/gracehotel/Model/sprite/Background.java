@@ -35,8 +35,8 @@ public class Background extends Sprite {
 	@Override
 	public void move(int dx, int dy) {
 		super.move(dx, dy);  // move background
-		for (Sprite gameItem : gameItems) // followed by moving all child items
-			gameItem.move(dx, dy);
+		for (Sprite gameItem : gameItems)
+			gameItem.move(dx, dy);  // followed by moving all child items
 	}
 
 	public void addGameItem(Sprite gameItem){

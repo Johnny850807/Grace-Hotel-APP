@@ -46,6 +46,10 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         return mView;  //TODO
     }
 
+    @Override
+    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
+
+    }
 
     @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
@@ -62,8 +66,4 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
     }
 
-    @Override
-    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-
-    }
 }

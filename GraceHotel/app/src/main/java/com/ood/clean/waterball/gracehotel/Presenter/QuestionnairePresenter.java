@@ -32,27 +32,16 @@ public class QuestionnairePresenter {
     }
 
     public void loadQuestionnaire(){
-        threadExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Questionnaire questionnaire = questionnaireRepository.getLastedQuestionnaire(language);
-                    sendQuestionnaireToView(questionnaire);
-                } catch (IOException e) {
-                    questionnaireView.onError(e);
-                }
+        threadExecutor.execute(() -> {
+            try {
+                Questionnaire questionnaire = questionnaireRepository.getLastedQuestionnaire(language);
+                threadExecutor.executeOnMainThread(()->questionnaireView.onQuestionnaireLoaded(questionnaire));
+            } catch (IOException e) {
+                questionnaireView.onError(e);
             }
         });
     }
 
-    private void sendQuestionnaireToView(final Questionnaire questionnaire){
-        threadExecutor.executeOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                questionnaireView.onQuestionnaireLoaded(questionnaire);
-            }
-        });
-    }
     public void setQuestionnaireView(QuestionnaireView questionnaireView) {
         this.questionnaireView = questionnaireView;
     }
@@ -76,26 +65,14 @@ public class QuestionnairePresenter {
     }
 
     private void commitAnswer(final Answer answer, final QuestionModel questionModel){
-        threadExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
+        threadExecutor.execute(()->{
                 try {
                     Answer newAnswer = questionnaireRepository.fillAnswer(answer);
-                    notifySuccessToView(newAnswer, questionModel);
+                    threadExecutor.executeOnMainThread(()->questionnaireView.onAnswerCommittingSuccessfully(newAnswer, questionModel));
                 } catch (IOException e) {
                     questionnaireView.onAnswerCommittingError(questionModel);
                     questionnaireView.onError(e);
                 }
-            }
-        });
-    }
-
-    private void notifySuccessToView(final Answer answer, final QuestionModel questionModel){
-        threadExecutor.executeOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                questionnaireView.onAnswerCommittingSuccessfully(answer, questionModel);
-            }
         });
     }
 }

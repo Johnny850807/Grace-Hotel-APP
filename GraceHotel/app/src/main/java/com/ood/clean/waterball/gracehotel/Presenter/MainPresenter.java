@@ -22,14 +22,11 @@ public class MainPresenter {
 	}
 
 	public void signIn(final String roomNumber) {
-		threadExecutor.execute(new Runnable() {
-			@Override
-			public void run() {
+		threadExecutor.execute(()->{
 				preparePrototypes();
 				arrangeGameItems();
 				User user = userRepository.createUser(roomNumber);
-				sendUserToMainView(user);
-			}
+				threadExecutor.executeOnMainThread(()->mainView.onSignInSucessfully(user));
 		});
 	}
 
@@ -38,43 +35,21 @@ public class MainPresenter {
 	}
 
 	public void loadLocalUser(){
-		threadExecutor.execute(new Runnable() {
-			@Override
-			public void run() {
+		threadExecutor.execute(()->{
 				preparePrototypes();
 				final User user = userRepository.getUser();
-				sendUserToMainView(user);
-			}
+				threadExecutor.executeOnMainThread(()->mainView.onSignInSucessfully(user));
 		});
 	}
 
 	private void arrangeGameItems(){
 		//TODO arrange
-		threadExecutor.executeOnMainThread(new Runnable() {
-			@Override
-			public void run() {
-				mainView.onGameItemArrangementCompleted();
-			}
-		});
+		threadExecutor.executeOnMainThread(()->mainView.onGameItemArrangementCompleted());
 	}
 
 	private void preparePrototypes(){
 		SpritePrototypeFactory.getInstance().preparePrototypes();
-		threadExecutor.executeOnMainThread(new Runnable() {
-			@Override
-			public void run() {
-				mainView.onPrototypePreparedCompleted();
-			}
-		});
-	}
-
-	private void sendUserToMainView(final User user){
-		threadExecutor.executeOnMainThread(new Runnable() {
-			@Override
-			public void run() {
-				mainView.onSignInSucessfully(user);
-			}
-		});
+		threadExecutor.executeOnMainThread(()->mainView.onPrototypePreparedCompleted());
 	}
 
 }

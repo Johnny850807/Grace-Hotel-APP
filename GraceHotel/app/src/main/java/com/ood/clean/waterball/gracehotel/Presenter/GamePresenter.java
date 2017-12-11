@@ -58,7 +58,7 @@ public class GamePresenter {
 					Thread.sleep(25);
 				}
 			} catch (InterruptedException e) {
-				Log.d(TAG, "Game cycle thread interrupted.");
+				Log.w(TAG, "Game cycle thread interrupted.");
 			}
 		}
 	};
