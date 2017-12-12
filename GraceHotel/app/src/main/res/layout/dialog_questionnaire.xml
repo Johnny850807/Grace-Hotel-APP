@@ -4,11 +4,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/dialog_questionnaire"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        android:textColor="#000"/>
 
     <LinearLayout
         android:layout_width="match_parent"
