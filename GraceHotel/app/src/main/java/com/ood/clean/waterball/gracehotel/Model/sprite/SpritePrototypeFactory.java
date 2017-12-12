@@ -36,12 +36,18 @@ public class SpritePrototypeFactory {
 		Point size = getScreenSize();
 		int screenWidth = size.x > size.y ? size.x : size.y;  // convert to landscape size
 		int screenHeight = size.y < size.x ? size.y : size.x;
-		Bitmap bgBitmap = getBitmap(R.drawable.testbg);
+		Bitmap bgBitmap = getBitmap(R.drawable.roombg);
 		Log.d(TAG, "Landscape Screen Size w:" + screenWidth + ", h:" + screenHeight  );
-		addPrototype(SpriteName.BACKGROUND, new Background(bgBitmap.getWidth(), bgBitmap.getHeight(), createImageSequence(bgBitmap), screenWidth, screenHeight));
+		Background background = new Background(bgBitmap.getWidth(), bgBitmap.getHeight(), createImageSequence(bgBitmap), screenWidth, screenHeight);
+		background.setX(-6436);
+		background.setY(-847);
+		addPrototype(SpriteName.BACKGROUND, background);
 
 		Bitmap moneyBitmap = getBitmap(R.drawable.money);
 		addPrototype(SpriteName.MONEY, new GameItem(moneyBitmap.getWidth(), moneyBitmap.getHeight(), createImageSequence(moneyBitmap), SpriteName.MONEY));
+
+		Bitmap treasureBitmap = getBitmap(R.drawable.treasure);
+		addPrototype(SpriteName.TREASURE, new GameItem(treasureBitmap.getWidth(), treasureBitmap.getHeight(), createImageSequence(treasureBitmap), SpriteName.TREASURE));
 	}
 
 	private Point getScreenSize(){

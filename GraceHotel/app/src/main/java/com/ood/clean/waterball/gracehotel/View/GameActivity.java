@@ -1,5 +1,6 @@
 package com.ood.clean.waterball.gracehotel.View;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -47,11 +48,12 @@ public class GameActivity extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("User");
     }
 
+    @SuppressLint("SetTextI18n")
     private void setupViews(){
         initAndAddGameSurfaceView();
         setupIconButtons();
-        roomNumberTxt.setText("  " + user.getRoomNumber());  // spaces for margin left
-        moneyTxt.setText(String.valueOf(user.getMoney()));
+        roomNumberTxt.setText(user.getRoomNumber());  // spaces for margin left
+        moneyTxt.setText(String.valueOf(user.getMoney()) + "$");
     }
 
     private void initAndAddGameSurfaceView(){

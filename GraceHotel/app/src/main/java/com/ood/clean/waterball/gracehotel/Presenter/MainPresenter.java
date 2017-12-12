@@ -23,11 +23,22 @@ public class MainPresenter {
 
 	public void signIn(final String roomNumber) {
 		threadExecutor.execute(()->{
-				preparePrototypes();
-				arrangeGameItems();
-				User user = userRepository.createUser(roomNumber);
-				threadExecutor.executeOnMainThread(()->mainView.onSignInSucessfully(user));
+			delay(2000);
+			preparePrototypes();
+			delay(2000);
+			arrangeGameItems();
+			delay(2000);
+			User user = userRepository.createUser(roomNumber);
+			threadExecutor.executeOnMainThread(()->mainView.onSignInSucessfully(user));
 		});
+	}
+
+	private void delay(int mtimes){
+		try {
+			Thread.sleep(mtimes);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public boolean hasLocalUser(){

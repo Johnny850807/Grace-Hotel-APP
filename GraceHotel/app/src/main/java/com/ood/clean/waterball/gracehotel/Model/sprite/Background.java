@@ -11,6 +11,7 @@ public class Background extends Sprite {
 	private Collection<Sprite> gameItems = new ArrayList<>();
 	private int screenWidth;
 	private int screenHeight;
+	private int directionFactor = 1;  //used for increasing X in each update, assign this -1 for the opposite direction.
 
 	public Background(int width, int height, ImageSequence imageSequence, int screenWidth, int screenHeight) {
 		super(width, height, imageSequence);

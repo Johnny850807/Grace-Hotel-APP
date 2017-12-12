@@ -27,12 +27,12 @@ public class GamePresenter {
 
 	public void gameStart() {
 		background = (Background) prototypeFactory.createSprite(SpriteName.BACKGROUND);
-		testMoney(); //TODO
+		testGameItem(); //TODO
 		running = true;
 		gameCycleThread.start();
 	}
 
-	private void testMoney(){
+	private void testGameItem(){
 		Sprite money1 = prototypeFactory.createSprite(SpriteName.MONEY);
 		money1.setX(150);
 		money1.setY(200);
@@ -42,9 +42,13 @@ public class GamePresenter {
 		Sprite money3 = prototypeFactory.createSprite(SpriteName.MONEY);
 		money3.setX(2000);
 		money3.setY(300);
+		Sprite treasure = prototypeFactory.createSprite(SpriteName.TREASURE);
+		treasure.setX(-4200);
+		treasure.setY(540);
 		background.addGameItem(money1);
 		background.addGameItem(money3);
 		background.addGameItem(money2);
+		background.addGameItem(treasure);
 	}
 
 	private Thread gameCycleThread = new Thread(){

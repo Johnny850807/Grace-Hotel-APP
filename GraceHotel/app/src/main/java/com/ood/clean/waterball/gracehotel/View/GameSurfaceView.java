@@ -65,9 +65,13 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void onGameStatusUpdated(Background background) {
         this.background = background;
-        Canvas canvas = getHolder().lockCanvas();
-        onDraw(canvas);
-        getHolder().unlockCanvasAndPost(canvas);
+        try{
+            Canvas canvas = getHolder().lockCanvas();
+            onDraw(canvas);
+            getHolder().unlockCanvasAndPost(canvas);
+        }catch (IllegalArgumentException err){
+            //err.printStackTrace();
+        }
     }
 
     @Override
@@ -127,7 +131,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                     deltaY = deltaY - 5 > 0 ? deltaY - 5 : 0;
                 }
             }
-        }.start();
+        };
 
         return false;
     }

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/testbg"
     tools:context="com.ood.clean.waterball.gracehotel.View.GameActivity">
 
     <RelativeLayout
@@ -24,25 +23,25 @@
             <ImageButton
                 android:layout_width="@dimen/iconSize"
                 android:layout_height="@dimen/iconSize"
-                android:layout_margin="7dp"
+                android:layout_margin="12dp"
                 android:id="@+id/icon1"
                 android:background="@android:color/transparent"/>
             <ImageButton
                 android:layout_width="@dimen/iconSize"
                 android:layout_height="@dimen/iconSize"
-                android:layout_margin="7dp"
+                android:layout_margin="12dp"
                 android:id="@+id/icon2"
                 android:background="@android:color/transparent"/>
             <ImageButton
                 android:layout_width="@dimen/iconSize"
                 android:layout_height="@dimen/iconSize"
-                android:layout_margin="7dp"
+                android:layout_margin="12dp"
                 android:id="@+id/icon3"
                 android:background="@android:color/transparent"/>
             <ImageButton
                 android:layout_width="@dimen/iconSize"
                 android:layout_height="@dimen/iconSize"
-                android:layout_margin="7dp"
+                android:layout_margin="12dp"
                 android:id="@+id/icon4"
                 android:background="@android:color/transparent"/>
         </LinearLayout>
@@ -52,7 +51,7 @@
             android:layout_height="85dp"
             android:scaleType="fitCenter"
             android:id="@+id/surveyBtn"
-            android:layout_margin="4dp"
+            android:layout_margin="7dp"
             android:src="@drawable/survey"
             android:background="@android:color/transparent"
             android:layout_alignParentTop="true"
@@ -84,15 +83,21 @@
                 android:textSize="22sp"
                 android:id="@+id/roomNumberTxt"/>
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/coin"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/basicTextStyle"
-                android:layout_margin="6dp"
                 android:textColor="#fff"
-                android:gravity="center_vertical"
-                android:drawableLeft="@drawable/coin"
-                android:drawableStart="@drawable/coin"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:id="@+id/moneyTxt"
                 android:textSize="22sp"/>
 
