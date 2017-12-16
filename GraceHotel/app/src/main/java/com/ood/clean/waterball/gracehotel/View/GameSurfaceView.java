@@ -39,7 +39,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Log.d(TAG, "Surface creating.");
-        gamePresenter = new GamePresenter();
+        gamePresenter = new GamePresenter(userRepository, threadExecutor);
         gamePresenter.setGameView(this);
         gamePresenter.gameStart();
     }

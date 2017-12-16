@@ -3,18 +3,20 @@ package com.ood.clean.waterball.gracehotel.Model.sprite;
 import android.graphics.Canvas;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.DoNothing;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
-public class Background extends Sprite {
+public class Background extends Sprite implements Iterable<Sprite>{
 	private Collection<Sprite> gameItems = new ArrayList<>();
 	private int screenWidth;
 	private int screenHeight;
 	private int directionFactor = 1;  //used for increasing X in each update, assign this -1 for the opposite direction.
 
 	public Background(int width, int height, ImageSequence imageSequence, int screenWidth, int screenHeight) {
-		super(width, height, imageSequence);
+		super(width, height, imageSequence, new DoNothing());
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		setSpriteName(SpriteName.BACKGROUND);
@@ -54,4 +56,8 @@ public class Background extends Sprite {
 			sprite.draw(canvas);
 	}
 
+	@Override
+	public Iterator<Sprite> iterator() {
+		return gameItems.iterator();
+	}
 }

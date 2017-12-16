@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.EventHandler;
 
 public class Sprite implements Cloneable{
 	private int x;
@@ -12,11 +13,13 @@ public class Sprite implements Cloneable{
 	private int height;
 	private SpriteName spriteName;
 	private ImageSequence imageSequence;
+	private EventHandler eventHandler;
 
-	public Sprite(int width, int height, ImageSequence imageSequence) {
+	public Sprite(int width, int height, ImageSequence imageSequence, EventHandler eventHandler) {
 		this.width = width;
 		this.height = height;
 		this.imageSequence = imageSequence;
+		this.eventHandler = eventHandler;
 	}
 
 	public void update() {
@@ -98,4 +101,12 @@ public class Sprite implements Cloneable{
 		}
 	}
 
+	public boolean isTouched(int x, int y){
+		return x >= this.getX() && x <= this.getX() + getWidth() &&
+				y >= this.getY() && y <= this.getY() + getHeight();
+	}
+
+	public EventHandler getEventHandler() {
+		return eventHandler;
+	}
 }

@@ -2,24 +2,33 @@ package com.ood.clean.waterball.gracehotel.Presenter;
 
 import android.util.Log;
 
+import com.ood.clean.waterball.gracehotel.Model.UserRepository;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
 import com.ood.clean.waterball.gracehotel.Model.sprite.SpritePrototypeFactory;
+import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.GameView;
-
-import java.util.List;
 
 public class GamePresenter {
 	private static final String TAG = "GamePresenter";
 	private GameView gameView;
 	private boolean running;
 	private SpritePrototypeFactory prototypeFactory = SpritePrototypeFactory.getInstance();
+	private User user;
+	private UserRepository userRepository;
+	private ThreadExecutor threadExecutor;
 	private Background background;
-	private List<Sprite> gameItems;
 
-	public GamePresenter(){}
+	public GamePresenter(User user,
+						 UserRepository userRepository,
+						 ThreadExecutor threadExecutor){
+		this.user = user;
+		this.userRepository = userRepository;
+		this.threadExecutor = threadExecutor;
+	}
 
 	public void setGameView(GameView gameView) {
 		this.gameView = gameView;
@@ -81,7 +90,9 @@ public class GamePresenter {
 	}
 
 	public void touch(int x, int y) {
-
+		for(Sprite sprite : background)
+			if (sprite.isTouched(x, y))
+				sprite.getEventHandler().execute(sprite, threadExecutor, user, userRepository, gameView);
 	}
 
 	public void fillQuestion(QuestionModel questionModel) {
