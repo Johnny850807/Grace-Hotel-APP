@@ -9,37 +9,39 @@
     tools:context="com.ood.clean.waterball.gracehotel.View.MainActivity">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
         android:src="@drawable/cover"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#fff"
+        android:textSize="35sp"
+        android:maxLines="1"
+        android:textAppearance="@style/basicTextStyle"
+        android:text="@string/graceHotel"/>
+
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="200dp"
+        android:src="@drawable/grace"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/loadingText"
+        android:scaleType="fitCenter"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_centerInParent="true">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="130dp"
-                android:layout_height="200dp"
-                android:src="@drawable/grace"
-                android:scaleType="fitCenter"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="50dp"
-                android:layout_gravity="bottom"
-                android:textSize="30sp"
-                android:maxLines="1"
-                android:textAppearance="@style/basicTextStyle"
-                android:text="@string/graceHotel"/>
-        </LinearLayout>
-
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:paddingStart="70dp"
+        android:layout_above="@+id/loadingText"
+        android:padding="10dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -57,14 +59,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp"
                 android:text="@string/checkIn"
                 android:background="@drawable/white_corner"
                 android:onClick="checkInOnClick"
@@ -89,7 +90,7 @@
         android:textColor="#ffffff"
         android:textSize="19sp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/loadingText"/>
 
 
