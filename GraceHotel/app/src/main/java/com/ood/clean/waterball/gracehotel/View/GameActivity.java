@@ -87,7 +87,7 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     }
 
     public void onQuestionnaireOnClick(View view) {
-
+        showAlertDialogFragment(QuestionnaireDialogFragment.newInstance(user));
     }
 
     public void showAlertDialogFragment(DialogFragment dialogFragment) {

@@ -50,12 +50,20 @@ public class GamePresenter {
 		Sprite money3 = prototypeFactory.createSprite(SpriteName.MONEY);
 		money3.setX(2000);
 		money3.setY(300);
+		Sprite money4 = prototypeFactory.createSprite(SpriteName.MONEY);
+		money3.setX(-4500);
+		money3.setY(150);
+		Sprite money5 = prototypeFactory.createSprite(SpriteName.MONEY);
+		money3.setX(-2200);
+		money3.setY(850);
 		Sprite treasure = prototypeFactory.createSprite(SpriteName.TREASURE);
 		treasure.setX(-4200);
 		treasure.setY(540);
 		background.addGameItem(money1);
 		background.addGameItem(money3);
 		background.addGameItem(money2);
+		background.addGameItem(money4);
+		background.addGameItem(money5);
 		background.addGameItem(treasure);
 	}
 
@@ -89,7 +97,7 @@ public class GamePresenter {
 	}
 
 	public synchronized void touchScreen(int x, int y) {
-		for (Sprite sprite : background)  //TODO ConcurrentModificationException
+		for (Sprite sprite : background)
 			if (sprite.isTouched(x, y)) {
 				Log.d(TAG, "Sprite " + sprite.getSpriteName() + " touched.");
 				threadExecutor.execute(() -> sprite.getEventHandler().execute(background, sprite,
