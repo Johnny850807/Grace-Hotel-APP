@@ -1,9 +1,10 @@
 package com.ood.clean.waterball.gracehotel.Model.entity;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
-public class Questionnaire {
+public class Questionnaire implements Iterable<QuestionGroup>{
 	private int id;
 	private Date createdDate;
 	private String name;
@@ -39,5 +40,10 @@ public class Questionnaire {
 
 	public void setQuestionGroups(List<QuestionGroup> questionGroups) {
 		this.questionGroups = questionGroups;
+	}
+
+	@Override
+	public Iterator<QuestionGroup> iterator() {
+		return questionGroups.iterator();
 	}
 }

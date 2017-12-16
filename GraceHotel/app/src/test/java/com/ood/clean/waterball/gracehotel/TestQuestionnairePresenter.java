@@ -31,7 +31,7 @@ public class TestQuestionnairePresenter implements QuestionnaireView{
 
     @Test
     public void test(){
-        presenter.loadQuestionnaire();
+        presenter.loadQuestions();
         while(testing){}
         assertTrue(success);
     }

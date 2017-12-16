@@ -6,8 +6,8 @@ public class FillingQuestion extends QuestionModel {
     private String hint = "";
     private String answer;
 
-    public FillingQuestion(int questionId, String question, QuestionType questionType) {
-        super(questionId, question, questionType);
+    public FillingQuestion(int questionGroupId, int questionId, String question, QuestionType questionType) {
+        super(questionGroupId, questionId, question, questionType);
     }
 
 

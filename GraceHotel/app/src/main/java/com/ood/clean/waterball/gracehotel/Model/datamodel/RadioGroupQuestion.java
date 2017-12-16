@@ -9,9 +9,10 @@ import java.util.List;
 public class RadioGroupQuestion extends QuestionModel implements Iterable<RadioGroupQuestion.Option>{
     private List<Option> options = new ArrayList<>();
 
-    public RadioGroupQuestion(int questionId, String question, QuestionType questionType) {
-        super(questionId, question, questionType);
+    public RadioGroupQuestion(int questionGroupId, int questionId, String question, QuestionType questionType) {
+        super(questionGroupId, questionId, question, questionType);
     }
+
 
     public void addOption(Option option){
         options.add(option);

@@ -6,6 +6,7 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
 import com.ood.clean.waterball.gracehotel.Model.entity.Question;
+import com.ood.clean.waterball.gracehotel.Model.entity.QuestionGroup;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 
 import org.w3c.dom.Document;
@@ -34,12 +35,12 @@ public class QAModelFactory {
 	private static final String ITEM = "item";
 	private static final String VALUE = "value";
 
-	public static QuestionModel createQuestionModel(Question question) {
+	public static QuestionModel createQuestionModel(QuestionGroup questionGroup, Question question) {
 		QuestionType type = question.getQuestionType();
 		if (type == QuestionType.RADIOGROUP)
-			return createCheckBoxQuestion(question);
+			return createCheckBoxQuestion(questionGroup, question);
 		else
-			return createFillingQuestion(question);
+			return createFillingQuestion(questionGroup, question);
 	}
 
 	private static Document createDocument(String xml){
@@ -54,8 +55,8 @@ public class QAModelFactory {
 		}
 	}
 
-	private static RadioGroupQuestion createCheckBoxQuestion(Question question){
-			RadioGroupQuestion radioGroupQuestion = new RadioGroupQuestion(question.getId(), question.getQuestion(), QuestionType.RADIOGROUP);
+	private static RadioGroupQuestion createCheckBoxQuestion(QuestionGroup questionGroup, Question question){
+			RadioGroupQuestion radioGroupQuestion = new RadioGroupQuestion(questionGroup.getId(), question.getId(), question.getQuestion(), QuestionType.RADIOGROUP);
 			Document document = createDocument(question.getOptionsXml());
 			NodeList nodeList = document.getElementsByTagName(ITEM);
 			for (int i = 0 ; i < nodeList.getLength() ; i ++)
@@ -68,8 +69,8 @@ public class QAModelFactory {
 
 	}
 
-	private static FillingQuestion createFillingQuestion(Question question){
-		FillingQuestion fillingQuestion = new FillingQuestion(question.getId(), question.getQuestion(), QuestionType.FILLING);
+	private static FillingQuestion createFillingQuestion(QuestionGroup questionGroup, Question question){
+		FillingQuestion fillingQuestion = new FillingQuestion(questionGroup.getId(), question.getId(), question.getQuestion(), QuestionType.FILLING);
 		Document document = createDocument(question.getOptionsXml());
 		Element itemElement = ((Element) document.getElementsByTagName(ITEM).item(0));
 		fillingQuestion.setHint(itemElement.getTextContent());

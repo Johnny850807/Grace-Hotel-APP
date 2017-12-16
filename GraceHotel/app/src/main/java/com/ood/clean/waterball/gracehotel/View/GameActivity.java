@@ -97,7 +97,6 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     @SuppressLint("SetTextI18n")
     @Override
     public void onMoneyEarned(Sprite sprite, int money) {
-        user.setMoney(user.getMoney() + money);
         moneyTxt.setText(String.valueOf(user.getMoney()) + "$");
     }
 }
