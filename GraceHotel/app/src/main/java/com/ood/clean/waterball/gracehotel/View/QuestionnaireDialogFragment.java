@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
-import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
+import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 import com.ood.clean.waterball.gracehotel.R;
+
+import java.util.List;
 
 
 public class QuestionnaireDialogFragment extends BaseDialogFragment implements QuestionnaireView {
@@ -38,7 +41,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
         questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user,
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
-        questionnairePresenter.loadQuestionnaire();
+        questionnairePresenter.loadQuestionnaire(1);
         //bar
     }
 
@@ -49,14 +52,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     }
 
     @Override
-    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-        //viewpager
-
-    }
-
-    @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
-
     }
 
     @Override
@@ -67,6 +63,18 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     @Override
     public void onError(Exception err) {
 
+    }
+
+    @Override
+    public void onQuestionModelsLoaded(List<QuestionModel> questionModels) {
+        for(QuestionModel model : questionModels){
+            if(model.getQuestionType() == QuestionType.RADIOGROUP)
+                addQuestion((RadioGroupQuestion) model);
+        }
+            
+    }
+
+    private void addQuestion(RadioGroupQuestion model) {
     }
 
 }

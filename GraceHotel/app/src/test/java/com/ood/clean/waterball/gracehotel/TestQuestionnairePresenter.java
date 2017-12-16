@@ -52,7 +52,7 @@ public class TestQuestionnairePresenter implements QuestionnaireView{
     }
 
     @Override
-    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
+    public void onQuestionModelsLoaded(Questionnaire questionnaire) {
         success = "葛瑞絲初版問卷".equals(questionnaire.getName());
         testing = false;
     }
