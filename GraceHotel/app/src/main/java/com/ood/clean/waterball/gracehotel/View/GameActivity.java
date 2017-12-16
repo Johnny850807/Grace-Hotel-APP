@@ -15,12 +15,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.domain.Permissions;
+import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
 import com.ood.clean.waterball.gracehotel.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements GameParentView{
     private final static String TAG = "GameActivity";
     private User user;
     @BindView(R.id.icon1) ImageButton icon1Btn;
@@ -57,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void initAndAddGameSurfaceView(){
-        GameSurfaceView gameSurfaceView = new GameSurfaceView(this);
+        GameSurfaceView gameSurfaceView = new GameSurfaceView(this, user, this);
         gameSurfaceView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT));
         container.addView(gameSurfaceView);
@@ -91,5 +92,12 @@ public class GameActivity extends AppCompatActivity {
 
     public void showAlertDialogFragment(DialogFragment dialogFragment) {
         dialogFragment.show(getSupportFragmentManager(), "dialog");
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onMoneyEarned(Sprite sprite, int money) {
+        user.setMoney(user.getMoney() + money);
+        moneyTxt.setText(String.valueOf(user.getMoney()) + "$");
     }
 }

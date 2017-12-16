@@ -10,7 +10,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
+import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
+import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.GamePresenter;
 
 import java.util.List;
@@ -18,12 +21,16 @@ import java.util.List;
 
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, GameView, GestureDetector.OnGestureListener {
     private static final String TAG = "GameSurfaceView";
+    private User user;
     private Background background;
     private GamePresenter gamePresenter;
     private GestureDetector gestureDetector;
+    private GameParentView gameParentView;
 
-    public GameSurfaceView(Context context) {
+    public GameSurfaceView(Context context, User user, GameParentView gameParentView) {
         super(context);
+        this.user = user;
+        this.gameParentView = gameParentView;
         setFocusable(true);
         getHolder().addCallback(this);
         gestureDetector = new GestureDetector(getContext(), this);
@@ -32,6 +39,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.v(TAG, "Touch, " + event.getAction());
+        if (event.getAction() == MotionEvent.ACTION_DOWN)
+            gamePresenter.touchScreen((int)event.getX(), (int)event.getY());
         gestureDetector.onTouchEvent(event);
         return true;
     }
@@ -39,7 +48,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Log.d(TAG, "Surface creating.");
-        gamePresenter = new GamePresenter(userRepository, threadExecutor);
+        gamePresenter = new GamePresenter(user, MyApplication.getUserRepository(), MyApplication.getThreadExecutor());
         gamePresenter.setGameView(this);
         gamePresenter.gameStart();
     }
@@ -82,6 +91,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void onShowQuestionnaire(List<QuestionModel> questionModels) {
 
+    }
+
+    @Override
+    public void onMoneyEarned(Sprite sprite, int money) {
+        gameParentView.onMoneyEarned(sprite, money);
     }
 
     @Override

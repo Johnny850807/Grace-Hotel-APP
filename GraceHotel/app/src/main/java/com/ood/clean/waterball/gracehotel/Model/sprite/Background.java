@@ -7,13 +7,13 @@ import com.ood.clean.waterball.gracehotel.Model.sprite.event.DoNothing;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class Background extends Sprite implements Iterable<Sprite>{
-	private Collection<Sprite> gameItems = new ArrayList<>();
+	private Collection<Sprite> gameItems = Collections.synchronizedList(new ArrayList<>());
 	private int screenWidth;
 	private int screenHeight;
-	private int directionFactor = 1;  //used for increasing X in each update, assign this -1 for the opposite direction.
 
 	public Background(int width, int height, ImageSequence imageSequence, int screenWidth, int screenHeight) {
 		super(width, height, imageSequence, new DoNothing());

@@ -3,7 +3,6 @@ package com.ood.clean.waterball.gracehotel.Presenter;
 import android.util.Log;
 
 import com.ood.clean.waterball.gracehotel.Model.UserRepository;
-import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
@@ -89,17 +88,15 @@ public class GamePresenter {
 		gameView.onGameStatusUpdated(background);
 	}
 
-	public void touch(int x, int y) {
-		for(Sprite sprite : background)
-			if (sprite.isTouched(x, y))
-				sprite.getEventHandler().execute(sprite, threadExecutor, user, userRepository, gameView);
+	public void touchScreen(int x, int y) {
+		threadExecutor.execute(()->{
+			for(Sprite sprite : background)
+				if (sprite.isTouched(x, y))
+				{
+					Log.d(TAG, "Sprite " + sprite.getSpriteName() + " touched.");
+					sprite.getEventHandler().execute(background, sprite, threadExecutor, user, userRepository, gameView);
+				}
+		});
 	}
-
-	public void fillQuestion(QuestionModel questionModel) {
-
-	}
-
-
-
 
 }
