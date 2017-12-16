@@ -6,10 +6,11 @@ import android.view.View;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
-import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 import com.ood.clean.waterball.gracehotel.R;
+
+import java.util.List;
 
 
 public class QuestionnaireDialogFragment extends BaseDialogFragment implements QuestionnaireView {
@@ -47,11 +48,6 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     }
 
     @Override
-    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-
-    }
-
-    @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
 
     }
@@ -63,6 +59,11 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
     @Override
     public void onError(Exception err) {
+
+    }
+
+    @Override
+    public void onQuestionModelsLoaded(List<QuestionModel> questionModels) {
 
     }
 

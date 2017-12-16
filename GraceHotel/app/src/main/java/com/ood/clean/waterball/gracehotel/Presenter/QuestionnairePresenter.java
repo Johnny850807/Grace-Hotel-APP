@@ -8,11 +8,15 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.domain.QAModelFactory;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
+import com.ood.clean.waterball.gracehotel.Model.entity.Question;
+import com.ood.clean.waterball.gracehotel.Model.entity.QuestionGroup;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.QuestionnaireView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuestionnairePresenter {
     private ThreadExecutor threadExecutor;
@@ -31,12 +35,16 @@ public class QuestionnairePresenter {
         this.language = language;
     }
 
-    public void loadQuestionnaire(){
+    public void loadQuestionnaire(int group){
         threadExecutor.execute(() -> {
             try {
                 Questionnaire questionnaire = questionnaireRepository.getLastedQuestionnaire(language);
-                threadExecutor.executeOnMainThread(()->questionnaireView.onQuestionnaireLoaded(questionnaire));
-            } catch (IOException e) {
+                List<QuestionModel> questionModels = new ArrayList<QuestionModel>();
+                QuestionGroup questionGroup = questionnaire.getQuestionGroups().get(group);
+                for(Question question : questionGroup)
+                    questionModels.add(QAModelFactory.createQuestionModel(question));
+                threadExecutor.executeOnMainThread(()->questionnaireView.onQuestionModelsLoaded(questionModels));
+            } catch (IOException | IndexOutOfBoundsException e) {
                 questionnaireView.onError(e);
             }
         });
