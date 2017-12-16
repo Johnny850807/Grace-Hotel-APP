@@ -39,7 +39,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         Bundle bundle = getArguments();
         user = (User) bundle.getSerializable(USER);
 
-        questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user,
+        questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user, MyApplication.getUserRepository(),
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
     }
 

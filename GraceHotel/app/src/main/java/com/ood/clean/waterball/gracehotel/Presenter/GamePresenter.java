@@ -90,7 +90,7 @@ public class GamePresenter {
 
 	public void touchScreen(int x, int y) {
 		threadExecutor.execute(()->{
-			for(Sprite sprite : background)
+			for(Sprite sprite : background)  //TODO ConcurrentModificationException
 				if (sprite.isTouched(x, y))
 				{
 					Log.d(TAG, "Sprite " + sprite.getSpriteName() + " touched.");
