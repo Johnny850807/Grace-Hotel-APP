@@ -38,6 +38,8 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
         questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user,
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
+        questionnairePresenter.loadQuestionnaire();
+        //bar
     }
 
     @Override
@@ -48,6 +50,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
     @Override
     public void onQuestionnaireLoaded(Questionnaire questionnaire) {
+        //viewpager
 
     }
 
