@@ -2,22 +2,14 @@ package com.ood.clean.waterball.gracehotel.Model.domain;
 
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.ItemShowUpRecord;
-import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
-import com.ood.clean.waterball.gracehotel.Model.sprite.GameItem;
 
 import java.util.List;
 
-public class ItemArranger {
-
-
-	public List<GameItem> getNowItems() {
-		return null;
-	}
-
-
-	public List<ItemShowUpRecord> arrangeItems(User user) {
-		return null;
-	}
-
-
+public interface ItemArranger {
+	/**
+	 * Arrange the item show up times, this is a strategy pattern method.
+	 * @param durationDays the days the user stay at the hotel.
+	 * @return the list contains all the arranged item show up records.
+	 */
+	List<ItemShowUpRecord> arrange(int durationDays);
 }

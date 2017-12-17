@@ -1,5 +1,5 @@
 package com.ood.clean.waterball.gracehotel.Model.domain;
 
 public class GraceHotel {
-
+    public ItemArranger itemArranger;
 }
