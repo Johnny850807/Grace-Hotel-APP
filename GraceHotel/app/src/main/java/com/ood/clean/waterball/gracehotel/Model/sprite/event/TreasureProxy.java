@@ -32,6 +32,6 @@ public class TreasureProxy implements SpriteProxy {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName();
+        return getClass().getSimpleName() + "{" + hasReward + "}";
     }
 }

@@ -158,12 +158,15 @@ public class NoPainNoGain implements ItemArranger{
     }
 
     public static List<TreasureProxy> createTreasureProxies(int amount){
+        Random random = new Random();
         int rewardAmount = (int) (amount * TREASURE_REWARD_PROBABILITY);
 
         List<TreasureProxy> proxies = new ArrayList<>();
         for (int i = 0 ; i < amount ; i ++)
         {
-            boolean hasReward = rewardAmount-- > 0;
+            boolean hasReward = rewardAmount > 0 && random.nextInt(100) > TREASURE_REWARD_PROBABILITY*100;
+            if (hasReward)
+                rewardAmount --;
             proxies.add(new TreasureProxy(hasReward));
         }
         return proxies;
