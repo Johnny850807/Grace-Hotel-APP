@@ -100,7 +100,7 @@ public class GamePresenter {
 		for (Sprite sprite : background)
 			if (sprite.isTouched(x, y)) {
 				Log.d(TAG, "Sprite " + sprite.getSpriteName() + " touched.");
-				threadExecutor.execute(() -> sprite.getEventHandler().execute(background, sprite,
+				threadExecutor.execute(() -> sprite.getSpriteProxy().execute(background, sprite,
 						threadExecutor, user, userRepository, gameView));
 				break;
 			}

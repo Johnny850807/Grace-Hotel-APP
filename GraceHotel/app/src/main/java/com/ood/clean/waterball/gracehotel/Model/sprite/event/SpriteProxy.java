@@ -9,11 +9,11 @@ import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.GameView;
 
 /**
- * The handler used for responding to the event such as when the player click the sprite.
+ * The proxy used for responding to the event such as when the player click on the sprite.
  * This is an implementation of the strategy pattern, it's expected to respond to the current view,
  * so it needs the view instance and some model objects as parameters to the execute method.
  */
-public interface EventHandler {
+public interface SpriteProxy {
     /**
      * Handle the event, make sure this method will be invoked on the main thread.
      */

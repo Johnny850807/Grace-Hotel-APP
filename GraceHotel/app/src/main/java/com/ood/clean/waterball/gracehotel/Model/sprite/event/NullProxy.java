@@ -8,7 +8,7 @@ import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.GameView;
 
 
-public class DoNothing implements EventHandler {
+public class NullProxy implements SpriteProxy {
     @Override
     public void execute(Background background, Sprite moneySprite, ThreadExecutor threadExecutor, User user, UserRepository userRepository, GameView gameView) {
 

@@ -8,7 +8,12 @@ import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
 import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.GameView;
 
-public class OpenTreasure implements EventHandler{
+public class TreasureProxy implements SpriteProxy {
+    private final boolean hasReward;
+
+    public TreasureProxy(boolean hasReward) {
+        this.hasReward = hasReward;
+    }
 
     @Override
     public void execute(Background background, Sprite moneySprite, ThreadExecutor threadExecutor, User user, UserRepository userRepository, GameView gameView) {

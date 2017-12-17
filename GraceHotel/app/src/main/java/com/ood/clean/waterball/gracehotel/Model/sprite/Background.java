@@ -3,7 +3,7 @@ package com.ood.clean.waterball.gracehotel.Model.sprite;
 import android.graphics.Canvas;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.DoNothing;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.NullProxy;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +16,7 @@ public class Background extends Sprite implements Iterable<Sprite>{
 	private int screenHeight;
 
 	public Background(int width, int height, ImageSequence imageSequence, int screenWidth, int screenHeight) {
-		super(width, height, imageSequence, new DoNothing());
+		super(width, height, imageSequence, new NullProxy());
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		setSpriteName(SpriteName.BACKGROUND);
