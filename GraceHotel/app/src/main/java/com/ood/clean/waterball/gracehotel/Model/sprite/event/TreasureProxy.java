@@ -9,7 +9,9 @@ import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.GameView;
 
 public class TreasureProxy implements SpriteProxy {
-    private final boolean hasReward;
+    private boolean hasReward;
+
+    public TreasureProxy() {}
 
     public TreasureProxy(boolean hasReward) {
         this.hasReward = hasReward;
@@ -18,5 +20,18 @@ public class TreasureProxy implements SpriteProxy {
     @Override
     public void execute(Background background, Sprite moneySprite, ThreadExecutor threadExecutor, User user, UserRepository userRepository, GameView gameView) {
 
+    }
+
+    public void setHasReward(boolean hasReward) {
+        this.hasReward = hasReward;
+    }
+
+    public boolean isHasReward() {
+        return hasReward;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
     }
 }

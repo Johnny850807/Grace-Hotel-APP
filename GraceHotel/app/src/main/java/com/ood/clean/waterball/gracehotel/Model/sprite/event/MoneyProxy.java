@@ -11,6 +11,8 @@ import com.ood.clean.waterball.gracehotel.View.GameView;
 public class MoneyProxy implements SpriteProxy {
     private int money;
 
+    public MoneyProxy(){}
+
     public MoneyProxy(int money) {
         this.money = money;
     }
@@ -25,6 +27,19 @@ public class MoneyProxy implements SpriteProxy {
         userRepository.addMoney(user, money);
         background.removeGameItem(moneySprite);
         threadExecutor.executeOnMainThread(() -> gameView.onMoneyEarned(moneySprite, money));
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
     }
 }
 

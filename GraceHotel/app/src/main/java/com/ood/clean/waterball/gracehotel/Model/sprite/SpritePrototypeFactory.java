@@ -23,7 +23,6 @@ import java.util.Map;
 
 public class SpritePrototypeFactory {
 	private static final String TAG = "SpritePrototypeFactory";
-	private static final int MONEY_EACH_EARN = 20;
 	private static SpritePrototypeFactory instance;
 	private Map<SpriteName, Sprite> spriteMap = new HashMap<>();
 
@@ -49,11 +48,11 @@ public class SpritePrototypeFactory {
 
 		Bitmap moneyBitmap = getBitmap(R.drawable.money);
 		addPrototype(SpriteName.MONEY, new GameItem(moneyBitmap.getWidth(), moneyBitmap.getHeight(),
-				createImageSequence(moneyBitmap), SpriteName.MONEY, new MoneyProxy(MONEY_EACH_EARN)));
+				createImageSequence(moneyBitmap), SpriteName.MONEY, new MoneyProxy()));
 
 		Bitmap treasureBitmap = getBitmap(R.drawable.treasure);
 		addPrototype(SpriteName.TREASURE, new GameItem(treasureBitmap.getWidth(), treasureBitmap.getHeight(),
-				createImageSequence(treasureBitmap), SpriteName.TREASURE, new TreasureProxy(hasReward)));
+				createImageSequence(treasureBitmap), SpriteName.TREASURE, new TreasureProxy()));
 	}
 
 	private Point getScreenSize(){

@@ -9,7 +9,6 @@ import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
-import com.ood.clean.waterball.gracehotel.R;
 
 import java.util.List;
 import java.util.Stack;
@@ -19,6 +18,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     private static final String QUESTIONS = "questions";
     private static final String USER = "user";
     private QuestionnairePresenter questionnairePresenter;
+    private MyViewGroup myViewGroup;
     private User user;
 
     //required empty constructor
@@ -45,8 +45,10 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
     @Override
     protected View createView() {
-        View mView = getActivity().getLayoutInflater().inflate(R.layout.dialog_questionnaire , null);
-        return mView;  //TODO
+        MyViewGroup myViewGroup = new MyViewGroup(getActivity(), questionnairePresenter);
+        questionnairePresenter.setQuestionnaireView(myViewGroup);
+        questionnairePresenter.loadQuestionnaire();
+        return myViewGroup;  //TODO
     }
 
     @Override

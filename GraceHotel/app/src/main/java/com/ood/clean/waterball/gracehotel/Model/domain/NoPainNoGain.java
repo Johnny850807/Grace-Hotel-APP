@@ -7,6 +7,7 @@ import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 import com.ood.clean.waterball.gracehotel.Model.sprite.event.TreasureProxy;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,11 +26,10 @@ import java.util.concurrent.TimeUnit;
  *      each time block means to contain a specific sprite in a specific duration time.
  *      4. shuffle the time blocks and the items
  *      2. for each item, put to each time block sequentially until no items left.
- *      The time block amount should be greater than the item amount.
  *
  *  In both processes the rule below:
- *      1. money item - only 60/day, at most 10/hr
- *      2. treasure item - only 4/day, at most 1/3hr
+ *      1. money item - only 60/day, at most 8/hr
+ *      2. treasure item - only 4/day, at most 1/hr
  *
  *  Each item has a rule below:
  *      1. money actually worth 5 ~ 20$ on each.
@@ -37,46 +37,105 @@ import java.util.concurrent.TimeUnit;
  *          means four treasures might have one contain reward fragment.
  */
 public class NoPainNoGain implements ItemArranger{
-    private static final HashMap<SpriteName, Integer> MAXIMUM_CONSTRAINTS;  //maximum amount per 'day'
+    private static HashMap<SpriteName, Integer> DEFAULT_MAXIMUM_CONSTRAINTS_DAY;
+    private static HashMap<SpriteName, Integer> DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK;
+    private final HashMap<SpriteName, Integer> MAXIMUM_CONSTRAINTS_DAY;  //maximum amount per 'day'
+    private final HashMap<SpriteName, Integer> MAXIMUM_CONSTRAINTS_BLOCK;  //maximum amount per 'block'
     private static final int MIN_MONEY_VALUE = 10; //each money value in 10~20
     private static final int MAX_MONEY_VALUE = 20;
     private static final float TREASURE_REWARD_PROBABILITY = 0.25f;
 
-    static  //constraints assign
+    static  //default constraints assign
     {
-        MAXIMUM_CONSTRAINTS = new HashMap<>();
-        MAXIMUM_CONSTRAINTS.put(SpriteName.MONEY, 120);
-        MAXIMUM_CONSTRAINTS.put(SpriteName.TREASURE, 4);
+        DEFAULT_MAXIMUM_CONSTRAINTS_DAY = new HashMap<>();
+        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.MONEY, 60);
+        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.TREASURE, 4);
+
+        DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK = new HashMap<>();
+        DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.MONEY, 120);
+        DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.TREASURE, 4);
+    }
+
+    public NoPainNoGain() {
+        MAXIMUM_CONSTRAINTS_DAY = DEFAULT_MAXIMUM_CONSTRAINTS_DAY;
+        MAXIMUM_CONSTRAINTS_BLOCK = DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK;
+    }
+
+    public NoPainNoGain(HashMap<SpriteName, Integer> maximumConstraints, HashMap<SpriteName, Integer> maximum_constraints_block) {
+        this.MAXIMUM_CONSTRAINTS_DAY = maximumConstraints;
+        MAXIMUM_CONSTRAINTS_BLOCK = maximum_constraints_block;
     }
 
     @Override
     public List<TimeItemPool> arrange(int durationDays) {
-        List<TimeItemPool> allRecords = new ArrayList<>();
-
         int timeBlockAmount = 24 * durationDays;
 
         List<SpriteProxy> spriteProxies = createSpriteProxies(durationDays);
-        LinkedList<TimeBlock> timeBlocks = new LinkedList<>(GraceHotel.createTimeBlocks(new Date(), TimeUnit.HOURS.toMillis(1),
-                timeBlockAmount, MAXIMUM_CONSTRAINTS));
 
-        if (timeBlocks.size() > spriteProxies.size())
-            throw new IllegalStateException("The time block amount should be greater than the item amount.");
+        List<TimeBlock> timeBlocks = createTimeBlocks(new Date(), TimeUnit.HOURS.toMillis(1),
+                timeBlockAmount, MAXIMUM_CONSTRAINTS_DAY);
+        LinkedList<TimeBlock> timeBlockStack = new LinkedList<>(timeBlocks);
 
         Collections.shuffle(spriteProxies);
-        Collections.shuffle(timeBlocks);
+        Collections.shuffle(timeBlockStack);
 
         for(SpriteProxy spriteProxy : spriteProxies)
-            timeBlocks.pollFirst().setSpriteProxy(spriteProxy);
+        {
+            if (timeBlockStack.isEmpty())
+                break;
+            timeBlockStack.pollFirst().setSpriteProxy(spriteProxy);
+        }
 
-        return allRecords;
+        return createOneHourItemPools(timeBlocks, MAXIMUM_CONSTRAINTS_DAY);
     }
 
-    private static List<SpriteProxy> createSpriteProxies(int durationDays){
+
+    /**
+     * Create the shuffled time blocks based on some constraints.
+     * @param startDate the date the first created time block references.
+     * @param duration the duration of the time block
+     * @param timeCount the iterating times through the duration from the startDate. Usually if the base duration is an hour, then you
+     *                  should assign 24 * days as a timeCount.
+     * @param maximumConstraints the Hash Map should contain the info about each sprite name with its maximum constraint
+     * @return shuffled time blocks
+     */
+    public List<TimeBlock> createTimeBlocks(Date startDate,
+                                                   long duration,
+                                                   int timeCount,
+                                                   HashMap<SpriteName, Integer> maximumConstraints){
+        List<TimeBlock> timeBlocks = new ArrayList<>();
+        Collection<SpriteName> spriteNames = maximumConstraints.keySet();
+
+        for (int i = 0 ; i < timeCount ; i ++ )
+        {
+            Date date = (Date) startDate.clone();
+            date.setTime(date.getTime() + duration*i);
+            for (SpriteName spriteName : spriteNames)
+                timeBlocks.addAll(bindingTimeBlocks(date, duration, spriteName, maximumConstraints.get(spriteName)));
+        }
+
+        return timeBlocks;
+    }
+
+    /**
+     * Create a specific amount of time blocks with specific acceptSpriteName, startDate and duration.
+     */
+    public List<TimeBlock> bindingTimeBlocks(Date startDate,
+                                                    long duration,
+                                                    SpriteName acceptSpriteName,
+                                                    int amount){
+        List<TimeBlock> timeBlocks = new ArrayList<>();
+        for (int i = 0 ; i < amount ; i ++)
+            timeBlocks.add(new TimeBlock(acceptSpriteName, startDate, duration));
+        return timeBlocks;
+    }
+
+    public List<SpriteProxy> createSpriteProxies(int durationDays){
         List<SpriteProxy> spriteProxies = new ArrayList<>();
 
-        for(SpriteName spriteName : MAXIMUM_CONSTRAINTS.keySet())
+        for(SpriteName spriteName : MAXIMUM_CONSTRAINTS_DAY.keySet())
         {
-            int amount = MAXIMUM_CONSTRAINTS.get(spriteName) * durationDays;
+            int amount = MAXIMUM_CONSTRAINTS_DAY.get(spriteName) * durationDays;
             switch (spriteName)
             {
                 case MONEY:
@@ -90,7 +149,7 @@ public class NoPainNoGain implements ItemArranger{
         return spriteProxies;
     }
 
-    private static List<MoneyProxy> createMoneyProxies(int amount){
+    public List<MoneyProxy> createMoneyProxies(int amount){
         Random random = new Random();
         List<MoneyProxy> proxies = new ArrayList<>();
         for (int i = 0 ; i < amount ; i ++)
@@ -98,7 +157,7 @@ public class NoPainNoGain implements ItemArranger{
         return proxies;
     }
 
-    private static List<TreasureProxy> createTreasureProxies(int amount){
+    public static List<TreasureProxy> createTreasureProxies(int amount){
         int rewardAmount = (int) (amount * TREASURE_REWARD_PROBABILITY);
 
         List<TreasureProxy> proxies = new ArrayList<>();
@@ -108,5 +167,23 @@ public class NoPainNoGain implements ItemArranger{
             proxies.add(new TreasureProxy(hasReward));
         }
         return proxies;
+    }
+
+    /**
+     * @param timeBlocks the time blocks contain all sprite's showing times
+     * @param maximumConstraints the Hash Map should contain the info about each sprite name with its maximum constraint
+     * @return pools
+     */
+    public static List<TimeItemPool> createOneHourItemPools(List<TimeBlock> timeBlocks,
+                                                            HashMap<SpriteName, Integer> maximumConstraints){
+        HashMap<Date, TimeItemPool> hourPoolMap = new HashMap<>();
+        for (TimeBlock timeBlock : timeBlocks)
+        {
+            Date date = timeBlock.getDate();
+            if (!hourPoolMap.containsKey(date))
+                hourPoolMap.put(date, new TimeItemPool(date, maximumConstraints));
+            hourPoolMap.get(date).put(timeBlock.getAcceptSpriteName(), timeBlock.getSpriteProxy());
+        }
+        return new ArrayList<>(hourPoolMap.values());
     }
 }
