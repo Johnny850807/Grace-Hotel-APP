@@ -24,8 +24,7 @@ import java.util.List;
  *
  *   And this how I randomly arrange the items:
  *      1. first create 24*days One-Hour-Pool objects in the list and shuffle it.
- *          (One-Hour-Pool is an object expected to contain the items means showing up during a specific hour, as well as manage
- *          the maximum amount constraints.)
+ *      2.
  */
 public class NoPainNoGain implements ItemArranger{
     private static final int MONEY_IN_DAY = 120;
