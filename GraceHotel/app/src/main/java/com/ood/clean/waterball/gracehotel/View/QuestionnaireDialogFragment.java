@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.google.gson.Gson;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
@@ -18,6 +19,7 @@ import java.util.Stack;
 
 
 public class QuestionnaireDialogFragment extends BaseDialogFragment implements QuestionnaireView {
+    private static final String TAG = "QuestionnaireView";
     private static final String QUESTIONS = "questions";
     private static final String USER = "user";
     private QuestionnairePresenter questionnairePresenter;
@@ -79,13 +81,12 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         loadingBar.setVisibility(View.INVISIBLE);
     }
     public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-
-
+        questionnairePresenter.createModels(questionnaire);
     }
 
     @Override
     public void onQuestionModelsLoaded(Stack<List<QuestionModel>> questionModels) {
-
+        Log.d(TAG, "Model created: " + new Gson().toJson(questionModels));
     }
 
 }
