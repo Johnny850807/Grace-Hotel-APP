@@ -1,18 +1,11 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
-import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
@@ -20,23 +13,19 @@ import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 import com.ood.clean.waterball.gracehotel.R;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
-import static android.content.ContentValues.TAG;
 
 
 public class QuestionnaireDialogFragment extends BaseDialogFragment implements QuestionnaireView {
     private static final String QUESTIONS = "questions";
     private static final String USER = "user";
     private QuestionnairePresenter questionnairePresenter;
-    private List<QuestionModel> questionModelList ;
+    private MyQuestionnairePanel questionnaireViewGroup;
+    private TextLoadingDecorator textLoadingDecorator;
     private User user;
-    private RadioGroup radioGroup ;
-    private RadioGroup radioGroup1 ;
-    private QuestionModel questionModel;
-    private ArrayList<RadioGroup> listOfRadioGroups = new ArrayList<RadioGroup>();
+    private ProgressBar loadingBar;
+
 
     //required empty constructor
     public QuestionnaireDialogFragment(){}
@@ -58,11 +47,20 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
         questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user, MyApplication.getUserRepository(),
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
+
+
+
     }
 
     @Override
     protected View createView() {
         View mView = getActivity().getLayoutInflater().inflate(R.layout.dialog_questionnaire , null);
+        questionnairePresenter.setQuestionnaireView(this);
+        questionnairePresenter.loadQuestionnaire();
+        questionnaireViewGroup = new MyQuestionnairePanel(mView.getContext(),questionnairePresenter);
+        loadingBar = mView.findViewById(R.id.loadingBar);
+        loadingBar.setVisibility(mView.VISIBLE);
+        new Thread(textLoadingDecorator).start();
         return mView;  //TODO
     }
 
@@ -77,16 +75,17 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
     @Override
     public void onError(Exception err) {
-
+        err.printStackTrace();
+        loadingBar.setVisibility(View.INVISIBLE);
     }
-
-
     public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-        questionnairePresenter.createModels(questionnaire);
+
+
     }
 
     @Override
     public void onQuestionModelsLoaded(Stack<List<QuestionModel>> questionModels) {
+
     }
 
 }
