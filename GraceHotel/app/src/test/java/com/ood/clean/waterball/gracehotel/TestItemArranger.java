@@ -32,7 +32,7 @@ public class TestItemArranger {
         constraints.put(SpriteName.MONEY, 8);
         constraints.put(SpriteName.TREASURE, 4);
         itemArranger = new NoPainNoGain();
-        pools = new TreeSet<>(itemArranger.arrange(1));
+        pools = new TreeSet<>(itemArranger.arrange(3));
     }
 
     //@Test time arranged successfully, each time interval is one hour.

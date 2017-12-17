@@ -52,8 +52,8 @@ public class NoPainNoGain implements ItemArranger{
         DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.TREASURE, 4);
 
         DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK = new HashMap<>();
-        DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.MONEY, 120);
-        DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.TREASURE, 4);
+        DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.MONEY, 8);
+        DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.TREASURE, 1);
     }
 
     public NoPainNoGain() {
@@ -61,8 +61,8 @@ public class NoPainNoGain implements ItemArranger{
         MAXIMUM_CONSTRAINTS_BLOCK = DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK;
     }
 
-    public NoPainNoGain(HashMap<SpriteName, Integer> maximumConstraints, HashMap<SpriteName, Integer> maximum_constraints_block) {
-        this.MAXIMUM_CONSTRAINTS_DAY = maximumConstraints;
+    public NoPainNoGain(HashMap<SpriteName, Integer> maximumConstraintsDay, HashMap<SpriteName, Integer> maximum_constraints_block) {
+        this.MAXIMUM_CONSTRAINTS_DAY = maximumConstraintsDay;
         MAXIMUM_CONSTRAINTS_BLOCK = maximum_constraints_block;
     }
 
@@ -73,7 +73,7 @@ public class NoPainNoGain implements ItemArranger{
         List<SpriteProxy> spriteProxies = createSpriteProxies(durationDays);
 
         List<TimeBlock> timeBlocks = createTimeBlocks(new Date(), TimeUnit.HOURS.toMillis(1),
-                timeBlockAmount, MAXIMUM_CONSTRAINTS_DAY);
+                timeBlockAmount, MAXIMUM_CONSTRAINTS_BLOCK);
         LinkedList<TimeBlock> timeBlockStack = new LinkedList<>(timeBlocks);
 
         Collections.shuffle(spriteProxies);
@@ -86,7 +86,7 @@ public class NoPainNoGain implements ItemArranger{
             timeBlockStack.pollFirst().setSpriteProxy(spriteProxy);
         }
 
-        return createOneHourItemPools(timeBlocks, MAXIMUM_CONSTRAINTS_DAY);
+        return createOneHourItemPools(timeBlocks, MAXIMUM_CONSTRAINTS_BLOCK);
     }
 
 
@@ -96,22 +96,22 @@ public class NoPainNoGain implements ItemArranger{
      * @param duration the duration of the time block
      * @param timeCount the iterating times through the duration from the startDate. Usually if the base duration is an hour, then you
      *                  should assign 24 * days as a timeCount.
-     * @param maximumConstraints the Hash Map should contain the info about each sprite name with its maximum constraint
+     * @param maximumConstraintsBlock the Hash Map should contain the info about each sprite name with its maximum constraint
      * @return shuffled time blocks
      */
     public List<TimeBlock> createTimeBlocks(Date startDate,
                                                    long duration,
                                                    int timeCount,
-                                                   HashMap<SpriteName, Integer> maximumConstraints){
+                                                   HashMap<SpriteName, Integer> maximumConstraintsBlock){
         List<TimeBlock> timeBlocks = new ArrayList<>();
-        Collection<SpriteName> spriteNames = maximumConstraints.keySet();
+        Collection<SpriteName> spriteNames = maximumConstraintsBlock.keySet();
 
         for (int i = 0 ; i < timeCount ; i ++ )
         {
             Date date = (Date) startDate.clone();
             date.setTime(date.getTime() + duration*i);
             for (SpriteName spriteName : spriteNames)
-                timeBlocks.addAll(bindingTimeBlocks(date, duration, spriteName, maximumConstraints.get(spriteName)));
+                timeBlocks.addAll(bindingTimeBlocks(date, duration, spriteName, maximumConstraintsBlock.get(spriteName)));
         }
 
         return timeBlocks;
@@ -174,17 +174,19 @@ public class NoPainNoGain implements ItemArranger{
 
     /**
      * @param timeBlocks the time blocks contain all sprite's showing times
-     * @param maximumConstraints the Hash Map should contain the info about each sprite name with its maximum constraint
+     * @param maximumConstraintsBlock the Hash Map should contain the info about each sprite name with its maximum constraint
      * @return pools
      */
     public static List<TimeItemPool> createOneHourItemPools(List<TimeBlock> timeBlocks,
-                                                            HashMap<SpriteName, Integer> maximumConstraints){
+                                                            HashMap<SpriteName, Integer> maximumConstraintsBlock){
         HashMap<Date, TimeItemPool> hourPoolMap = new HashMap<>();
         for (TimeBlock timeBlock : timeBlocks)
         {
             Date date = timeBlock.getDate();
             if (!hourPoolMap.containsKey(date))
-                hourPoolMap.put(date, new TimeItemPool(date, maximumConstraints));
+                hourPoolMap.put(date, new TimeItemPool(date, maximumConstraintsBlock));
+            if (timeBlock.getSpriteProxy() != null && timeBlock.getAcceptSpriteName() == SpriteName.MONEY && timeBlock.getSpriteProxy().getClass() != MoneyProxy.class)
+                throw new IllegalStateException("Sprite is money, but the proxy is not money proxy.");  //TODO
             hourPoolMap.get(date).put(timeBlock.getAcceptSpriteName(), timeBlock.getSpriteProxy());
         }
         return new ArrayList<>(hourPoolMap.values());
