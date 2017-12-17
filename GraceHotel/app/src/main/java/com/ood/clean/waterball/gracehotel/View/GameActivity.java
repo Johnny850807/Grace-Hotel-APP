@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
@@ -87,7 +88,7 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     }
 
     public void onQuestionnaireOnClick(View view) {
-
+        showAlertDialogFragment(QuestionnaireDialogFragment.newInstance(user));
     }
 
     public void showAlertDialogFragment(DialogFragment dialogFragment) {
@@ -97,7 +98,6 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     @SuppressLint("SetTextI18n")
     @Override
     public void onMoneyEarned(Sprite sprite, int money) {
-        user.setMoney(user.getMoney() + money);
         moneyTxt.setText(String.valueOf(user.getMoney()) + "$");
     }
 }

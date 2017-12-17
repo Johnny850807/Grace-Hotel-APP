@@ -1,8 +1,11 @@
 package com.ood.clean.waterball.gracehotel.Model.datamodel;
 
+import com.ood.clean.waterball.gracehotel.Model.entity.QuestionGroup;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Locale;
 
 public class User implements Serializable{
@@ -11,6 +14,7 @@ public class User implements Serializable{
 	private String deviceId;
 	private String email;
 	private Collection<Permission> permissions = new ArrayList<>();
+	private Collection<Integer> hasFilledQuestionGroupIds = new HashSet<>();
 
 	public User(String roomNumber, String deviceId, String email) {
 		this.roomNumber = roomNumber;
@@ -64,6 +68,17 @@ public class User implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return whether the user has filled the question group and committed.
+	 */
+	public boolean hasFilled(QuestionGroup questionGroup){
+		return this.hasFilledQuestionGroupIds.contains(questionGroup.getId());
+	}
+
+	public void addFilledQuestionGroupId(int questionGroupId){
+		this.hasFilledQuestionGroupIds.add(questionGroupId);
 	}
 
 	@Override

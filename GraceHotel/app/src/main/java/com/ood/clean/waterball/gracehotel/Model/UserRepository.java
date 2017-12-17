@@ -6,14 +6,16 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 
 public interface UserRepository {
 
-	public abstract boolean userExists();
+	public boolean userExists();
 
-	public abstract User getUser();
+	public User getUser();
 
-	public abstract User createUser(String roomNumber);
+	public User createUser(String roomNumber);
 
-	public abstract void addMoney(User user, int point);
+	public void addMoney(User user, int point);
 
-	public abstract void buyPermission(User user, Permission permission);
+	public void buyPermission(User user, Permission permission);
+
+	public void addFilledQuestionGroupId(User user, int questionGroupId);
 
 }

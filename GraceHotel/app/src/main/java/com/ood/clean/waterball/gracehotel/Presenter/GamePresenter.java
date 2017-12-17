@@ -88,15 +88,14 @@ public class GamePresenter {
 		gameView.onGameStatusUpdated(background);
 	}
 
-	public void touchScreen(int x, int y) {
-		threadExecutor.execute(()->{
-			for(Sprite sprite : background)
-				if (sprite.isTouched(x, y))
-				{
-					Log.d(TAG, "Sprite " + sprite.getSpriteName() + " touched.");
-					sprite.getEventHandler().execute(background, sprite, threadExecutor, user, userRepository, gameView);
-				}
-		});
+	public synchronized void touchScreen(int x, int y) {
+		for (Sprite sprite : background)  //TODO ConcurrentModificationException
+			if (sprite.isTouched(x, y)) {
+				Log.d(TAG, "Sprite " + sprite.getSpriteName() + " touched.");
+				threadExecutor.execute(() -> sprite.getEventHandler().execute(background, sprite,
+						threadExecutor, user, userRepository, gameView));
+				break;
+			}
 	}
 
 }

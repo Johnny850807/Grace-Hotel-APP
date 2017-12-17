@@ -3,11 +3,13 @@ package com.ood.clean.waterball.gracehotel.Model.datamodel;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 
 public abstract class QuestionModel {
+	protected int questionGroupId;
 	protected int questionId;
 	protected String question;
 	protected QuestionType questionType;
 
-	public QuestionModel(int questionId, String question, QuestionType questionType) {
+	public QuestionModel(int questionGroupId, int questionId, String question, QuestionType questionType) {
+		this.questionGroupId = questionGroupId;
 		this.questionId = questionId;
 		this.question = question;
 		this.questionType = questionType;
@@ -36,4 +38,12 @@ public abstract class QuestionModel {
 	public void setQuestionType(QuestionType questionType) {
 		this.questionType = questionType;
 	}
+
+    public int getQuestionGroupId() {
+        return questionGroupId;
+    }
+
+    public void setQuestionGroupId(int questionGroupId) {
+        this.questionGroupId = questionGroupId;
+    }
 }

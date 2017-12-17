@@ -64,4 +64,10 @@ public class UserLocalRepository implements UserRepository{
         user.addPermission(permission);
         updateUser(user);
     }
+
+    @Override
+    public void addFilledQuestionGroupId(User user, int questionGroupId) {
+        user.addFilledQuestionGroupId(questionGroupId);
+        updateUser(user);
+    }
 }
