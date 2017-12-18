@@ -25,7 +25,9 @@ public class Background extends Sprite implements Iterable<Sprite>{
 	}
 
 	@Override
-	public void update() {
+	public synchronized void update() {
+		for (Sprite gameItem : gameItems)
+			gameItem.update();
 		mask.update();
 	}
 

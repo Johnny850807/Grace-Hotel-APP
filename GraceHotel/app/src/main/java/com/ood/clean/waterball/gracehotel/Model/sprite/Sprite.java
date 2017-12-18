@@ -28,7 +28,7 @@ public class Sprite implements Cloneable{
 		this.spriteProxy = spriteProxy;
 	}
 
-	public void update() {
+	public synchronized void update() {
 		//do nothing as default
 	}
 
@@ -90,7 +90,7 @@ public class Sprite implements Cloneable{
 		setY(getY() + dy);
 	}
 
-	public void draw(Canvas canvas){
+	public synchronized void draw(Canvas canvas){
 		Bitmap bitmap = nextBitmap();
 		if (bitmap != null && canvas != null)
 			canvas.drawBitmap(nextBitmap(), getX(), getY(), null);
@@ -99,7 +99,8 @@ public class Sprite implements Cloneable{
 	public Sprite clone(){
 		try {
 			Sprite sprite = (Sprite) super.clone();
-			sprite.setImageSequence(imageSequence.clone());
+			if (imageSequence != null)
+				sprite.setImageSequence(imageSequence.clone());
 			return sprite;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();

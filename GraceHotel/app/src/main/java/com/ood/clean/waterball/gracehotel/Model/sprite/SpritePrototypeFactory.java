@@ -51,6 +51,8 @@ public class SpritePrototypeFactory {
 		Bitmap treasureBitmap = getBitmap(R.drawable.treasure);
 		addPrototype(SpriteName.TREASURE, new GameItem(treasureBitmap.getWidth(), treasureBitmap.getHeight(),
 				createImageSequence(treasureBitmap), SpriteName.TREASURE));
+
+		addPrototype(SpriteName.FADING_TEXT_EFFECT, new FadingTextEffect(0, 0, null, SpriteName.FADING_TEXT_EFFECT));
 	}
 
 	private Point getScreenSize(){
