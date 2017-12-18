@@ -13,6 +13,7 @@ import java.util.Random;
 
 public class Background extends Sprite implements Iterable<Sprite>{
 	private Collection<Sprite> gameItems = Collections.synchronizedList(new ArrayList<>());
+	private Mask mask;
 	private int screenWidth;
 	private int screenHeight;
 
@@ -20,11 +21,12 @@ public class Background extends Sprite implements Iterable<Sprite>{
 		super(width, height, imageSequence, SpriteName.BACKGROUND);
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
+		this.mask = new Mask(screenWidth, screenHeight, null, SpriteName.MASK);
 	}
 
 	@Override
 	public void update() {
-
+		mask.update();
 	}
 
 	public void tryMove(int dx, int dy){
@@ -54,6 +56,7 @@ public class Background extends Sprite implements Iterable<Sprite>{
 		super.draw(canvas);  // draw background
 		for (Sprite sprite : gameItems)
 			sprite.draw(canvas);
+		mask.draw(canvas);
 	}
 
 	public void arrangeItemRandomly(List<Sprite> sprites){

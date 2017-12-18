@@ -86,7 +86,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     protected void onDraw(Canvas canvas) {
-        background.draw(canvas);
+        if (canvas != null)
+            background.draw(canvas);
     }
 
 
