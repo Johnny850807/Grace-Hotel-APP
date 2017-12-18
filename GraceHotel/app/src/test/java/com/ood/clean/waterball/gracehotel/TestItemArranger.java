@@ -68,8 +68,7 @@ public class TestItemArranger {
         {
             System.out.print("Date " + date.toString() + ", SpriteProxies: ");
             for(SpriteProxy proxy : poolMap.get(date))
-                if (proxy != null)
-                    System.out.print(proxy + ",");
+                System.out.print(proxy + ",");
             System.out.println();
         }
     }

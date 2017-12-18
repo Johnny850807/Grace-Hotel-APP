@@ -2,19 +2,23 @@ package com.ood.clean.waterball.gracehotel.Model.sprite.event;
 
 
 import com.ood.clean.waterball.gracehotel.Model.UserRepository;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
 import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.GameView;
 
-public class MoneyProxy implements SpriteProxy {
+public class MoneyProxy extends BaseSpriteProxy {
     private int money;
 
-    public MoneyProxy(){}
-
-    public MoneyProxy(int money) {
+    public MoneyProxy(SpriteName spriteName, int money) {
+        super(spriteName);
         this.money = money;
+    }
+
+    public MoneyProxy(SpriteName spriteName) {
+        super(spriteName);
     }
 
     @Override

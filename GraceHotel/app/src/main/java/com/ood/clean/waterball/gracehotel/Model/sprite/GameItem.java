@@ -6,8 +6,7 @@ import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 public class GameItem extends Sprite {
 
 	public GameItem(int width, int height, ImageSequence imageSequence, SpriteName spriteName, SpriteProxy spriteProxy) {
-		super(width, height, imageSequence, spriteProxy);
-		setSpriteName(spriteName);
+		super(width, height, imageSequence, spriteName, spriteProxy);
 	}
 
 	@Override

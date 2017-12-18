@@ -16,10 +16,9 @@ public class Background extends Sprite implements Iterable<Sprite>{
 	private int screenHeight;
 
 	public Background(int width, int height, ImageSequence imageSequence, int screenWidth, int screenHeight) {
-		super(width, height, imageSequence, new NullProxy());
+		super(width, height, imageSequence, SpriteName.BACKGROUND, new NullProxy(SpriteName.BACKGROUND));
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
-		setSpriteName(SpriteName.BACKGROUND);
 	}
 
 	@Override

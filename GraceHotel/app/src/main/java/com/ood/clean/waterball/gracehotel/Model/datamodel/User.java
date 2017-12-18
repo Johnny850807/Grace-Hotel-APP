@@ -1,11 +1,13 @@
 package com.ood.clean.waterball.gracehotel.Model.datamodel;
 
+import com.ood.clean.waterball.gracehotel.Model.domain.TimeItemPool;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionGroup;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 
 public class User implements Serializable{
@@ -13,8 +15,9 @@ public class User implements Serializable{
 	private String roomNumber;
 	private String deviceId;
 	private String email;
-	private Collection<Permission> permissions = new ArrayList<>();
-	private Collection<Integer> hasFilledQuestionGroupIds = new HashSet<>();
+	private List<TimeItemPool> timeItemPools; // the item arrangement results of this current user.
+	private Collection<Permission> permissions = new ArrayList<>();  // app function permissions the user got
+	private Collection<Integer> hasFilledQuestionGroupIds = new HashSet<>();  // record all question group ids the user has filled.
 
 	public User(String roomNumber, String deviceId, String email) {
 		this.roomNumber = roomNumber;
@@ -68,6 +71,14 @@ public class User implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void setTimeItemPools(List<TimeItemPool> timeItemPools) {
+		this.timeItemPools = timeItemPools;
+	}
+
+	public List<TimeItemPool> getTimeItemPools() {
+		return timeItemPools;
 	}
 
 	/**

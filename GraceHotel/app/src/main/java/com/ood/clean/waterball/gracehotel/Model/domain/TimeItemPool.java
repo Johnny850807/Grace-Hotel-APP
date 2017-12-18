@@ -39,10 +39,10 @@ public class TimeItemPool implements Comparable<TimeItemPool>{
     /**
      * @return is the pool full
      */
-    public synchronized boolean put(SpriteName spriteName, SpriteProxy spriteProxy){
-        if (canPutIn(spriteName))
+    public synchronized boolean put(SpriteProxy spriteProxy){
+        if (canPutIn(spriteProxy.getSpriteName()))
         {
-            sprites.get(spriteName).add(spriteProxy);
+            sprites.get(spriteProxy.getSpriteName()).add(spriteProxy);
             return true;
         }
         else

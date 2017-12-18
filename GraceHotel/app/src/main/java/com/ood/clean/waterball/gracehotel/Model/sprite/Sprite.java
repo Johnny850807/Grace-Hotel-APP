@@ -15,10 +15,11 @@ public class Sprite implements Cloneable{
 	private ImageSequence imageSequence;
 	private SpriteProxy spriteProxy;
 
-	public Sprite(int width, int height, ImageSequence imageSequence, SpriteProxy spriteProxy) {
+	public Sprite(int width, int height, ImageSequence imageSequence, SpriteName spriteName, SpriteProxy spriteProxy) {
 		this.width = width;
 		this.height = height;
 		this.imageSequence = imageSequence;
+		this.spriteName = spriteName;
 		this.spriteProxy = spriteProxy;
 	}
 

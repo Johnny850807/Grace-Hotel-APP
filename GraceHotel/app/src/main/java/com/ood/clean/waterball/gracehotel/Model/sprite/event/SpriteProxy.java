@@ -2,6 +2,7 @@ package com.ood.clean.waterball.gracehotel.Model.sprite.event;
 
 
 import com.ood.clean.waterball.gracehotel.Model.UserRepository;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
@@ -14,6 +15,9 @@ import com.ood.clean.waterball.gracehotel.View.GameView;
  * so it needs the view instance and some model objects as parameters to the execute method.
  */
 public interface SpriteProxy {
+
+    public SpriteName getSpriteName();
+
     /**
      * Handle the event, make sure this method will be invoked on the main thread.
      */

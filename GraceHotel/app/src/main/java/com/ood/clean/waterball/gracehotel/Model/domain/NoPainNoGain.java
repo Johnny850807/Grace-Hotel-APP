@@ -19,17 +19,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * NoPainNoGain means there will be very few treasures contain actually a reward fragment.
- * The algorithm can be separated into 2 processes:
- *      1. determine each item amount to put based on the durationDays
+ * The algorithm can be separated into processes:
+ *      1. determine each item amount based on the durationDays
  *      2. create items according to the amount
- *      3. create time blocks according to the maximum constraints on each item,
+ *      3. create time blocks according to the maximum block constraints on each item,
  *      each time block means to contain a specific sprite in a specific duration time.
  *      4. shuffle the time blocks and the items
- *      2. for each item, put to each time block sequentially until no items left.
- *
- *  In both processes the rule below:
- *      1. money item - only 60/day, at most 8/hr
- *      2. treasure item - only 4/day, at most 1/hr
+ *      5. for each item, put to each time block sequentially until no items left.
+
  *
  *  Each item has a rule below:
  *      1. money actually worth 5 ~ 20$ on each.
@@ -41,11 +38,25 @@ public class NoPainNoGain implements ItemArranger{
     private static HashMap<SpriteName, Integer> DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK;
     private final HashMap<SpriteName, Integer> MAXIMUM_CONSTRAINTS_DAY;  //maximum amount per 'day'
     private final HashMap<SpriteName, Integer> MAXIMUM_CONSTRAINTS_BLOCK;  //maximum amount per 'block'
-    private static final int MIN_MONEY_VALUE = 10; //each money value in 10~20
+
+    /**
+     * each money is worth 10~20$
+     */
+    private static final int MIN_MONEY_VALUE = 10; //each money is worth 10~20$
     private static final int MAX_MONEY_VALUE = 20;
+
+    /**
+     * the probability of the reward fragment occurring is 25% each treasure,
+     means four treasures might have one contain reward fragment.
+     */
     private static final float TREASURE_REWARD_PROBABILITY = 0.25f;
 
-    static  //default constraints assign
+
+     /* In both processes has a default rule below:
+         1. money item - only 60/day, at most 8/hr
+         2. treasure item - only 4/day, at most 1/hr
+     */
+    static
     {
         DEFAULT_MAXIMUM_CONSTRAINTS_DAY = new HashMap<>();
         DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.MONEY, 60);
@@ -74,16 +85,22 @@ public class NoPainNoGain implements ItemArranger{
 
         List<TimeBlock> timeBlocks = createTimeBlocks(new Date(), TimeUnit.HOURS.toMillis(1),
                 timeBlockAmount, MAXIMUM_CONSTRAINTS_BLOCK);
-        LinkedList<TimeBlock> timeBlockStack = new LinkedList<>(timeBlocks);
+        LinkedList<TimeBlock> timeBlockList = new LinkedList<>(timeBlocks);
 
         Collections.shuffle(spriteProxies);
-        Collections.shuffle(timeBlockStack);
+        Collections.shuffle(timeBlockList);
 
         for(SpriteProxy spriteProxy : spriteProxies)
         {
-            if (timeBlockStack.isEmpty())
+            if (timeBlockList.isEmpty())
                 break;
-            timeBlockStack.pollFirst().setSpriteProxy(spriteProxy);
+            for (TimeBlock timeBlock : timeBlockList)
+                if (timeBlock.getAcceptSpriteName() == spriteProxy.getSpriteName())
+                {
+                    timeBlock.setSpriteProxy(spriteProxy);
+                    timeBlockList.remove(timeBlock);
+                    break;
+                }
         }
 
         return createOneHourItemPools(timeBlocks, MAXIMUM_CONSTRAINTS_BLOCK);
@@ -153,7 +170,7 @@ public class NoPainNoGain implements ItemArranger{
         Random random = new Random();
         List<MoneyProxy> proxies = new ArrayList<>();
         for (int i = 0 ; i < amount ; i ++)
-            proxies.add(new MoneyProxy(random.nextInt(MAX_MONEY_VALUE - MIN_MONEY_VALUE + 1) + MIN_MONEY_VALUE));
+            proxies.add(new MoneyProxy(SpriteName.MONEY, random.nextInt(MAX_MONEY_VALUE - MIN_MONEY_VALUE + 1) + MIN_MONEY_VALUE));
         return proxies;
     }
 
@@ -167,7 +184,7 @@ public class NoPainNoGain implements ItemArranger{
             boolean hasReward = rewardAmount > 0 && random.nextInt(100) > TREASURE_REWARD_PROBABILITY*100;
             if (hasReward)
                 rewardAmount --;
-            proxies.add(new TreasureProxy(hasReward));
+            proxies.add(new TreasureProxy(SpriteName.TREASURE, hasReward));
         }
         return proxies;
     }
@@ -185,9 +202,8 @@ public class NoPainNoGain implements ItemArranger{
             Date date = timeBlock.getDate();
             if (!hourPoolMap.containsKey(date))
                 hourPoolMap.put(date, new TimeItemPool(date, maximumConstraintsBlock));
-            if (timeBlock.getSpriteProxy() != null && timeBlock.getAcceptSpriteName() == SpriteName.MONEY && timeBlock.getSpriteProxy().getClass() != MoneyProxy.class)
-                throw new IllegalStateException("Sprite is money, but the proxy is not money proxy.");  //TODO
-            hourPoolMap.get(date).put(timeBlock.getAcceptSpriteName(), timeBlock.getSpriteProxy());
+            if (timeBlock.hasSpriteProxy())
+                hourPoolMap.get(date).put(timeBlock.getSpriteProxy());
         }
         return new ArrayList<>(hourPoolMap.values());
     }

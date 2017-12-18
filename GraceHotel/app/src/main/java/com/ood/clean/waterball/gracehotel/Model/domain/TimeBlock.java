@@ -39,7 +39,16 @@ public class TimeBlock {
         return spriteProxy;
     }
 
+    /**
+     * @return has the block had a sprite injected.
+     */
+    public boolean hasSpriteProxy(){
+        return getSpriteProxy() != null;
+    }
+
     public void setSpriteProxy(SpriteProxy spriteProxy) {
+        if (spriteProxy.getSpriteName() != getAcceptSpriteName())
+            throw new IllegalArgumentException("The spriteProxy is not accepted in the timeblock.");
         this.spriteProxy = spriteProxy;
     }
 }

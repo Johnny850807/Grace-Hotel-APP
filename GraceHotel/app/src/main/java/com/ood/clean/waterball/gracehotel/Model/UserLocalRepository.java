@@ -13,7 +13,7 @@ public class UserLocalRepository implements UserRepository{
     private static final String SPNAME = "grace";
     private static final String ERROR = "ERROR";
     private static final String USER = "USER";
-    private static final String ITEM_ARRANGEMENT = "item arrangement";
+    private static final String ITEM_ARRANGEMENT = "ITEMARRANGEMENT";
     private Context context;
     private SharedPreferences sp;
     private Gson gson = new Gson();
