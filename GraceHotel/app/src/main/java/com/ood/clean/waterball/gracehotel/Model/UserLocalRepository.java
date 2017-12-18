@@ -59,8 +59,15 @@ public class UserLocalRepository implements UserRepository{
         return user;
     }
 
+    @Override
+    public void addReward(User user) {
+        user.setRewardAmount(user.getRewardAmount() + 1);
+        updateUser(user);
+    }
+
     private void arrangeTimeItemPoolsWithServiceAndUpdate(User user, List<TimeItemPool> pools){
         Collections.sort(pools);
+        Log.d(TAG, TimeItemPool.asString(pools));
         user.setTimeItemPools(pools);
         updateUser(user);
 

@@ -59,12 +59,12 @@ public class NoPainNoGain implements ItemArranger{
     static
     {
         DEFAULT_MAXIMUM_CONSTRAINTS_DAY = new HashMap<>();
-        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.MONEY, 60);
-        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.TREASURE, 4);
+        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.MONEY, 200);  //TODO optimize the amount
+        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.TREASURE, 80);
 
         DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK = new HashMap<>();
         DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.MONEY, 8);
-        DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.TREASURE, 1);
+        DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.TREASURE, 2);
     }
 
     public NoPainNoGain() {

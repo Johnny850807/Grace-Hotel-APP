@@ -21,5 +21,5 @@ public interface SpriteProxy {
     /**
      * Handle the event, make sure this method will be invoked on the main thread.
      */
-    public void execute(Background background, Sprite moneySprite, ThreadExecutor threadExecutor, User user, UserRepository userRepository, GameView gameView);
+    public void execute(Background background, Sprite sprite, ThreadExecutor threadExecutor, User user, UserRepository userRepository, GameView gameView);
 }

@@ -17,6 +17,7 @@ public class User implements Serializable{
 	private String roomNumber;
 	private String deviceId;
 	private String email;
+	private int rewardAmount = 0;
 	private List<TimeItemPool> timeItemPools; // the item arrangement results of this current user.
 	private Collection<Permission> permissions = new ArrayList<>();  // app function permissions the user got
 	private Collection<Integer> hasFilledQuestionGroupIds = new HashSet<>();  // record all question group ids the user has filled.
@@ -25,6 +26,14 @@ public class User implements Serializable{
 		this.roomNumber = roomNumber;
 		this.deviceId = deviceId;
 		this.email = email;
+	}
+
+	public int getRewardAmount() {
+		return rewardAmount;
+	}
+
+	public void setRewardAmount(int rewardAmount) {
+		this.rewardAmount = rewardAmount;
 	}
 
 	public int getMoney() {

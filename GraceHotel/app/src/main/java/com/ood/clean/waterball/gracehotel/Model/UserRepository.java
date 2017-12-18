@@ -12,6 +12,8 @@ public interface UserRepository {
 
 	public User createUser(String roomNumber);
 
+	public void addReward(User user);
+
 	public void addMoney(User user, int point);
 
 	public void buyPermission(User user, Permission permission);

@@ -8,7 +8,6 @@ import com.ood.clean.waterball.gracehotel.Model.domain.NoPainNoGain;
 import com.ood.clean.waterball.gracehotel.Model.domain.TimeBlock;
 import com.ood.clean.waterball.gracehotel.Model.domain.TimeItemPool;
 import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
@@ -65,15 +62,7 @@ public class TestItemArranger {
 
     @Test
     public void testTimePools(){
-        Map<Date, List<SpriteProxy>> poolMap = TimeItemPool.poolsToMap(new TreeMap<Date, List<SpriteProxy>>(),
-                new ArrayList<>(pools));
-        for(Date date : poolMap.keySet())
-        {
-            System.out.print("Date " + date.toString() + ", SpriteProxies: ");
-            for(SpriteProxy proxy : poolMap.get(date))
-                System.out.print(proxy + ",");
-            System.out.println();
-        }
+        System.out.println(TimeItemPool.asString(new ArrayList<>(pools)));
 
         String json = new Gson().toJson(pools);
         System.out.println(json);

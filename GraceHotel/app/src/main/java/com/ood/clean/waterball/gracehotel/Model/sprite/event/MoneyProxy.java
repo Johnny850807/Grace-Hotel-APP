@@ -32,7 +32,7 @@ public class MoneyProxy extends BaseSpriteProxy {
         user.removeSpriteInCurrentPools(this);
         userRepository.addMoney(user, money);
         background.removeGameItem(moneySprite);
-        threadExecutor.executeOnMainThread(() -> gameView.onMoneyEarned(moneySprite, money));
+        threadExecutor.executeOnMainThread(() -> gameView.onMoneyUpdated(moneySprite, user.getMoney()));
     }
 
     public int getMoney() {

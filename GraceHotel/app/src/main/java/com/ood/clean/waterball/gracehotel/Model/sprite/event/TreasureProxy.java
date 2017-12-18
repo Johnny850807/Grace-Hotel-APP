@@ -10,6 +10,7 @@ import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.GameView;
 
 public class TreasureProxy extends BaseSpriteProxy  {
+    public static final int PRICE = 50;
     private boolean hasReward;
 
     public TreasureProxy(boolean hasReward) {
@@ -23,9 +24,16 @@ public class TreasureProxy extends BaseSpriteProxy  {
 
 
     @Override
-    public void execute(Background background, Sprite moneySprite, ThreadExecutor threadExecutor, User user, UserRepository userRepository, GameView gameView) {
-
+    public void execute(Background background, Sprite sprite, ThreadExecutor threadExecutor, User user, UserRepository userRepository, GameView gameView) {
+        threadExecutor.executeOnMainThread(()-> {
+            if (user.getMoney() < PRICE)
+                gameView.onMoneyNotEnoughError(user, PRICE);
+            else
+                gameView.onAskingWhetherToOpenTreasure(user, new OpenTreasurePresenter(hasReward, background,
+                        sprite, threadExecutor, user, userRepository, gameView));
+        });
     }
+
 
     public void setHasReward(boolean hasReward) {
         this.hasReward = hasReward;
@@ -38,5 +46,45 @@ public class TreasureProxy extends BaseSpriteProxy  {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" + hasReward + "}";
+    }
+
+    public class OpenTreasurePresenter{
+        private Background background;
+        private User user;
+        private Sprite sprite;
+        private UserRepository userRepository;
+        private ThreadExecutor threadExecutor;
+        private boolean hasReward;
+        private GameView gameView;
+
+        public OpenTreasurePresenter(boolean hasReward, Background background, Sprite sprite, ThreadExecutor threadExecutor, User user, UserRepository userRepository, GameView gameView) {
+            this.hasReward = hasReward;
+            this.background = background;
+            this.user = user;
+            this.sprite = sprite;
+            this.userRepository = userRepository;
+            this.threadExecutor = threadExecutor;
+            this.gameView = gameView;
+        }
+
+        public void openTheTreasure(){
+            if (user.getMoney() < PRICE)
+                throw new IllegalStateException("The user has no enough money to open the treasure.");
+
+            threadExecutor.execute(()->{
+                try{
+                    userRepository.addMoney(user, -1 * PRICE);  //cost
+                    background.removeGameItem(sprite);
+                    if (hasReward)
+                        userRepository.addReward(user);
+                    threadExecutor.executeOnMainThread(()->{;
+                        gameView.onMoneyUpdated(sprite, user.getMoney());
+                        gameView.onShowingRewardInTreasure(hasReward);
+                    });
+                }catch (Exception err){
+                    err.printStackTrace();
+                }
+            });
+        }
     }
 }

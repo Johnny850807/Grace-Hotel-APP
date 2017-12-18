@@ -3,6 +3,7 @@ package com.ood.clean.waterball.gracehotel.View;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -10,15 +11,13 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
-import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.TreasureProxy;
 import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.GamePresenter;
 import com.ood.clean.waterball.gracehotel.R;
-
-import java.util.List;
 
 
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, GameView, GestureDetector.OnGestureListener {
@@ -90,9 +89,30 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         background.draw(canvas);
     }
 
-    @Override
-    public void onShowQuestionnaire(List<QuestionModel> questionModels) {
 
+    @Override
+    public void onMoneyNotEnoughError(User user, int price) {
+        Context context = getContext();
+        Toast.makeText(context, context.getString(R.string.moneyNotEnough, price) , Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAskingWhetherToOpenTreasure(final User user, final TreasureProxy.OpenTreasurePresenter openTreasurePresenter) {
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.youFindTheTreasure)
+                .setMessage(R.string.openTreasureHaveToCostMoney)
+                .setPositiveButton(R.string.openTheTreasure, (c, i)->openTreasurePresenter.openTheTreasure())
+                .setNegativeButton(R.string.dontOpen, null)
+                .show();
+    }
+
+    @Override
+    public void onShowingRewardInTreasure(boolean hasReward) {
+        new AlertDialog.Builder(getContext())
+                .setTitle(hasReward ? R.string.congragulation : R.string.treasureIsEmpty)
+                .setMessage(hasReward ? R.string.congratulationYouGotReward : R.string.cheerUpTheRewardIsWaiting)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     @Override
@@ -101,8 +121,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Override
-    public void onMoneyEarned(Sprite sprite, int money) {
-        gameParentView.onMoneyEarned(sprite, money);
+    public void onMoneyUpdated(Sprite sprite, int money) {
+        gameParentView.onMoneyUpdated(sprite, money);
     }
 
     @Override

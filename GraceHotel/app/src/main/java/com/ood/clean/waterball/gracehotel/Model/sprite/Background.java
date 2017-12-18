@@ -42,15 +42,15 @@ public class Background extends Sprite implements Iterable<Sprite>{
 			gameItem.move(dx, dy);  // followed by moving all child items
 	}
 
-	public void addGameItem(Sprite gameItem){
+	public synchronized void addGameItem(Sprite gameItem){
 		this.gameItems.add(gameItem);
 	}
 
-	public void removeGameItem(Sprite gameItem){
+	public synchronized void removeGameItem(Sprite gameItem){
 		this.gameItems.remove(gameItem);
 	}
 
-	public void draw(Canvas canvas){
+	public synchronized void draw(Canvas canvas){
 		super.draw(canvas);  // draw background
 		for (Sprite sprite : gameItems)
 			sprite.draw(canvas);

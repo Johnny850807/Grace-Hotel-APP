@@ -17,4 +17,13 @@
     <string name="roomHasNoSprites">房間已經沒物品啦，晚點再來看看唷！</string>
     <string name="treasureExists">寶藏出現了！</string>
     <string name="goOpenTreasureQuickly">快點去房間開寶藏吧</string>
+    <string name="dontOpen">不開</string>
+    <string name="openTheTreasure">開啟寶箱</string>
+    <string name="openTreasureHaveToCostMoney">要開啟寶藏，需要花費50元，請問您要開啟嗎？</string>
+    <string name="youFindTheTreasure">您找到了寶藏 !</string>
+    <string name="moneyNotEnough" formatted="false">必須有%d元才能開啟寶箱！金錢可以從房間中的紙鈔或是直接填寫問卷來賺取唷！</string>
+    <string name="congratulationYouGotReward">恭喜你獲得了一枚葛瑞絲硬幣，蒐集四枚可以兌換獎勵唷！</string>
+    <string name="congragulation">恭喜</string>
+    <string name="treasureIsEmpty">寶箱是空的</string>
+    <string name="cheerUpTheRewardIsWaiting">再接再厲，硬幣就在下一個寶箱等你呢！</string>
 </resources>

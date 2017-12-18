@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * TimeItemPool is an object expected to contain the items means item will be showing up during a specific hour,
@@ -95,5 +96,19 @@ public class TimeItemPool implements Comparable<TimeItemPool>, Serializable{
             map.get(pool.getStartTime()).addAll(pool.getSpriteProxys());
         }
         return map;
+    }
+
+    public static String asString(List<TimeItemPool> timeItemPools){
+        StringBuilder strb = new StringBuilder();
+        Map<Date, List<SpriteProxy>> poolMap = TimeItemPool.poolsToMap(new TreeMap<Date, List<SpriteProxy>>(),
+                new ArrayList<>(timeItemPools));
+        for(Date date : poolMap.keySet())
+        {
+            strb.append(String.format("Date %s, SpriteProxies: ", date.toString()));
+            for(SpriteProxy proxy : poolMap.get(date))
+                strb.append(String.format("%s,", proxy));
+            strb.append("\n");
+        }
+        return strb.toString();
     }
 }
