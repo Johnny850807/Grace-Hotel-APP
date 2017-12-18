@@ -11,6 +11,7 @@ import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
 import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class TestItemArranger {
     }
 
 
-    //@Test success
+    @Test
     public void testTimePools(){
         Map<Date, List<SpriteProxy>> poolMap = TimeItemPool.poolsToMap(new TreeMap<Date, List<SpriteProxy>>(),
                 new ArrayList<>(pools));

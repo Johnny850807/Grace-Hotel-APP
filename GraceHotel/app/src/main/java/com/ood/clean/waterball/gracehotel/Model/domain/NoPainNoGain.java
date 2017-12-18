@@ -72,24 +72,29 @@ public class NoPainNoGain implements ItemArranger{
         MAXIMUM_CONSTRAINTS_BLOCK = DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK;
     }
 
-    public NoPainNoGain(HashMap<SpriteName, Integer> maximumConstraintsDay, HashMap<SpriteName, Integer> maximum_constraints_block) {
+    public NoPainNoGain(HashMap<SpriteName, Integer> maximumConstraintsDay,
+                        HashMap<SpriteName, Integer> maximum_constraints_block) {
         this.MAXIMUM_CONSTRAINTS_DAY = maximumConstraintsDay;
         MAXIMUM_CONSTRAINTS_BLOCK = maximum_constraints_block;
     }
-
     @Override
     public List<TimeItemPool> arrange(int durationDays) {
         int timeBlockAmount = 24 * durationDays;
-
         List<BaseSpriteProxy> spriteProxies = createSpriteProxies(durationDays);
 
         List<TimeBlock> timeBlocks = createTimeBlocks(new Date(), TimeUnit.HOURS.toMillis(1),
                 timeBlockAmount, MAXIMUM_CONSTRAINTS_BLOCK);
-        LinkedList<TimeBlock> timeBlockList = new LinkedList<>(timeBlocks);
 
         Collections.shuffle(spriteProxies);
-        Collections.shuffle(timeBlockList);
+        Collections.shuffle(timeBlocks);
 
+        putProxiesIntoBlocksSequentially(spriteProxies, timeBlocks);
+
+        return createOneHourItemPools(timeBlocks, MAXIMUM_CONSTRAINTS_BLOCK);
+    }
+
+    private static void putProxiesIntoBlocksSequentially(List<BaseSpriteProxy> spriteProxies, List<TimeBlock> timeBlocks){
+        LinkedList<TimeBlock> timeBlockList = new LinkedList<>(timeBlocks);
         for(BaseSpriteProxy spriteProxy : spriteProxies)
         {
             if (timeBlockList.isEmpty())
@@ -102,10 +107,7 @@ public class NoPainNoGain implements ItemArranger{
                     break;
                 }
         }
-
-        return createOneHourItemPools(timeBlocks, MAXIMUM_CONSTRAINTS_BLOCK);
     }
-
 
     /**
      * Create the shuffled time blocks based on some constraints.
