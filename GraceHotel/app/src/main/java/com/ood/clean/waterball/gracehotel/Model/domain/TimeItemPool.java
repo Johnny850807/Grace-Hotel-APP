@@ -4,6 +4,7 @@ package com.ood.clean.waterball.gracehotel.Model.domain;
 import android.support.annotation.NonNull;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
 import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 
 import java.util.ArrayList;
@@ -19,11 +20,15 @@ import java.util.Map;
  */
 public class TimeItemPool implements Comparable<TimeItemPool>{
     private Date startTime;
+    private long duration;
     private final Map<SpriteName, Integer> MAXIMUM_CONSTRAINTS;
-    private HashMap<SpriteName, List<SpriteProxy>> sprites = new HashMap<>();
+    private HashMap<SpriteName, List<BaseSpriteProxy>> sprites = new HashMap<>();
 
-    public TimeItemPool(Date startTime, Map<SpriteName, Integer> maximum_constraints) {
+    public TimeItemPool(Date startTime,
+                        long duration,
+                        Map<SpriteName,Integer> maximum_constraints) {
         MAXIMUM_CONSTRAINTS = maximum_constraints;
+        this.duration = duration;
         this.startTime = startTime;
     }
 
@@ -39,7 +44,7 @@ public class TimeItemPool implements Comparable<TimeItemPool>{
     /**
      * @return is the pool full
      */
-    public synchronized boolean put(SpriteProxy spriteProxy){
+    public synchronized boolean put(BaseSpriteProxy spriteProxy){
         if (canPutIn(spriteProxy.getSpriteName()))
         {
             sprites.get(spriteProxy.getSpriteName()).add(spriteProxy);
@@ -53,8 +58,12 @@ public class TimeItemPool implements Comparable<TimeItemPool>{
         return startTime;
     }
 
+    public long getDuration() {
+        return duration;
+    }
+
     public List<SpriteProxy> getSpriteProxys(){
-        Collection<List<SpriteProxy>> eachKindSprites = sprites.values();
+        Collection<List<BaseSpriteProxy>> eachKindSprites = sprites.values();
         List<SpriteProxy> allSprites = new ArrayList<>();
         eachKindSprites.forEach(allSprites::addAll);
         return allSprites;

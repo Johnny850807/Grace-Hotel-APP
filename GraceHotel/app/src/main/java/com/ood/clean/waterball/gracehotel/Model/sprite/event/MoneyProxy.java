@@ -12,13 +12,14 @@ import com.ood.clean.waterball.gracehotel.View.GameView;
 public class MoneyProxy extends BaseSpriteProxy {
     private int money;
 
-    public MoneyProxy(SpriteName spriteName, int money) {
-        super(spriteName);
+
+    public MoneyProxy(int money) {
+        super(SpriteName.MONEY);
         this.money = money;
     }
 
-    public MoneyProxy(SpriteName spriteName) {
-        super(spriteName);
+    public MoneyProxy() {
+        super(SpriteName.MONEY);
     }
 
     @Override

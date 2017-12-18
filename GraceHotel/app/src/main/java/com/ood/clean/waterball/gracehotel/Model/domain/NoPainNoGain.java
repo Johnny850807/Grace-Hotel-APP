@@ -2,8 +2,8 @@ package com.ood.clean.waterball.gracehotel.Model.domain;
 
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
 import com.ood.clean.waterball.gracehotel.Model.sprite.event.MoneyProxy;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 import com.ood.clean.waterball.gracehotel.Model.sprite.event.TreasureProxy;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class NoPainNoGain implements ItemArranger{
     public List<TimeItemPool> arrange(int durationDays) {
         int timeBlockAmount = 24 * durationDays;
 
-        List<SpriteProxy> spriteProxies = createSpriteProxies(durationDays);
+        List<BaseSpriteProxy> spriteProxies = createSpriteProxies(durationDays);
 
         List<TimeBlock> timeBlocks = createTimeBlocks(new Date(), TimeUnit.HOURS.toMillis(1),
                 timeBlockAmount, MAXIMUM_CONSTRAINTS_BLOCK);
@@ -90,7 +90,7 @@ public class NoPainNoGain implements ItemArranger{
         Collections.shuffle(spriteProxies);
         Collections.shuffle(timeBlockList);
 
-        for(SpriteProxy spriteProxy : spriteProxies)
+        for(BaseSpriteProxy spriteProxy : spriteProxies)
         {
             if (timeBlockList.isEmpty())
                 break;
@@ -147,8 +147,8 @@ public class NoPainNoGain implements ItemArranger{
         return timeBlocks;
     }
 
-    public List<SpriteProxy> createSpriteProxies(int durationDays){
-        List<SpriteProxy> spriteProxies = new ArrayList<>();
+    public List<BaseSpriteProxy> createSpriteProxies(int durationDays){
+        List<BaseSpriteProxy> spriteProxies = new ArrayList<>();
 
         for(SpriteName spriteName : MAXIMUM_CONSTRAINTS_DAY.keySet())
         {
@@ -170,7 +170,7 @@ public class NoPainNoGain implements ItemArranger{
         Random random = new Random();
         List<MoneyProxy> proxies = new ArrayList<>();
         for (int i = 0 ; i < amount ; i ++)
-            proxies.add(new MoneyProxy(SpriteName.MONEY, random.nextInt(MAX_MONEY_VALUE - MIN_MONEY_VALUE + 1) + MIN_MONEY_VALUE));
+            proxies.add(new MoneyProxy(random.nextInt(MAX_MONEY_VALUE - MIN_MONEY_VALUE + 1) + MIN_MONEY_VALUE));
         return proxies;
     }
 
@@ -184,7 +184,7 @@ public class NoPainNoGain implements ItemArranger{
             boolean hasReward = rewardAmount > 0 && random.nextInt(100) > TREASURE_REWARD_PROBABILITY*100;
             if (hasReward)
                 rewardAmount --;
-            proxies.add(new TreasureProxy(SpriteName.TREASURE, hasReward));
+            proxies.add(new TreasureProxy(hasReward));
         }
         return proxies;
     }
@@ -201,7 +201,7 @@ public class NoPainNoGain implements ItemArranger{
         {
             Date date = timeBlock.getDate();
             if (!hourPoolMap.containsKey(date))
-                hourPoolMap.put(date, new TimeItemPool(date, maximumConstraintsBlock));
+                hourPoolMap.put(date, new TimeItemPool(date, timeBlock.getDuration(), maximumConstraintsBlock));
             if (timeBlock.hasSpriteProxy())
                 hourPoolMap.get(date).put(timeBlock.getSpriteProxy());
         }

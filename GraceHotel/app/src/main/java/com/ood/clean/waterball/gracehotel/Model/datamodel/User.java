@@ -6,6 +6,7 @@ import com.ood.clean.waterball.gracehotel.Model.entity.QuestionGroup;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -74,11 +75,27 @@ public class User implements Serializable{
 	}
 
 	public void setTimeItemPools(List<TimeItemPool> timeItemPools) {
+		if (this.timeItemPools != null)
+			throw new IllegalStateException("The time item pools has been set.");
 		this.timeItemPools = timeItemPools;
 	}
 
 	public List<TimeItemPool> getTimeItemPools() {
 		return timeItemPools;
+	}
+
+	public List<TimeItemPool> getCurrentTimeItemPools(){
+		List<TimeItemPool> currentTimeItemPools = new ArrayList<>();
+		for(TimeItemPool timeItemPool : timeItemPools)
+		{
+			Date now = new Date();
+			Date start = timeItemPool.getStartTime();
+			Date end = new Date();
+			end.setTime(start.getTime() + timeItemPool.getDuration());
+			if (start.before(now) && end.after(now))
+				currentTimeItemPools.add(timeItemPool);
+		}
+		return currentTimeItemPools;
 	}
 
 	/**

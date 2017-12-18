@@ -12,13 +12,13 @@ import com.ood.clean.waterball.gracehotel.View.GameView;
 public class TreasureProxy extends BaseSpriteProxy  {
     private boolean hasReward;
 
-    public TreasureProxy(SpriteName spriteName, boolean hasReward) {
-        super(spriteName);
+    public TreasureProxy(boolean hasReward) {
+        super(SpriteName.TREASURE);
         this.hasReward = hasReward;
     }
 
-    public TreasureProxy(SpriteName spriteName) {
-        super(spriteName);
+    public TreasureProxy() {
+        super(SpriteName.TREASURE);
     }
 
 

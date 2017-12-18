@@ -2,15 +2,17 @@ package com.ood.clean.waterball.gracehotel;
 
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 import com.ood.clean.waterball.gracehotel.Model.domain.NoPainNoGain;
 import com.ood.clean.waterball.gracehotel.Model.domain.TimeBlock;
 import com.ood.clean.waterball.gracehotel.Model.domain.TimeItemPool;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
 import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 
 import org.junit.Before;
-import org.junit.Test;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,7 +23,7 @@ import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
 public class TestItemArranger {
-    private static Gson gson = new Gson();
+    private static Gson gson = MyApplication.getDeGson();
     private NoPainNoGain itemArranger;
     private HashMap<SpriteName, Integer> constraints = new HashMap<>();
     private TreeSet<TimeItemPool> pools;
@@ -44,7 +46,7 @@ public class TestItemArranger {
 
     //@Test succeeded: [{"hasReward":false},{"hasReward":false},{"money":15},{"money":11},{"money":15},{"money":19},{"money":13},{"money":14},{"money":13},{"money":16}]
     public void testSpritesCreation(){
-        List<SpriteProxy> spriteProxies = itemArranger.createSpriteProxies(1);
+        List<BaseSpriteProxy> spriteProxies = itemArranger.createSpriteProxies(1);
         String json = gson.toJson(spriteProxies);
         System.out.println(json);
     }
@@ -60,7 +62,7 @@ public class TestItemArranger {
     }
 
 
-    @Test
+    //@Test success
     public void testTimePools(){
         Map<Date, List<SpriteProxy>> poolMap = TimeItemPool.poolsToMap(new TreeMap<Date, List<SpriteProxy>>(),
                 new ArrayList<>(pools));
@@ -71,5 +73,11 @@ public class TestItemArranger {
                 System.out.print(proxy + ",");
             System.out.println();
         }
+
+        String json = new Gson().toJson(pools);
+        System.out.println(json);
+        Type type = new TypeToken<ArrayList<TimeItemPool>>(){}.getType();
+        List<TimeItemPool> dePools = gson.fromJson(json, type);
+        System.out.println("Break point here to watch if the dePools has a correct deserialization on each spriteProxy.");
     }
 }

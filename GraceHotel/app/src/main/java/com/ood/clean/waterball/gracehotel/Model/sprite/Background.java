@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 public class Background extends Sprite implements Iterable<Sprite>{
 	private Collection<Sprite> gameItems = Collections.synchronizedList(new ArrayList<>());
@@ -53,6 +54,10 @@ public class Background extends Sprite implements Iterable<Sprite>{
 		super.draw(canvas);  // draw background
 		for (Sprite sprite : gameItems)
 			sprite.draw(canvas);
+	}
+
+	public void arrangeItemRandomly(List<Sprite> sprites){
+
 	}
 
 	@Override

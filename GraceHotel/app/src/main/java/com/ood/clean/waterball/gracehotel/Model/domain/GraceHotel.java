@@ -7,7 +7,7 @@ import android.support.annotation.DrawableRes;
  */
 public class GraceHotel {
     private static @DrawableRes int overlookMapDrawableId;
-    private static ItemArranger itemArranger;
+
 
 
 }

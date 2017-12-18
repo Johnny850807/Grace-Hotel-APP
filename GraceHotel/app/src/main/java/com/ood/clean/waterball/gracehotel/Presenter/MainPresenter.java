@@ -2,6 +2,7 @@ package com.ood.clean.waterball.gracehotel.Presenter;
 
 import com.ood.clean.waterball.gracehotel.Model.UserRepository;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
+import com.ood.clean.waterball.gracehotel.Model.domain.ItemArranger;
 import com.ood.clean.waterball.gracehotel.Model.sprite.SpritePrototypeFactory;
 import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.MainView;
@@ -10,11 +11,15 @@ public class MainPresenter {
 	private ThreadExecutor threadExecutor;
 	private UserRepository userRepository;
 	private MainView mainView;
+	private ItemArranger itemArranger;
 
 
-	public MainPresenter(ThreadExecutor threadExecutor, UserRepository userRepository) {
+	public MainPresenter(ThreadExecutor threadExecutor,
+						 UserRepository userRepository,
+						 ItemArranger itemArranger) {
 		this.threadExecutor = threadExecutor;
 		this.userRepository = userRepository;
+		this.itemArranger = itemArranger;
 	}
 
 	public void setMainView(MainView mainView) {
@@ -26,9 +31,9 @@ public class MainPresenter {
 			delay(2000);
 			preparePrototypes();
 			delay(2000);
-			arrangeGameItems();
-			delay(2000);
 			User user = userRepository.createUser(roomNumber);
+			arrangeGameItems(user);
+			delay(2000);
 			threadExecutor.executeOnMainThread(()->mainView.onSignInSucessfully(user));
 		});
 	}
@@ -53,8 +58,8 @@ public class MainPresenter {
 		});
 	}
 
-	private void arrangeGameItems(){
-		//TODO arrange
+	private void arrangeGameItems(User user){
+		user.setTimeItemPools(itemArranger.arrange(3)); //TODO durationDays
 		threadExecutor.executeOnMainThread(()->mainView.onGameItemArrangementCompleted());
 	}
 

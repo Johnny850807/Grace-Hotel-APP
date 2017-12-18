@@ -48,11 +48,11 @@ public class SpritePrototypeFactory {
 
 		Bitmap moneyBitmap = getBitmap(R.drawable.money);
 		addPrototype(SpriteName.MONEY, new GameItem(moneyBitmap.getWidth(), moneyBitmap.getHeight(),
-				createImageSequence(moneyBitmap), SpriteName.MONEY, new MoneyProxy(SpriteName.MONEY)));
+				createImageSequence(moneyBitmap), SpriteName.MONEY, new MoneyProxy()));
 
 		Bitmap treasureBitmap = getBitmap(R.drawable.treasure);
 		addPrototype(SpriteName.TREASURE, new GameItem(treasureBitmap.getWidth(), treasureBitmap.getHeight(),
-				createImageSequence(treasureBitmap), SpriteName.TREASURE, new TreasureProxy(SpriteName.TREASURE)));
+				createImageSequence(treasureBitmap), SpriteName.TREASURE, new TreasureProxy()));
 	}
 
 	private Point getScreenSize(){

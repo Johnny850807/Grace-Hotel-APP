@@ -4,22 +4,23 @@ package com.ood.clean.waterball.gracehotel.Model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.provider.Settings;
+import android.util.Log;
 
-import com.google.gson.Gson;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.Permission;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 
 public class UserLocalRepository implements UserRepository{
+    private static final String TAG = "UserLocalRepository";
     private static final String SPNAME = "grace";
     private static final String ERROR = "ERROR";
     private static final String USER = "USER";
-    private static final String ITEM_ARRANGEMENT = "ITEMARRANGEMENT";
     private Context context;
     private SharedPreferences sp;
-    private Gson gson = new Gson();
+    private Serializer serializer;
 
-    public UserLocalRepository(Context context){
+    public UserLocalRepository(Context context, Serializer serializer){
         this.context = context;
+        this.serializer = serializer;
         sp = context.getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
     }
 
@@ -31,13 +32,14 @@ public class UserLocalRepository implements UserRepository{
     @Override
     public User getUser() {
         String userJson = sp.getString(USER, ERROR);
-        return gson.fromJson(userJson, User.class);
+        Log.d(TAG, "Get user: " + userJson);
+        return serializer.deserialize(userJson, User.class);
     }
 
     @Override
     public User createUser(String roomNumber) {
         String deviceId = getDeviceUID();
-        User user = new User(roomNumber, deviceId, "");  //TODO
+        User user = new User(roomNumber, deviceId, "");  //TODO emails
         updateUser(user);
         return user;
     }
@@ -55,7 +57,8 @@ public class UserLocalRepository implements UserRepository{
     }
 
     private void updateUser(User user){
-        String userJson = gson.toJson(user);
+        String userJson = serializer.serialize(user);
+        Log.d(TAG, "Update user: " + userJson);
         sp.edit().putString(USER, userJson).apply();
     }
 

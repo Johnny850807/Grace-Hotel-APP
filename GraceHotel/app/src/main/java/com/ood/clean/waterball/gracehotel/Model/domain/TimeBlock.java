@@ -2,7 +2,7 @@ package com.ood.clean.waterball.gracehotel.Model.domain;
 
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ public class TimeBlock {
     private final SpriteName acceptSpriteName;  // the sprite that this time block will only accept.
     private final Date date;
     private final long duration;
-    private SpriteProxy spriteProxy;
+    private BaseSpriteProxy spriteProxy;
 
     public TimeBlock(SpriteName acceptSpriteName, Date date, long duration) {
         this.acceptSpriteName = acceptSpriteName;
@@ -35,7 +35,7 @@ public class TimeBlock {
         return acceptSpriteName;
     }
 
-    public SpriteProxy getSpriteProxy() {
+    public BaseSpriteProxy getSpriteProxy() {
         return spriteProxy;
     }
 
@@ -46,7 +46,7 @@ public class TimeBlock {
         return getSpriteProxy() != null;
     }
 
-    public void setSpriteProxy(SpriteProxy spriteProxy) {
+    public void setSpriteProxy(BaseSpriteProxy spriteProxy) {
         if (spriteProxy.getSpriteName() != getAcceptSpriteName())
             throw new IllegalArgumentException("The spriteProxy is not accepted in the timeblock.");
         this.spriteProxy = spriteProxy;
