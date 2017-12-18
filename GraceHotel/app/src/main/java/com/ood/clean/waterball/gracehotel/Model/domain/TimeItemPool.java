@@ -78,6 +78,10 @@ public class TimeItemPool implements Comparable<TimeItemPool>, Serializable{
             proxies.remove(itemProxy);
     }
 
+    public boolean hasTreasure(){
+        return sprites.get(SpriteName.TREASURE) != null && sprites.get(SpriteName.TREASURE).size() > 0;
+    }
+
     @Override
     public int compareTo(@NonNull TimeItemPool timeItemPool) {
         return getStartTime().compareTo(timeItemPool.getStartTime());

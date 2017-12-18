@@ -15,4 +15,6 @@
     <string name="dialog_travelInformation">旅遊資訊</string>
     <string name="dialog_map">葛瑞絲俯視圖</string>
     <string name="roomHasNoSprites">房間已經沒物品啦，晚點再來看看唷！</string>
+    <string name="treasureExists">寶藏出現了！</string>
+    <string name="goOpenTreasureQuickly">快點去房間開寶藏吧</string>
 </resources>
