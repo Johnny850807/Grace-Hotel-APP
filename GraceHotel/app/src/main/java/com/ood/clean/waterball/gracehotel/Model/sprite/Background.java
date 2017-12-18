@@ -3,12 +3,13 @@ package com.ood.clean.waterball.gracehotel.Model.sprite;
 import android.graphics.Canvas;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.DoNothing;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class Background extends Sprite implements Iterable<Sprite>{
 	private Collection<Sprite> gameItems = Collections.synchronizedList(new ArrayList<>());
@@ -16,10 +17,9 @@ public class Background extends Sprite implements Iterable<Sprite>{
 	private int screenHeight;
 
 	public Background(int width, int height, ImageSequence imageSequence, int screenWidth, int screenHeight) {
-		super(width, height, imageSequence, new DoNothing());
+		super(width, height, imageSequence, SpriteName.BACKGROUND);
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
-		setSpriteName(SpriteName.BACKGROUND);
 	}
 
 	@Override
@@ -56,8 +56,24 @@ public class Background extends Sprite implements Iterable<Sprite>{
 			sprite.draw(canvas);
 	}
 
+	public void arrangeItemRandomly(List<Sprite> sprites){
+		Random random = new Random();
+		for(Sprite sprite : sprites)
+		{
+			int randomX = random.nextInt(getWidth() + 1) + getX();
+			int randomY = random.nextInt(getHeight() + 1) + getY();
+			sprite.setX(randomX);
+			sprite.setY(randomY);
+			addGameItem(sprite);
+		}
+	}
+
 	@Override
 	public Iterator<Sprite> iterator() {
 		return gameItems.iterator();
 	}
+
+	public int size(){
+        return gameItems.size();
+    }
 }

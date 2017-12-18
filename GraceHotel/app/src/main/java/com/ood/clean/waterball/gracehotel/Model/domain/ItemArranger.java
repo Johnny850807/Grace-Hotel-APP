@@ -1,8 +1,6 @@
 package com.ood.clean.waterball.gracehotel.Model.domain;
 
 
-import com.ood.clean.waterball.gracehotel.Model.datamodel.ItemShowUpRecord;
-
 import java.util.List;
 
 public interface ItemArranger {
@@ -11,5 +9,5 @@ public interface ItemArranger {
 	 * @param durationDays the days the user stay at the hotel.
 	 * @return the list contains all the arranged item show up records.
 	 */
-	List<ItemShowUpRecord> arrange(int durationDays);
+	List<TimeItemPool> arrange(int durationDays);
 }

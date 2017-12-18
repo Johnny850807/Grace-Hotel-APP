@@ -11,4 +11,6 @@ public interface GameView extends GameParentView{
 	public void onGameStatusUpdated(Background background);
 
 	public void onShowQuestionnaire(List<QuestionModel> questionModels);
+
+	public void onNoGameItemsFound();
 }

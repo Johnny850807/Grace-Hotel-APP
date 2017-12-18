@@ -1,7 +1,6 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -47,8 +46,6 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
         questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user, MyApplication.getUserRepository(),
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
-
-
 
     }
 

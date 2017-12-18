@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.EventHandler;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.NullProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 
 public class Sprite implements Cloneable{
 	private int x;
@@ -13,13 +14,18 @@ public class Sprite implements Cloneable{
 	private int height;
 	private SpriteName spriteName;
 	private ImageSequence imageSequence;
-	private EventHandler eventHandler;
+	private SpriteProxy spriteProxy;
 
-	public Sprite(int width, int height, ImageSequence imageSequence, EventHandler eventHandler) {
+	public Sprite(int width, int height, ImageSequence imageSequence, SpriteName spriteName) {
 		this.width = width;
 		this.height = height;
 		this.imageSequence = imageSequence;
-		this.eventHandler = eventHandler;
+		this.spriteName = spriteName;
+		this.spriteProxy = new NullProxy(spriteName);
+	}
+
+	public void setSpriteProxy(SpriteProxy spriteProxy) {
+		this.spriteProxy = spriteProxy;
 	}
 
 	public void update() {
@@ -106,7 +112,7 @@ public class Sprite implements Cloneable{
 				y >= this.getY() && y <= this.getY() + getHeight();
 	}
 
-	public EventHandler getEventHandler() {
-		return eventHandler;
+	public SpriteProxy getSpriteProxy() {
+		return spriteProxy;
 	}
 }

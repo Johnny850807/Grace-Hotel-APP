@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
         intent.putExtra("User", user);
 
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), "登入", Toast.LENGTH_SHORT).show();
         loadingBar.setVisibility(View.INVISIBLE);
         disableViews(checkInBtn, roomNumberSpn);
         finish();

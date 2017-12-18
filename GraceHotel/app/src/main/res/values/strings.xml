@@ -14,4 +14,5 @@
     <string name="dialog_equipmentInformation">設備資訊</string>
     <string name="dialog_travelInformation">旅遊資訊</string>
     <string name="dialog_map">葛瑞絲俯視圖</string>
+    <string name="roomHasNoSprites">房間已經沒物品啦，晚點再來看看唷！</string>
 </resources>
