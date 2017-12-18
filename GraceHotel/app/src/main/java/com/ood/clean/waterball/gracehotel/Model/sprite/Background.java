@@ -7,6 +7,7 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -26,9 +27,11 @@ public class Background extends Sprite implements Iterable<Sprite>{
 
 	@Override
 	public synchronized void update() {
-		for (Sprite gameItem : gameItems)
-			gameItem.update();
-		mask.update();
+		try{
+			for (Sprite gameItem : gameItems)
+				gameItem.update();
+			mask.update();
+		}catch (ConcurrentModificationException err){}
 	}
 
 	public void tryMove(int dx, int dy){
@@ -40,10 +43,12 @@ public class Background extends Sprite implements Iterable<Sprite>{
 	}
 
 	@Override
-	public void move(int dx, int dy) {
+	public synchronized void move(int dx, int dy) {
 		super.move(dx, dy);  // move background
-		for (Sprite gameItem : gameItems)
-			gameItem.move(dx, dy);  // followed by moving all child items
+		try{
+			for (Sprite gameItem : gameItems)
+				gameItem.move(dx, dy);  // followed by moving all child items
+		}catch (ConcurrentModificationException err){}
 	}
 
 	public synchronized void addGameItem(Sprite gameItem){
@@ -56,9 +61,11 @@ public class Background extends Sprite implements Iterable<Sprite>{
 
 	public synchronized void draw(Canvas canvas){
 		super.draw(canvas);  // draw background
-		for (Sprite sprite : gameItems)
-			sprite.draw(canvas);
-		mask.draw(canvas);
+		try{
+			for (Sprite sprite : gameItems)
+				sprite.draw(canvas);
+			mask.draw(canvas);
+		}catch (ConcurrentModificationException err){}
 	}
 
 	public void arrangeItemRandomly(List<Sprite> sprites){

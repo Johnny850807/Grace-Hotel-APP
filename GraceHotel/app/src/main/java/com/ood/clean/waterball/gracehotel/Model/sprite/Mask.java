@@ -23,7 +23,7 @@ public class Mask extends Sprite {
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         int alpha = paint.getAlpha();
         if (status == INCREASING)
         {
@@ -37,7 +37,7 @@ public class Mask extends Sprite {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public synchronized void draw(Canvas canvas) {
         canvas.drawRect(rect, paint);
     }
 }

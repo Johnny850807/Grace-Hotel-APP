@@ -26,7 +26,7 @@ public class FadingTextEffect extends Sprite {
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         if (background == null)
             throw new IllegalStateException("the background should be set before update() invoked.");
 
@@ -37,7 +37,17 @@ public class FadingTextEffect extends Sprite {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public synchronized void draw(Canvas canvas) {
         canvas.drawText(text, getX(), getY(), paint);
+    }
+
+    @Override
+    public Sprite clone() {
+        FadingTextEffect textEffect = (FadingTextEffect) super.clone();
+        Paint paint = new Paint();
+        paint.setARGB(255, 255, 255, 255);
+        paint.setTextSize(80);
+        textEffect.paint = paint;
+        return textEffect;
     }
 }

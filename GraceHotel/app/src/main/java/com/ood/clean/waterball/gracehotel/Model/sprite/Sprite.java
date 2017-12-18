@@ -85,7 +85,7 @@ public class Sprite implements Cloneable{
 		this.height = height;
 	}
 
-	public void move(int dx, int dy){
+	public synchronized void move(int dx, int dy){
 		setX(getX() + dx);
 		setY(getY() + dy);
 	}
