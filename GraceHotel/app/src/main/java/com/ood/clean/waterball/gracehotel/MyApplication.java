@@ -97,7 +97,8 @@ public class MyApplication extends Application{
     }
 
     public static UserRepository getUserRepository(){
-        return userRepository == null ? userRepository = new UserLocalRepository(getDefaultContext(), getSerializer())
+        return userRepository == null ? userRepository = new UserLocalRepository(getDefaultContext(),
+                getSerializer(), getItemArranger())
                 : userRepository;
     }
 

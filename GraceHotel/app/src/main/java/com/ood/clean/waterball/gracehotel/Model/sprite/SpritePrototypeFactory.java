@@ -12,8 +12,6 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.MoneyProxy;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.TreasureProxy;
 import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.R;
 
@@ -48,11 +46,11 @@ public class SpritePrototypeFactory {
 
 		Bitmap moneyBitmap = getBitmap(R.drawable.money);
 		addPrototype(SpriteName.MONEY, new GameItem(moneyBitmap.getWidth(), moneyBitmap.getHeight(),
-				createImageSequence(moneyBitmap), SpriteName.MONEY, new MoneyProxy()));
+				createImageSequence(moneyBitmap), SpriteName.MONEY));
 
 		Bitmap treasureBitmap = getBitmap(R.drawable.treasure);
 		addPrototype(SpriteName.TREASURE, new GameItem(treasureBitmap.getWidth(), treasureBitmap.getHeight(),
-				createImageSequence(treasureBitmap), SpriteName.TREASURE, new TreasureProxy()));
+				createImageSequence(treasureBitmap), SpriteName.TREASURE));
 	}
 
 	private Point getScreenSize(){

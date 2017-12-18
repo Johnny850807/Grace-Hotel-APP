@@ -7,6 +7,7 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
 import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -18,7 +19,7 @@ import java.util.Map;
  * TimeItemPool is an object expected to contain the items means item will be showing up during a specific hour,
  * as well as manages the maximum amount constraints.
  */
-public class TimeItemPool implements Comparable<TimeItemPool>{
+public class TimeItemPool implements Comparable<TimeItemPool>, Serializable{
     private Date startTime;
     private long duration;
     private final Map<SpriteName, Integer> MAXIMUM_CONSTRAINTS;
@@ -65,7 +66,8 @@ public class TimeItemPool implements Comparable<TimeItemPool>{
     public List<SpriteProxy> getSpriteProxys(){
         Collection<List<BaseSpriteProxy>> eachKindSprites = sprites.values();
         List<SpriteProxy> allSprites = new ArrayList<>();
-        eachKindSprites.forEach(allSprites::addAll);
+        for (List<BaseSpriteProxy> sprites : eachKindSprites)
+            allSprites.addAll(sprites);
         return allSprites;
     }
 

@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.Permission;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
+import com.ood.clean.waterball.gracehotel.Model.domain.ItemArranger;
 
 public class UserLocalRepository implements UserRepository{
     private static final String TAG = "UserLocalRepository";
@@ -17,10 +18,14 @@ public class UserLocalRepository implements UserRepository{
     private Context context;
     private SharedPreferences sp;
     private Serializer serializer;
+    private ItemArranger itemArranger;
 
-    public UserLocalRepository(Context context, Serializer serializer){
+    public UserLocalRepository(Context context,
+                               Serializer serializer,
+                               ItemArranger itemArranger){
         this.context = context;
         this.serializer = serializer;
+        this.itemArranger = itemArranger;
         sp = context.getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
     }
 
@@ -40,6 +45,7 @@ public class UserLocalRepository implements UserRepository{
     public User createUser(String roomNumber) {
         String deviceId = getDeviceUID();
         User user = new User(roomNumber, deviceId, "");  //TODO emails
+        user.setTimeItemPools(itemArranger.arrange(3)); //TODO durationDays
         updateUser(user);
         return user;
     }

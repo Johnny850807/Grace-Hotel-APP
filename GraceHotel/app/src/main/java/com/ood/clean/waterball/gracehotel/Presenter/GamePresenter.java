@@ -41,13 +41,12 @@ public class GamePresenter {
 	public void gameStart() {
 		background = (Background) prototypeFactory.createSprite(SpriteName.BACKGROUND);
 		arrangeItems();
-		testGameItem(); //TODO
 		running = true;
 		gameCycleThread.start();
 	}
 
 	private void arrangeItems() {
-		List<TimeItemPool> timeItemPools = user.getTimeItemPools();
+		List<TimeItemPool> timeItemPools = user.getCurrentTimeItemPools();
 		for (TimeItemPool timeItemPool : timeItemPools)
 			background.arrangeItemRandomly(createSpriteFromTimePool(timeItemPool));
 	}
@@ -58,10 +57,8 @@ public class GamePresenter {
 		for (SpriteProxy proxy : proxies)
 		{
 			Sprite sprite = prototypeFactory.createSprite(proxy.getSpriteName());
-			switch (proxy.getSpriteName())
-			{
-				case MONEY:
-			}
+			sprite.setSpriteProxy(proxy);
+			sprites.add(sprite);
 		}
 		return sprites;
 	}

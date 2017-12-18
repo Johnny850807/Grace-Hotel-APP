@@ -3,7 +3,9 @@ package com.ood.clean.waterball.gracehotel.Model.sprite.event;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 
-public abstract class BaseSpriteProxy implements SpriteProxy {
+import java.io.Serializable;
+
+public abstract class BaseSpriteProxy implements SpriteProxy, Serializable {
     protected SpriteName spriteName;
 
     protected BaseSpriteProxy(SpriteName spriteName) {
