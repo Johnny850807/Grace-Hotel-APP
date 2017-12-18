@@ -2,6 +2,7 @@ package com.ood.clean.waterball.gracehotel.Model.datamodel;
 
 import com.ood.clean.waterball.gracehotel.Model.domain.TimeItemPool;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionGroup;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -112,5 +113,11 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return String.format(Locale.TAIWAN, "User room number %s, deviceId %s, money %d", getRoomNumber(), getDeviceId(), getMoney());
+	}
+
+	public void removeSpriteInCurrentPools(BaseSpriteProxy spriteProxy) {
+		List<TimeItemPool> timeItemPools = getCurrentTimeItemPools();
+		for(TimeItemPool pool : timeItemPools)
+			pool.removeItem(spriteProxy);
 	}
 }

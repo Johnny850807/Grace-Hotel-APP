@@ -71,6 +71,13 @@ public class TimeItemPool implements Comparable<TimeItemPool>, Serializable{
         return allSprites;
     }
 
+
+    public void removeItem(BaseSpriteProxy itemProxy){
+        List<BaseSpriteProxy> proxies = sprites.get(itemProxy.getSpriteName());
+        if (proxies.contains(itemProxy))
+            proxies.remove(itemProxy);
+    }
+
     @Override
     public int compareTo(@NonNull TimeItemPool timeItemPool) {
         return getStartTime().compareTo(timeItemPool.getStartTime());
