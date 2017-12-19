@@ -5,7 +5,9 @@ import com.ood.clean.waterball.gracehotel.Model.UserRepository;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
+import com.ood.clean.waterball.gracehotel.Model.sprite.FadingTextEffect;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
+import com.ood.clean.waterball.gracehotel.Model.sprite.SpritePrototypeFactory;
 import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.GameView;
 
@@ -75,9 +77,10 @@ public class TreasureProxy extends BaseSpriteProxy  {
                 try{
                     userRepository.addMoney(user, -1 * PRICE);  //cost
                     background.removeGameItem(sprite);
+                    addFadingTextEffect(background, sprite);
                     if (hasReward)
                         userRepository.addReward(user);
-                    threadExecutor.executeOnMainThread(()->{;
+                    threadExecutor.executeOnMainThread(()->{
                         gameView.onMoneyUpdated(sprite, user.getMoney());
                         gameView.onShowingRewardInTreasure(hasReward);
                     });
@@ -85,6 +88,13 @@ public class TreasureProxy extends BaseSpriteProxy  {
                     err.printStackTrace();
                 }
             });
+        }
+
+
+        private void addFadingTextEffect(Background background, Sprite treasureSprite){
+            FadingTextEffect textEffect = (FadingTextEffect) SpritePrototypeFactory.getInstance().createSprite(SpriteName.FADING_TEXT_EFFECT);
+            textEffect.affect(background, treasureSprite, "- " + PRICE + "$");
+            background.addGameItem(textEffect);
         }
     }
 }

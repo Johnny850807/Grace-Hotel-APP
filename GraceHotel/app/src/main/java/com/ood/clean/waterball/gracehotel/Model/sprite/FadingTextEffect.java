@@ -50,4 +50,11 @@ public class FadingTextEffect extends Sprite {
         textEffect.paint = paint;
         return textEffect;
     }
+
+    public void affect(Background background, Sprite sprite, String text){
+        setX(sprite.getX() + sprite.getWidth());
+        setY(sprite.getY());
+        setBackground(background);
+        setText(text);
+    }
 }

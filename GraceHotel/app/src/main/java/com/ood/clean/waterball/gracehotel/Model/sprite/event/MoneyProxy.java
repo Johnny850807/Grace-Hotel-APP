@@ -32,17 +32,14 @@ public class MoneyProxy extends BaseSpriteProxy {
                         GameView gameView) {
         user.removeSpriteInCurrentPools(this);
         userRepository.addMoney(user, money);
-        addFadingTextEffectAroundTheMoney(background, moneySprite);
+        addFadingTextEffect(background, moneySprite);
         background.removeGameItem(moneySprite);
         threadExecutor.executeOnMainThread(() -> gameView.onMoneyUpdated(moneySprite, user.getMoney()));
     }
 
-    private void addFadingTextEffectAroundTheMoney(Background background, Sprite moneySprite){
+    private void addFadingTextEffect(Background background, Sprite moneySprite){
         FadingTextEffect textEffect = (FadingTextEffect) SpritePrototypeFactory.getInstance().createSprite(SpriteName.FADING_TEXT_EFFECT);
-        textEffect.setX(moneySprite.getX() + moneySprite.getWidth());
-        textEffect.setY(moneySprite.getY());
-        textEffect.setBackground(background);
-        textEffect.setText("+ " + money + "$");
+        textEffect.affect(background, moneySprite, "+ " + money + "$");
         background.addGameItem(textEffect);
     }
 

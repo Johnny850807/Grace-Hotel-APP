@@ -72,7 +72,7 @@ public class UserLocalRepository implements UserRepository{
         updateUser(user);
 
         for(int i = 0 ; i < pools.size() ; i ++ )
-            setAlarmBroacastIfHasTreasure(pools.get(i), i);
+            setTreasureBroadcast(pools.get(i), i);
     }
 
     /**
@@ -80,11 +80,11 @@ public class UserLocalRepository implements UserRepository{
      *  @param index the index of the pool in the list, the request code of the pendingIntent will reference the index,
      *               used for canceling the pendingIntent further.
      */
-    private void setAlarmBroacastIfHasTreasure(TimeItemPool pool, int index){
+    private void setTreasureBroadcast(TimeItemPool pool, int index){
         if(pool.hasTreasure())
         {
             Intent alarmIntent = new Intent(context, TreasureAlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, index, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, index, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
             alarmManager.set(AlarmManager.RTC_WAKEUP, pool.getStartTime().getTime(), pendingIntent);
         }
     }
