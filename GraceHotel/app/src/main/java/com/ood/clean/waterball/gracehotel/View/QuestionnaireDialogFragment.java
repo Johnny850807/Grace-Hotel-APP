@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
@@ -12,8 +13,7 @@ import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 import com.ood.clean.waterball.gracehotel.R;
 
-import java.util.List;
-import java.util.Stack;
+import java.util.LinkedList;
 
 
 public class QuestionnaireDialogFragment extends BaseDialogFragment implements QuestionnaireView {
@@ -75,14 +75,18 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         err.printStackTrace();
         loadingBar.setVisibility(View.INVISIBLE);
     }
-    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-
-
-    }
 
     @Override
-    public void onQuestionModelsLoaded(Stack<List<QuestionModel>> questionModels) {
+    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
 
     }
+
+
+    @Override
+    public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
+
+    }
+
+
 
 }

@@ -41,7 +41,7 @@ public class TreasureProxy extends BaseSpriteProxy  {
         this.hasReward = hasReward;
     }
 
-    public boolean isHasReward() {
+    public boolean hasReward() {
         return hasReward;
     }
 
@@ -69,6 +69,9 @@ public class TreasureProxy extends BaseSpriteProxy  {
             this.gameView = gameView;
         }
 
+        /**
+         * invoke this method to open the treasure of the holding treasure sprite which is on clicked.
+         */
         public void openTheTreasure(){
             if (user.getMoney() < PRICE)
                 throw new IllegalStateException("The user has no enough money to open the treasure.");
@@ -76,6 +79,7 @@ public class TreasureProxy extends BaseSpriteProxy  {
             threadExecutor.execute(()->{
                 try{
                     userRepository.addMoney(user, -1 * PRICE);  //cost
+                    user.removeSpriteInCurrentPools(TreasureProxy.this);
                     background.removeGameItem(sprite);
                     addFadingTextEffect(background, sprite);
                     if (hasReward)
@@ -89,7 +93,6 @@ public class TreasureProxy extends BaseSpriteProxy  {
                 }
             });
         }
-
 
         private void addFadingTextEffect(Background background, Sprite treasureSprite){
             FadingTextEffect textEffect = (FadingTextEffect) SpritePrototypeFactory.getInstance().createSprite(SpriteName.FADING_TEXT_EFFECT);
