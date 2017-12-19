@@ -4,6 +4,7 @@ package com.ood.clean.waterball.gracehotel.Presenter;
 import com.ood.clean.waterball.gracehotel.Model.QuestionnaireRepository;
 import com.ood.clean.waterball.gracehotel.Model.UserRepository;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
@@ -17,8 +18,8 @@ import com.ood.clean.waterball.gracehotel.View.QuestionnaireView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 public class QuestionnairePresenter {
     private ThreadExecutor threadExecutor;
@@ -60,16 +61,23 @@ public class QuestionnairePresenter {
     public void createModels(Questionnaire questionnaire){
         threadExecutor.execute(()->{
             List<QuestionGroup> unfilledQuestionGroups = getUnfilledQuestionGroups(questionnaire);
-            Stack<List<QuestionModel>> questionGroupStack = new Stack<>();
-            for (QuestionGroup questionGroup : unfilledQuestionGroups)
-            {
-                List<QuestionModel> questionModels = new ArrayList<>();
-                questionGroupStack.add(questionModels);
-                for (Question question : questionGroup)
-                    questionModels.add(QAModelFactory.createQuestionModel(questionGroup, question));
-            }
-            threadExecutor.executeOnMainThread(()->questionnaireView.onQuestionModelsLoaded(questionGroupStack));
+            LinkedList<QuestionGroupModel> questionGroupList = makeQuestionGroupModels(unfilledQuestionGroups);
+            threadExecutor.executeOnMainThread(()->questionnaireView.onQuestionModelsLoaded(questionGroupList));
         });
+    }
+
+    private LinkedList<QuestionGroupModel> makeQuestionGroupModels(List<QuestionGroup> questionGroups){
+        LinkedList<QuestionGroupModel> questionGroupList = new LinkedList<>();
+        for (QuestionGroup questionGroup : questionGroups)  //convert each question group into a model
+        {
+            List<QuestionModel> questionModels = new ArrayList<>();
+            for(Question question : questionGroup.getQuestions())  // convert each question into a model
+                questionModels.add(QAModelFactory.createQuestionModel(questionGroup, question));
+
+            questionGroupList.add(new QuestionGroupModel(questionGroup.getId(), questionGroup.getPartNumber(),
+                    questionGroup.getName(), questionModels));
+        }
+        return questionGroupList;
     }
 
     private List<QuestionGroup> getUnfilledQuestionGroups(Questionnaire questionnaire){
@@ -107,8 +115,10 @@ public class QuestionnairePresenter {
                     userRepository.addFilledQuestionGroupId(user, questionModel.getQuestionGroupId());
                     threadExecutor.executeOnMainThread(()->questionnaireView.onAnswerCommittingSuccessfully(newAnswer, questionModel));
                 } catch (IOException e) {
-                    questionnaireView.onAnswerCommittingError(questionModel);
-                    questionnaireView.onError(e);
+                    threadExecutor.executeOnMainThread(()->{
+                        questionnaireView.onAnswerCommittingError(questionModel);
+                        questionnaireView.onError(e);
+                    });
                 }
         });
     }

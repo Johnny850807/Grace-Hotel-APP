@@ -1,7 +1,6 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -9,14 +8,10 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
-import com.ood.clean.waterball.gracehotel.R;
 
 import java.util.List;
 import java.util.Stack;
 
-/**
- * Created by user on 2017/12/17.
- */
 
 public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireView {
     private QuestionnairePresenter questionnairePresenter;
@@ -25,6 +20,8 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
         super(context);
         this.context = context;
         this.questionnairePresenter = questionnairePresenter;
+        questionnairePresenter.setQuestionnaireView(this);
+        questionnairePresenter.loadQuestionnaire();
     }
 
     @Override
@@ -44,11 +41,13 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
 
     @Override
     public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-
+        questionnairePresenter.createModels(questionnaire);
     }
 
     @Override
     public void onQuestionModelsLoaded(Stack<List<QuestionModel>> questionModels) {
-
+        TextView textView = new TextView(context);
+        textView.setText(questionModels.pop().get(0).getQuestion());
+        addView(textView);
     }
 }
