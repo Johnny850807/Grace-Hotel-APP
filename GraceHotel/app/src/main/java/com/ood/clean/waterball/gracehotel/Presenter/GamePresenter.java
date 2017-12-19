@@ -117,7 +117,7 @@ public class GamePresenter {
 	}
 
 	public void scrollBackground(int dx, int dy) {
-		background.tryMove(dx*-1, dy*-1);
+		background.tryMove(dx*-2, dy*-2);
 		gameView.onGameStatusUpdated(background);
 	}
 
