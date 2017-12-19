@@ -3,7 +3,12 @@ package com.ood.clean.waterball.gracehotel.View;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
@@ -23,10 +28,11 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     private static final String QUESTIONS = "questions";
     private static final String USER = "user";
     private QuestionnairePresenter questionnairePresenter;
-    private MyQuestionnairePanel questionnaireViewGroup;
-    private TextLoadingDecorator textLoadingDecorator;
+    private MyQuestionnairePanel myquestionnairepanel;
+    private List<QuestionModel> questionModelList;
     private User user;
     private ProgressBar loadingBar;
+    private Button submitBtn;
 
 
     //required empty constructor
@@ -57,14 +63,15 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     @Override
     protected View createView() {
         View mView = getActivity().getLayoutInflater().inflate(R.layout.dialog_questionnaire , null);
-        questionnairePresenter.setQuestionnaireView(this);
-        questionnairePresenter.loadQuestionnaire();
-        questionnaireViewGroup = new MyQuestionnairePanel(mView.getContext(),questionnairePresenter);
+        submitBtn = mView.findViewById(R.id.dialog_questionnaire_btn);
+        myquestionnairepanel = new MyQuestionnairePanel(mView.getContext(),questionnairePresenter);
+        LinearLayout parent = mView.findViewById(R.id.mylayout);
+        parent.addView(myquestionnairepanel);
         loadingBar = mView.findViewById(R.id.loadingBar);
         loadingBar.setVisibility(mView.VISIBLE);
-        new Thread(textLoadingDecorator).start();
         return mView;  //TODO
     }
+
 
     @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
@@ -78,15 +85,15 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     @Override
     public void onError(Exception err) {
         err.printStackTrace();
-        loadingBar.setVisibility(View.INVISIBLE);
+
     }
     public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-        questionnairePresenter.createModels(questionnaire);
     }
 
     @Override
     public void onQuestionModelsLoaded(Stack<List<QuestionModel>> questionModels) {
         Log.d(TAG, "Model created: " + new Gson().toJson(questionModels));
+
     }
 
 }
