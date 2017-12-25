@@ -18,8 +18,6 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
     private static final String TAG = "MyQuestionnairePanel";
     private QuestionnairePresenter questionnairePresenter;
     private Context context;
-    private LinearLayoutFactory linearLayoutFactory;
-    private List<OptionBinding> optionBindingList;
 
     public MyQuestionnairePanel(Context context, QuestionnairePresenter questionnairePresenter) {
         super(context);
@@ -40,25 +38,9 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
             addView(linearLayoutFactory.createLinearLayout(questionModel));
         }
 
-        Log.d(TAG, "QuestionGroupModel Title: " + questionGroupModel.getTitle());
 
     }
-   /*private void getRadioGroup(String title,QuestionModel questionModel){
-        RadioGroupQuestion radioGroupQuestion = new RadioGroupQuestion(questionModel.getQuestionGroupId(),questionModel.getQuestionId(),questionModel.getQuestion(),questionModel.getQuestionType());
-        int c = radioGroupQuestion.getOptions().size();
-        LinearLayout linearLayout = new LinearLayout(context);
-        linearLayout.setOrientation(VERTICAL);
-        linearLayout.addView(viewComponentFactory.createTextView(context,title));
-        linearLayout.addView(viewComponentFactory.createRadioGroup(context,questionModel));
-        addView(linearLayout);
-    }
-    private void getFilling(String title){
-        LinearLayout linearLayout = new LinearLayout(context);
-        linearLayout.setOrientation(VERTICAL);
-        linearLayout.addView(viewComponentFactory.createTextView(context,title));
-        linearLayout.addView(viewComponentFactory.createFilling(context,"測"));
-        addView(linearLayout);
-    }*/
+
     @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
 
@@ -81,10 +63,7 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
 
     @Override
     public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
-        Log.d(TAG, "Question Group Size : " + String.valueOf(questionModelList.size()));
-
         initView(questionModelList.getFirst());
-
     }
 
 }
