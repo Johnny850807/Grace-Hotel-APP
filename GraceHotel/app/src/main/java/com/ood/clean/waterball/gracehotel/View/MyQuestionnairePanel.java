@@ -28,30 +28,26 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
         questionnairePresenter.setQuestionnaireView(this);
         questionnairePresenter.loadQuestionnaire();
     }
-    private void initView(){
-        getRadioGroup();
-        getRadioGroup();
-        getFilling();
-    }
+
     private void initView(QuestionGroupModel questionGroupModel){
         for (QuestionModel q : questionGroupModel){
             if(q.getQuestionType() == QuestionType.RADIOGROUP)
-                getRadioGroup();
+                getRadioGroup(q.getQuestion());
             else
-                getFilling();
+                getFilling(q.getQuestion());
         }
     }
-    private void getRadioGroup(){
+    private void getRadioGroup(String title){
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(HORIZONTAL);
-        linearLayout.addView(viewComponentFactory.getTextView(context,"測試問題"));
+        linearLayout.addView(viewComponentFactory.getTextView(context,title));
         linearLayout.addView(viewComponentFactory.getRadioGroup(context,5));
         addView(linearLayout);
     }
-    private void getFilling(){
+    private void getFilling(String title){
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(HORIZONTAL);
-        linearLayout.addView(viewComponentFactory.getTextView(context,"測試意見填寫區"));
+        linearLayout.addView(viewComponentFactory.getTextView(context,title));
         linearLayout.addView(viewComponentFactory.getEditText(context,"測"));
         addView(linearLayout);
     }
@@ -72,23 +68,12 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
 
     @Override
     public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-        //initView();
         questionnairePresenter.createModels(questionnaire);
     }
 
     @Override
     public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
-        //initView(questionModelList.getFirst());
-        TextView textView = new TextView(context);
-        textView.setText(questionModelList.getFirst().getTitle());
-        addView(textView);
-        for (QuestionModel q : questionModelList.getFirst()){
-            TextView textView1 = new TextView(context);
-            textView1.setText(q.getQuestion());
-            addView(textView1);
-        }
-
-
+        initView(questionModelList.getFirst());
     }
 
 }
