@@ -72,8 +72,8 @@ public class Background extends Sprite implements Iterable<Sprite>{
 		Random random = new Random();
 		for(Sprite sprite : sprites)
 		{
-			int randomX = random.nextInt(getWidth() + 1) + getX();
-			int randomY = random.nextInt(getHeight() + 1) + getY();
+			int randomX = random.nextInt(getWidth() + 1) + getX() - sprite.getWidth();  //to avoid out of map
+			int randomY = random.nextInt(getHeight() + 1) + getY() - sprite.getHeight();
 			sprite.setX(randomX);
 			sprite.setY(randomY);
 			addGameItem(sprite);
