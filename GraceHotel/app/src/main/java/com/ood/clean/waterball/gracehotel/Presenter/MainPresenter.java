@@ -12,7 +12,8 @@ public class MainPresenter {
 	private MainView mainView;
 
 
-	public MainPresenter(ThreadExecutor threadExecutor, UserRepository userRepository) {
+	public MainPresenter(ThreadExecutor threadExecutor,
+						 UserRepository userRepository) {
 		this.threadExecutor = threadExecutor;
 		this.userRepository = userRepository;
 	}
@@ -26,9 +27,9 @@ public class MainPresenter {
 			delay(2000);
 			preparePrototypes();
 			delay(2000);
-			arrangeGameItems();
-			delay(2000);
 			User user = userRepository.createUser(roomNumber);
+			arrangeGameItems(user);
+			delay(2000);
 			threadExecutor.executeOnMainThread(()->mainView.onSignInSucessfully(user));
 		});
 	}
@@ -53,8 +54,7 @@ public class MainPresenter {
 		});
 	}
 
-	private void arrangeGameItems(){
-		//TODO arrange
+	private void arrangeGameItems(User user){
 		threadExecutor.executeOnMainThread(()->mainView.onGameItemArrangementCompleted());
 	}
 

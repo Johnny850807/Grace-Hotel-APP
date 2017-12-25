@@ -1,11 +1,11 @@
 package com.ood.clean.waterball.gracehotel.View;
 
+import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 
-import java.util.List;
-import java.util.Stack;
+import java.util.LinkedList;
 
 public interface QuestionnaireView {
     /**
@@ -30,8 +30,8 @@ public interface QuestionnaireView {
     public void onQuestionnaireLoaded(Questionnaire questionnaire);
 
     /**
-     * @param questionModels the question group stack, each list item in the stack stands for one question group,
+     * @param questionModelList the question group stack, each list item in the stack stands for one question group,
      *  there will be certain questions in each list.
      */
-    public void onQuestionModelsLoaded(Stack<List<QuestionModel>> questionModels);
+    public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList);
 }

@@ -1,33 +1,21 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
-import com.ood.clean.waterball.gracehotel.R;
+import java.util.LinkedList;
 
-import java.util.List;
-import java.util.Stack;
-
-/**
- * Created by user on 2017/12/17.
- */
 
 public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireView {
     private QuestionnairePresenter questionnairePresenter;
-    private TextView textView;
     private Context context;
-    private ProgressBar loadingBar;
-    private TextLoadingDecorator textLoadingDecorator;
     private ViewComponentFactory viewComponentFactory;
-    private List<QuestionModel> questionModelList;
 
     public MyQuestionnairePanel(Context context, QuestionnairePresenter questionnairePresenter) {
         super(context);
@@ -39,32 +27,31 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
         setLayoutParams(parms);
         questionnairePresenter.setQuestionnaireView(this);
         questionnairePresenter.loadQuestionnaire();
-
     }
     private void initView(){
         getRadioGroup();
         getRadioGroup();
         getFilling();
-        /*for (QuestionModel q : questionModelList){
+    }
+    private void initView(QuestionGroupModel questionGroupModel){
+        for (QuestionModel q : questionGroupModel){
             if(q.getQuestionType() == QuestionType.RADIOGROUP)
                 getRadioGroup();
             else
                 getFilling();
-
-        }*/
-
+        }
     }
     private void getRadioGroup(){
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(HORIZONTAL);
-        linearLayout.addView(viewComponentFactory.getTextView(context,"測試問題1"));
+        linearLayout.addView(viewComponentFactory.getTextView(context,"測試問題"));
         linearLayout.addView(viewComponentFactory.getRadioGroup(context,5));
         addView(linearLayout);
     }
     private void getFilling(){
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(HORIZONTAL);
-        linearLayout.addView(viewComponentFactory.getTextView(context,"測試問題1"));
+        linearLayout.addView(viewComponentFactory.getTextView(context,"測試意見填寫區"));
         linearLayout.addView(viewComponentFactory.getEditText(context,"測"));
         addView(linearLayout);
     }
@@ -85,14 +72,23 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
 
     @Override
     public void onQuestionnaireLoaded(Questionnaire questionnaire) {
+        //initView();
         questionnairePresenter.createModels(questionnaire);
     }
 
     @Override
-    public void onQuestionModelsLoaded(Stack<List<QuestionModel>> questionModels) {
+    public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
+        //initView(questionModelList.getFirst());
         TextView textView = new TextView(context);
-        textView.setText(questionModels.pop().get(0).getQuestion());
-        questionModelList = questionModels.pop();
+        textView.setText(questionModelList.getFirst().getTitle());
+        addView(textView);
+        for (QuestionModel q : questionModelList.getFirst()){
+            TextView textView1 = new TextView(context);
+            textView1.setText(q.getQuestion());
+            addView(textView1);
+        }
+
 
     }
+
 }

@@ -12,8 +12,6 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.EarnMoney;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.OpenTreasure;
 import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.R;
 
@@ -23,7 +21,6 @@ import java.util.Map;
 
 public class SpritePrototypeFactory {
 	private static final String TAG = "SpritePrototypeFactory";
-	private static final int MONEY_EACH_EARN = 20;
 	private static SpritePrototypeFactory instance;
 	private Map<SpriteName, Sprite> spriteMap = new HashMap<>();
 
@@ -49,11 +46,13 @@ public class SpritePrototypeFactory {
 
 		Bitmap moneyBitmap = getBitmap(R.drawable.money);
 		addPrototype(SpriteName.MONEY, new GameItem(moneyBitmap.getWidth(), moneyBitmap.getHeight(),
-				createImageSequence(moneyBitmap), SpriteName.MONEY, new EarnMoney(MONEY_EACH_EARN)));
+				createImageSequence(moneyBitmap), SpriteName.MONEY));
 
 		Bitmap treasureBitmap = getBitmap(R.drawable.treasure);
 		addPrototype(SpriteName.TREASURE, new GameItem(treasureBitmap.getWidth(), treasureBitmap.getHeight(),
-				createImageSequence(treasureBitmap), SpriteName.TREASURE, new OpenTreasure()));
+				createImageSequence(treasureBitmap), SpriteName.TREASURE));
+
+		addPrototype(SpriteName.FADING_TEXT_EFFECT, new FadingTextEffect(0, 0, null, SpriteName.FADING_TEXT_EFFECT));
 	}
 
 	private Point getScreenSize(){

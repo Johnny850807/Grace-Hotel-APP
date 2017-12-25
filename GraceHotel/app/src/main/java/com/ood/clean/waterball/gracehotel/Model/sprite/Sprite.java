@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.EventHandler;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.NullProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
 
 public class Sprite implements Cloneable{
 	private int x;
@@ -13,16 +14,21 @@ public class Sprite implements Cloneable{
 	private int height;
 	private SpriteName spriteName;
 	private ImageSequence imageSequence;
-	private EventHandler eventHandler;
+	private SpriteProxy spriteProxy;
 
-	public Sprite(int width, int height, ImageSequence imageSequence, EventHandler eventHandler) {
+	public Sprite(int width, int height, ImageSequence imageSequence, SpriteName spriteName) {
 		this.width = width;
 		this.height = height;
 		this.imageSequence = imageSequence;
-		this.eventHandler = eventHandler;
+		this.spriteName = spriteName;
+		this.spriteProxy = new NullProxy(spriteName);
 	}
 
-	public void update() {
+	public void setSpriteProxy(SpriteProxy spriteProxy) {
+		this.spriteProxy = spriteProxy;
+	}
+
+	public synchronized void update() {
 		//do nothing as default
 	}
 
@@ -79,12 +85,12 @@ public class Sprite implements Cloneable{
 		this.height = height;
 	}
 
-	public void move(int dx, int dy){
+	public synchronized void move(int dx, int dy){
 		setX(getX() + dx);
 		setY(getY() + dy);
 	}
 
-	public void draw(Canvas canvas){
+	public synchronized void draw(Canvas canvas){
 		Bitmap bitmap = nextBitmap();
 		if (bitmap != null && canvas != null)
 			canvas.drawBitmap(nextBitmap(), getX(), getY(), null);
@@ -93,7 +99,8 @@ public class Sprite implements Cloneable{
 	public Sprite clone(){
 		try {
 			Sprite sprite = (Sprite) super.clone();
-			sprite.setImageSequence(imageSequence.clone());
+			if (imageSequence != null)
+				sprite.setImageSequence(imageSequence.clone());
 			return sprite;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
@@ -106,7 +113,7 @@ public class Sprite implements Cloneable{
 				y >= this.getY() && y <= this.getY() + getHeight();
 	}
 
-	public EventHandler getEventHandler() {
-		return eventHandler;
+	public SpriteProxy getSpriteProxy() {
+		return spriteProxy;
 	}
 }

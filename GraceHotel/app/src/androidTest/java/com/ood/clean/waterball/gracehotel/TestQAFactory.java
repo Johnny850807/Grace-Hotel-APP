@@ -39,7 +39,7 @@ public class TestQAFactory {
         AssetManager assetManager = appContext.getAssets();
         String xml = readInputStream(assetManager.open("test_chbx.xml"));
         Question question = new Question(1, questionTxt, xml, QuestionType.RADIOGROUP);
-        RadioGroupQuestion questionModel = (RadioGroupQuestion) QAModelFactory.createQuestionModel(question);
+        RadioGroupQuestion questionModel = (RadioGroupQuestion) QAModelFactory.createQuestionModel(null, question);
         assertEquals(questionTxt, questionModel.getQuestion());
         for ( int i = 0 ; i < questionModel.getOptions().size() ; i ++ )
             assertEquals(options[i], questionModel.getOption(i).getOptionName());
@@ -57,7 +57,7 @@ public class TestQAFactory {
         AssetManager assetManager = appContext.getAssets();
         String xml = readInputStream(assetManager.open("test_filling.xml"));
         Question question = new Question(1, questionTxt, xml, QuestionType.FILLING);
-        FillingQuestion questionModel = (FillingQuestion) QAModelFactory.createQuestionModel(question);
+        FillingQuestion questionModel = (FillingQuestion) QAModelFactory.createQuestionModel(null, question);
         assertEquals(questionTxt, questionModel.getQuestion());
         assertEquals(hintTxt, questionModel.getHint());
 

@@ -1,11 +1,15 @@
 package com.ood.clean.waterball.gracehotel.Model.datamodel;
 
+import com.ood.clean.waterball.gracehotel.Model.domain.TimeItemPool;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionGroup;
+import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 
 public class User implements Serializable{
@@ -13,13 +17,23 @@ public class User implements Serializable{
 	private String roomNumber;
 	private String deviceId;
 	private String email;
-	private Collection<Permission> permissions = new ArrayList<>();
-	private Collection<Integer> hasFilledQuestionGroupIds = new HashSet<>();
+	private int rewardAmount = 0;
+	private List<TimeItemPool> timeItemPools; // the item arrangement results of this current user.
+	private Collection<Permission> permissions = new ArrayList<>();  // app function permissions the user got
+	private Collection<Integer> hasFilledQuestionGroupIds = new HashSet<>();  // record all question group ids the user has filled.
 
 	public User(String roomNumber, String deviceId, String email) {
 		this.roomNumber = roomNumber;
 		this.deviceId = deviceId;
 		this.email = email;
+	}
+
+	public int getRewardAmount() {
+		return rewardAmount;
+	}
+
+	public void setRewardAmount(int rewardAmount) {
+		this.rewardAmount = rewardAmount;
 	}
 
 	public int getMoney() {
@@ -70,6 +84,30 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
+	public void setTimeItemPools(List<TimeItemPool> timeItemPools) {
+		if (this.timeItemPools != null)
+			throw new IllegalStateException("The time item pools has been set.");
+		this.timeItemPools = timeItemPools;
+	}
+
+	public List<TimeItemPool> getTimeItemPools() {
+		return timeItemPools;
+	}
+
+	public List<TimeItemPool> getCurrentTimeItemPools(){
+		List<TimeItemPool> currentTimeItemPools = new ArrayList<>();
+		for(TimeItemPool timeItemPool : timeItemPools)
+		{
+			Date now = new Date();
+			Date start = timeItemPool.getStartTime();
+			Date end = new Date();
+			end.setTime(start.getTime() + timeItemPool.getDuration());
+			if (start.before(now) && end.after(now))
+				currentTimeItemPools.add(timeItemPool);
+		}
+		return currentTimeItemPools;
+	}
+
 	/**
 	 * @return whether the user has filled the question group and committed.
 	 */
@@ -84,5 +122,11 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return String.format(Locale.TAIWAN, "User room number %s, deviceId %s, money %d", getRoomNumber(), getDeviceId(), getMoney());
+	}
+
+	public void removeSpriteInCurrentPools(BaseSpriteProxy spriteProxy) {
+		List<TimeItemPool> timeItemPools = getCurrentTimeItemPools();
+		for(TimeItemPool pool : timeItemPools)
+			pool.removeItem(spriteProxy);
 	}
 }

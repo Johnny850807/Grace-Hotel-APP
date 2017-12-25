@@ -1,7 +1,6 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -10,7 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
@@ -19,8 +18,7 @@ import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 import com.ood.clean.waterball.gracehotel.R;
 
-import java.util.List;
-import java.util.Stack;
+import java.util.LinkedList;
 
 
 public class QuestionnaireDialogFragment extends BaseDialogFragment implements QuestionnaireView {
@@ -29,7 +27,6 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     private static final String USER = "user";
     private QuestionnairePresenter questionnairePresenter;
     private MyQuestionnairePanel myquestionnairepanel;
-    private List<QuestionModel> questionModelList;
     private User user;
     private ProgressBar loadingBar;
     private Button submitBtn;
@@ -55,8 +52,6 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
         questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user, MyApplication.getUserRepository(),
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
-
-
 
     }
 
@@ -87,13 +82,17 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         err.printStackTrace();
 
     }
+    @Override
     public void onQuestionnaireLoaded(Questionnaire questionnaire) {
+
     }
+
 
     @Override
-    public void onQuestionModelsLoaded(Stack<List<QuestionModel>> questionModels) {
-        Log.d(TAG, "Model created: " + new Gson().toJson(questionModels));
+    public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
 
     }
+
+
 
 }
