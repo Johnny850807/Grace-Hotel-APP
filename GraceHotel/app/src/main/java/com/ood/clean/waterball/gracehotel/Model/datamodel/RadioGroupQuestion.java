@@ -56,4 +56,15 @@ public class RadioGroupQuestion extends QuestionModel implements Iterable<RadioG
             this.value = value;
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(question).append(" ");
+        stringBuilder.append(options.size()).append(" ");
+        for (Option option:options){
+            stringBuilder.append(option.getOptionName()).append(" ");
+        }
+        return stringBuilder.toString();
+    }
 }

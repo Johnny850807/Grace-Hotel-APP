@@ -62,11 +62,10 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         myquestionnairepanel = new MyQuestionnairePanel(mView.getContext(),questionnairePresenter);
         LinearLayout parent = mView.findViewById(R.id.mylayout);
         parent.addView(myquestionnairepanel);
-        loadingBar = mView.findViewById(R.id.loadingBar);
-        loadingBar.setVisibility(mView.VISIBLE);
+        /*loadingBar = mView.findViewById(R.id.loadingBar);
+        loadingBar.setVisibility(mView.VISIBLE);*/
         return mView;  //TODO
     }
-
 
     @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {

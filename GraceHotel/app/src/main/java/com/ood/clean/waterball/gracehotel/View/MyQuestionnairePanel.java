@@ -1,8 +1,9 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
@@ -10,19 +11,22 @@ import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireView {
+    private static final String TAG = "MyQuestionnairePanel";
     private QuestionnairePresenter questionnairePresenter;
     private Context context;
-    private ViewComponentFactory viewComponentFactory;
+    private LinearLayoutFactory linearLayoutFactory;
+    private List<OptionBinding> optionBindingList;
 
     public MyQuestionnairePanel(Context context, QuestionnairePresenter questionnairePresenter) {
         super(context);
         this.context = context;
         this.questionnairePresenter = questionnairePresenter;
         this.setOrientation(VERTICAL);
-        viewComponentFactory = new ViewComponentFactory(context);
+
         LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         setLayoutParams(parms);
         questionnairePresenter.setQuestionnaireView(this);
@@ -30,27 +34,31 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
     }
 
     private void initView(QuestionGroupModel questionGroupModel){
-        for (QuestionModel q : questionGroupModel){
-            if(q.getQuestionType() == QuestionType.RADIOGROUP)
-                getRadioGroup(q.getQuestion());
-            else
-                getFilling(q.getQuestion());
+        LinearLayoutFactory linearLayoutFactory = new LinearLayoutFactory(context);
+        for (QuestionModel questionModel : questionGroupModel){
+            Log.d(TAG,questionModel.toString());
+            addView(linearLayoutFactory.createLinearLayout(questionModel));
         }
+
+        Log.d(TAG, "QuestionGroupModel Title: " + questionGroupModel.getTitle());
+
     }
-    private void getRadioGroup(String title){
+   /*private void getRadioGroup(String title,QuestionModel questionModel){
+        RadioGroupQuestion radioGroupQuestion = new RadioGroupQuestion(questionModel.getQuestionGroupId(),questionModel.getQuestionId(),questionModel.getQuestion(),questionModel.getQuestionType());
+        int c = radioGroupQuestion.getOptions().size();
         LinearLayout linearLayout = new LinearLayout(context);
-        linearLayout.setOrientation(HORIZONTAL);
-        linearLayout.addView(viewComponentFactory.getTextView(context,title));
-        linearLayout.addView(viewComponentFactory.getRadioGroup(context,5));
+        linearLayout.setOrientation(VERTICAL);
+        linearLayout.addView(viewComponentFactory.createTextView(context,title));
+        linearLayout.addView(viewComponentFactory.createRadioGroup(context,questionModel));
         addView(linearLayout);
     }
     private void getFilling(String title){
         LinearLayout linearLayout = new LinearLayout(context);
-        linearLayout.setOrientation(HORIZONTAL);
-        linearLayout.addView(viewComponentFactory.getTextView(context,title));
-        linearLayout.addView(viewComponentFactory.getEditText(context,"測"));
+        linearLayout.setOrientation(VERTICAL);
+        linearLayout.addView(viewComponentFactory.createTextView(context,title));
+        linearLayout.addView(viewComponentFactory.createFilling(context,"測"));
         addView(linearLayout);
-    }
+    }*/
     @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
 
@@ -73,7 +81,10 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
 
     @Override
     public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
+        Log.d(TAG, "Question Group Size : " + String.valueOf(questionModelList.size()));
+
         initView(questionModelList.getFirst());
+
     }
 
 }
