@@ -117,11 +117,12 @@ public class QuestionnairePresenter {
                     Answer newAnswer = questionnaireRepository.fillAnswer(answer);
                     userRepository.addFilledQuestionGroupId(user, questionModel.getQuestionGroupId());
                     threadExecutor.executeOnMainThread(()->questionnaireView.onAnswerCommittingSuccessfully(newAnswer, questionModel));
-                } catch (IOException e) {
+                } catch (IOException | RuntimeException e) {
                     threadExecutor.executeOnMainThread(()->{
                         questionnaireView.onAnswerCommittingError(questionModel);
-                        questionnaireView.onError(e);
                     });
+                } catch (Exception e){
+                    threadExecutor.executeOnMainThread(()->questionnaireView.onError(e));
                 }
         });
     }
