@@ -7,11 +7,10 @@ import android.widget.LinearLayout;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
-import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
+
 import java.util.LinkedList;
-import java.util.List;
 
 
 public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireView {
@@ -47,7 +46,7 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
     }
 
     @Override
-    public void onAnswerCommittingError(QuestionModel question) {
+    public void onAnswerCommittingError(Answer answer, QuestionModel question) {
 
     }
 

@@ -17,7 +17,7 @@ public interface QuestionnaireView {
     /**
      * @param question which question had a error occurs when committed.
      */
-    public void onAnswerCommittingError(QuestionModel question);
+    public void onAnswerCommittingError(Answer answer, QuestionModel question);
 
     /**
      * @param err if any exception occurs. Might be IOException stands for a internet error.
