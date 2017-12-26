@@ -62,8 +62,18 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         myquestionnairepanel = new MyQuestionnairePanel(mView.getContext(),questionnairePresenter);
         LinearLayout parent = mView.findViewById(R.id.mylayout);
         parent.addView(myquestionnairepanel);
-        /*loadingBar = mView.findViewById(R.id.loadingBar);
-        loadingBar.setVisibility(mView.VISIBLE);*/
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(myquestionnairepanel.checkAndCommitRespone()){
+                    dismiss();
+                }
+                else{
+                    Toast toast = Toast.makeText(getContext(),"請填妥",Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        });
         return mView;  //TODO
     }
 
