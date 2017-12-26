@@ -54,4 +54,10 @@ public class Answer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Answer id: %s, deviceUID: %s, roomNumber: %s, email: %s, responses: %s",
+				questionId, deviceUID, roomNumber, email, responses);
+	}
 }
