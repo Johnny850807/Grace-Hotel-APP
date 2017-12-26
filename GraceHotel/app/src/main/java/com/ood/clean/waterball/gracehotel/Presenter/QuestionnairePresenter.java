@@ -103,7 +103,7 @@ public class QuestionnairePresenter {
     public void commitResponse(FillingQuestion questionModel){
         Answer answer = QAModelFactory.createAnswerFeedback(user.getDeviceId(),
                                                             user.getRoomNumber(),
-                                                            user.getEmail(),
+                                                            "test",
                                                             questionModel);
         commitAnswer(answer, questionModel);
     }
