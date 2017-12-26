@@ -5,9 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
@@ -72,9 +69,10 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     }
 
     @Override
-    public void onAnswerCommittingError(QuestionModel question) {
+    public void onAnswerCommittingError(Answer answer, QuestionModel question) {
 
     }
+
 
     @Override
     public void onError(Exception err) {

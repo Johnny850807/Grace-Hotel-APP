@@ -12,7 +12,7 @@ public class TestAPI {
     public void apis() throws Exception {
         QuestionnaireRetrofitRepository repository = new QuestionnaireRetrofitRepository(MyApplication.getRetrofit());
         Questionnaire questionnaire = repository.getLastedQuestionnaire("CH");
-        Answer answer = repository.fillAnswer(new Answer(1, "answer","testFromDevice","406","device@device.com"));
+        Answer answer = repository.fillAnswer(new Answer(1, "55","55","406","device@device.com"));
         String stub = "a";
     }
 }
