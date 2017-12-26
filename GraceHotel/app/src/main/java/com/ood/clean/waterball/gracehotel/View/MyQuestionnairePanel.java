@@ -83,7 +83,7 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
 
     @Override
     public void onAnswerCommittingError(QuestionModel question) {
-
+        Log.d(TAG,question.toString());
     }
 
     @Override
