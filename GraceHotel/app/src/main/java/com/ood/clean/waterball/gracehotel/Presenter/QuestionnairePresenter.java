@@ -1,6 +1,8 @@
 package com.ood.clean.waterball.gracehotel.Presenter;
 
 
+import android.util.Log;
+
 import com.ood.clean.waterball.gracehotel.Model.QuestionnaireRepository;
 import com.ood.clean.waterball.gracehotel.Model.UserRepository;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
@@ -97,6 +99,7 @@ public class QuestionnairePresenter {
                                                             user.getRoomNumber(),
                                                             "test",
                                                             questionModel);
+        Log.d("Tag","Print Answer :" +answer.toString());
         commitAnswer(answer, questionModel);
     }
 

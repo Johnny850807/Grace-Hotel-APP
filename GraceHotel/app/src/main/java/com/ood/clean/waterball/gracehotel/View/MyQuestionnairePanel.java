@@ -4,9 +4,12 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.LinearLayout;
 
+import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
+import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
 import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
+import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 
@@ -17,6 +20,7 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
     private static final String TAG = "MyQuestionnairePanel";
     private QuestionnairePresenter questionnairePresenter;
     private Context context;
+    private QuestionGroupModel questionGroupModel;
 
     public MyQuestionnairePanel(Context context, QuestionnairePresenter questionnairePresenter) {
         super(context);
@@ -31,23 +35,55 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
     }
 
     private void initView(QuestionGroupModel questionGroupModel){
+        this.questionGroupModel = questionGroupModel;
         LinearLayoutFactory linearLayoutFactory = new LinearLayoutFactory(context);
         for (QuestionModel questionModel : questionGroupModel){
             Log.d(TAG,questionModel.toString());
             addView(linearLayoutFactory.createLinearLayout(questionModel));
+
         }
-
-
     }
-
+    public boolean checkAndCommitRespone(){
+        if( checkFulfill() ){
+            for(QuestionModel questionModel: questionGroupModel){
+                if(questionModel.getQuestionType() == QuestionType.RADIOGROUP)
+                    questionnairePresenter.commitResponse((RadioGroupQuestion) questionModel);
+                else
+                    questionnairePresenter.commitResponse((FillingQuestion) questionModel);
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean checkFulfill(){
+        boolean checkFulfill = false;
+        for(QuestionModel questionModel: questionGroupModel){
+            if(questionModel.getQuestionType() == QuestionType.RADIOGROUP)
+                checkFulfill = checkRadioGroup((RadioGroupQuestion) questionModel);
+            else
+                checkFulfill = checkFilling((FillingQuestion) questionModel);
+        }
+        return checkFulfill;
+    }
+    private boolean checkRadioGroup(RadioGroupQuestion radioGroupQuestion){
+        for(RadioGroupQuestion.Option option : radioGroupQuestion){
+            if(option.getValue() == true)
+                return true;
+        }
+    return false;
+    }
+    private boolean checkFilling(FillingQuestion fillingQuestion){
+        if(fillingQuestion.getAnswer().isEmpty())
+            return false;
+        return true;
+    }
     @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
-
     }
 
     @Override
     public void onAnswerCommittingError(Answer answer, QuestionModel question) {
-
+        Log.d(TAG,"Answer Committing Error the error answer is : " + answer.toString());
     }
 
     @Override

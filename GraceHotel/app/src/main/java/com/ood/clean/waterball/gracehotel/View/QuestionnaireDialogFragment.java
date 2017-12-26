@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
@@ -59,8 +60,18 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         myquestionnairepanel = new MyQuestionnairePanel(mView.getContext(),questionnairePresenter);
         LinearLayout parent = mView.findViewById(R.id.mylayout);
         parent.addView(myquestionnairepanel);
-        /*loadingBar = mView.findViewById(R.id.loadingBar);
-        loadingBar.setVisibility(mView.VISIBLE);*/
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(myquestionnairepanel.checkAndCommitRespone()){
+                    dismiss();
+                }
+                else{
+                    Toast toast = Toast.makeText(getContext(),"請填妥",Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        });
         return mView;  //TODO
     }
 
@@ -69,7 +80,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     }
 
     @Override
-    public void onAnswerCommittingError(Answer answer, QuestionModel question) {
+    public void onAnswerCommittingError(Answer answer,QuestionModel question) {
 
     }
 
