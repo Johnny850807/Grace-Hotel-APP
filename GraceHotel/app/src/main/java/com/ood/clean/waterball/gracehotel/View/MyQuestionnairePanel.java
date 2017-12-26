@@ -12,8 +12,8 @@ import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
+
 import java.util.LinkedList;
-import java.util.List;
 
 
 public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireView {
@@ -82,8 +82,8 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
     }
 
     @Override
-    public void onAnswerCommittingError(QuestionModel question) {
-        Log.d(TAG,question.toString());
+    public void onAnswerCommittingError(Answer answer, QuestionModel question) {
+        Log.d(TAG,"Answer Committing Error the error answer is : " + answer.toString());
     }
 
     @Override

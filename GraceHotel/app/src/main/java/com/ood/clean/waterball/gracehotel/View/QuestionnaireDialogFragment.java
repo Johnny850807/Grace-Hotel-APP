@@ -82,7 +82,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
     }
 
     @Override
-    public void onAnswerCommittingError(QuestionModel question) {
+    public void onAnswerCommittingError(Answer answer,QuestionModel question) {
 
     }
 
