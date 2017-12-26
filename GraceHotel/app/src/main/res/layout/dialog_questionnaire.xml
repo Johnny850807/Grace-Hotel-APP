@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/dialog_questionnaire"
-        android:textSize="30sp"
-        android:textColor="#000"/>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="250dp"
+    android:minWidth="300dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/mylayout"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:visibility="invisible"
-            android:id="@+id/loadingBar"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/dialog_questionnaire"
+            android:textColor="#000"
+            android:textSize="30sp" />
+
+        <LinearLayout
+            android:id="@+id/mylayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:minWidth="300dp"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/loadingBar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/dialog_questionnaire_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:background="@drawable/white_corner"
-        android:id="@+id/dialog_questionnaire_btn"
-        android:text="提交"/>
+        android:text="提交" />
 
-</LinearLayout>
+</RelativeLayout>
