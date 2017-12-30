@@ -3,6 +3,7 @@ package com.ood.clean.waterball.gracehotel.View;
 import android.content.Context;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
@@ -73,12 +74,14 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
     return false;
     }
     private boolean checkFilling(FillingQuestion fillingQuestion){
-        if(fillingQuestion.getAnswer().isEmpty())
+        Log.d(TAG,"checkFilling Answer :" + fillingQuestion.getAnswer());
+        if(fillingQuestion.getAnswer().length() == 0)
             return false;
         return true;
     }
     @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
+        Log.d(TAG,"Answer Committing Successfully : " + answer.toString());
     }
 
     @Override
@@ -98,7 +101,14 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
 
     @Override
     public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
-        initView(questionModelList.getFirst());
+        if(questionModelList.isEmpty()){
+            TextView textView = new TextView(context);
+            textView.setText("謝謝填寫 您已填完所有問卷 !! ");
+            textView.setTextSize(30);
+            addView(textView);
+        }
+        else
+            initView(questionModelList.getFirst());
     }
 
 }

@@ -63,13 +63,19 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(myquestionnairepanel.checkAndCommitRespone()){
+                try{
+                    if(myquestionnairepanel.checkAndCommitRespone()){
+                        dismiss();
+                    }
+                    else{
+                        Toast toast = Toast.makeText(getContext(),"請填妥",Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                     dismiss();
                 }
-                else{
-                    Toast toast = Toast.makeText(getContext(),"請填妥",Toast.LENGTH_LONG);
-                    toast.show();
-                }
+
             }
         });
         return mView;  //TODO

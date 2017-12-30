@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
@@ -35,7 +36,7 @@ public class LinearLayoutFactory {
         }
         else{
             linearLayout.addView(createTextView(questionModel.getQuestion()));
-            linearLayout.addView(createFilling(" "));
+            linearLayout.addView(createFilling(questionModel));
         }
         return linearLayout;
     }
@@ -60,9 +61,10 @@ public class LinearLayoutFactory {
         }
         return radioGroup;
     }
-    public  EditText createFilling(String hint){
+    public  EditText createFilling(QuestionModel questionModel){
         EditText editText = new EditText(context);
-        editText.setHint(hint);
+        FillingQuestion fillingQuestion = (FillingQuestion) questionModel;
+        FillingAnswerBinding.bind(fillingQuestion,editText);
         return  editText;
     }
 
