@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     }
 
     private void setupIconButtons(){
-        icon3Btn.setEnabled(user.hasPermission(Permissions.WATCH_WEATHER));
+        //icon3Btn.setEnabled(user.hasPermission(Permissions.WATCH_WEATHER));
         icon4Btn.setEnabled(user.hasPermission(Permissions.TRAVEL_INFO));
 
         Glide.with(this).load(R.drawable.icon1).fitCenter().into(icon1Btn);
@@ -89,6 +89,15 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
 
     public void onQuestionnaireOnClick(View view) {
         showAlertDialogFragment(QuestionnaireDialogFragment.newInstance(user));
+    }
+    public void onEquipmentOnClick(View view){
+        showAlertDialogFragment(EquipmentInformationDialogFragment.newInstance(user));
+    }
+    public void onTravelOnClick(View view){
+        showAlertDialogFragment(TravelInformationDialogFragment.newInstance(user));
+    }
+    public void onSouvenirOnClick(View view){
+        showAlertDialogFragment(SouvenirDialogFragment.newInstance(user));
     }
 
     public void showAlertDialogFragment(DialogFragment dialogFragment) {

@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/dialog_map"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textColor="#000"/>
 
     <TextView

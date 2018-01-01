@@ -25,25 +25,31 @@
                 android:layout_height="@dimen/iconSize"
                 android:layout_margin="12dp"
                 android:id="@+id/icon1"
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent"
+                android:onClick="onEquipmentOnClick"/>
+
             <ImageButton
                 android:layout_width="@dimen/iconSize"
                 android:layout_height="@dimen/iconSize"
                 android:layout_margin="12dp"
                 android:id="@+id/icon2"
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent"
+                android:onClick="onTravelOnClick"/>
             <ImageButton
                 android:layout_width="@dimen/iconSize"
                 android:layout_height="@dimen/iconSize"
                 android:layout_margin="12dp"
                 android:id="@+id/icon3"
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent"
+                android:onClick="onSouvenirOnClick"/>
+
             <ImageButton
                 android:layout_width="@dimen/iconSize"
                 android:layout_height="@dimen/iconSize"
                 android:layout_margin="12dp"
                 android:id="@+id/icon4"
                 android:background="@android:color/transparent"/>
+
         </LinearLayout>
 
         <ImageButton

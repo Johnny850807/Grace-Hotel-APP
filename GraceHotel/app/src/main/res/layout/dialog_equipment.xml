@@ -8,12 +8,20 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/dialog_equipmentInformation"
-        android:textSize="30sp"
+        android:textSize="20sp"
+        android:textColor="#000"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_equipmentInformation_free"
+        android:id="@+id/dialog_equipment_free"
         android:textColor="#000"/>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dialog_equipment_listview">
+        android:layout_height="match_parent"
+        android:id="@+id/dialogEquipmentListView">
     </ListView>
+
 </LinearLayout>

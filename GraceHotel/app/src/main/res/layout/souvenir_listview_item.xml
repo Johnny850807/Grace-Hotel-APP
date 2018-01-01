@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:id="@+id/souvenirListViewItemImage"
+            android:src="@drawable/stonelake"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="標題"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:id="@+id/souvenirListViewItemTitle"/>
+        <TextView
+            android:id="@+id/souvenirListViewItemIntroduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="介紹"
+            android:textColor="#000"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
