@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ood.clean.waterball.gracehotel.Model.Information;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.R;
@@ -78,11 +79,12 @@ public class TravelInformationDialogFragment extends BaseDialogFragment {
         }
     }
     private class MyAdapter extends BaseAdapter{
-
+        private Context context;
         private LayoutInflater li;
         private List<Information> informationList;
         public MyAdapter(Context context,List<Information> informationList){
             this.li = LayoutInflater.from(context);
+            this.context = context;
             this.informationList = informationList;
         }
         @Override
@@ -103,15 +105,14 @@ public class TravelInformationDialogFragment extends BaseDialogFragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = li.inflate(R.layout.travel_listview_item,viewGroup,false);
-
+            int resource = informationList.get(i).getImageSrc();
             TextView titleText = (TextView) view.findViewById(R.id.travelListViewItemTitle);
             TextView introductionText = (TextView) view.findViewById(R.id.travelListViewItemIntroduction);
             ImageView imageView = (ImageView) view.findViewById(R.id.travelListViewItemImage);
 
             titleText.setText(informationList.get(i).getTitle());
             introductionText.setText(informationList.get(i).getIntroduction());
-            imageView.setImageResource(informationList.get(i).getImageSrc());
-
+            Glide.with(context).load(resource).into(imageView);
             return view;
         }
     }

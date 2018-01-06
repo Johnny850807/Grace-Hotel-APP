@@ -60,6 +60,8 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         myquestionnairepanel = new MyQuestionnairePanel(mView.getContext(),questionnairePresenter);
         LinearLayout parent = mView.findViewById(R.id.mylayout);
         parent.addView(myquestionnairepanel);
+
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

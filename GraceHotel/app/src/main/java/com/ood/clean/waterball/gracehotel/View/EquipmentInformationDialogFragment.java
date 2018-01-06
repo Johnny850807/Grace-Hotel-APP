@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ood.clean.waterball.gracehotel.Model.Information;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.R;
@@ -103,6 +104,7 @@ public class EquipmentInformationDialogFragment extends BaseDialogFragment{
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = li.inflate(R.layout.equipment_listview_item,viewGroup,false);
+            int resource = equimpmentInformationList.get(i).getImageSrc();
 
             TextView titleText = (TextView) view.findViewById(R.id.equipmentListViewItemTitle);
             TextView introductionText = (TextView) view.findViewById(R.id.equipmentListViewItemIntroduction);
@@ -110,7 +112,7 @@ public class EquipmentInformationDialogFragment extends BaseDialogFragment{
 
             titleText.setText(equimpmentInformationList.get(i).getTitle());
             introductionText.setText(equimpmentInformationList.get(i).getIntroduction());
-            imageView.setImageResource(equimpmentInformationList.get(i).getImageSrc());
+            Glide.with(context).load(resource).into(imageView);
 
             return view;
         }
