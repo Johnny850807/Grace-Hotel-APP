@@ -3,6 +3,8 @@ package com.ood.clean.waterball.gracehotel.View;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -63,6 +65,11 @@ public class LinearLayoutFactory {
     }
     public  EditText createFilling(QuestionModel questionModel){
         EditText editText = new EditText(context);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+
+
         FillingQuestion fillingQuestion = (FillingQuestion) questionModel;
         FillingAnswerBinding.bind(fillingQuestion,editText);
         return  editText;

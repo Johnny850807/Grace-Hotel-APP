@@ -2,6 +2,7 @@ package com.ood.clean.waterball.gracehotel.View;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -19,7 +20,7 @@ import com.ood.clean.waterball.gracehotel.R;
 import java.util.LinkedList;
 
 
-public class QuestionnaireDialogFragment extends BaseDialogFragment implements QuestionnaireView {
+public class QuestionnaireDialogFragment extends BaseDialogFragment {
     private static final String TAG = "QuestionnaireView";
     private static final String QUESTIONS = "questions";
     private static final String USER = "user";
@@ -48,6 +49,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
         Bundle bundle = getArguments();
         user = (User) bundle.getSerializable(USER);
 
+
         questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user, MyApplication.getUserRepository(),
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
 
@@ -70,7 +72,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
                         dismiss();
                     }
                     else{
-                        Toast toast = Toast.makeText(getContext(),"請填妥",Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getContext(),getResources().getString(R.string.pleaseFulfill),Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }catch (Exception e){
@@ -81,34 +83,12 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
             }
         });
         return mView;  //TODO
+
     }
 
     @Override
-    public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
-
-    @Override
-    public void onAnswerCommittingError(Answer answer,QuestionModel question) {
-
-    }
-
-
-    @Override
-    public void onError(Exception err) {
-        err.printStackTrace();
-
-    }
-    @Override
-    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-
-    }
-
-
-    @Override
-    public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
-
-    }
-
-
-
 }

@@ -13,6 +13,7 @@ import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
+import com.ood.clean.waterball.gracehotel.R;
 
 import java.util.LinkedList;
 
@@ -103,7 +104,7 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
     public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
         if(questionModelList.isEmpty()){
             TextView textView = new TextView(context);
-            textView.setText("謝謝填寫 您已填完所有問卷 !! ");
+            textView.setText(getResources().getString(R.string.thanksFulfill));
             textView.setTextSize(30);
             addView(textView);
         }

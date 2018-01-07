@@ -28,6 +28,8 @@
     <string name="treasureIsEmpty">寶箱是空的</string>
     <string name="cheerUpTheRewardIsWaiting">再接再厲，硬幣就在下一個寶箱等你呢！</string>
     <string name="dialog_equipmentInformation_free">在房間中皆可使: 用冰箱、衣櫥、保險箱、瓶裝水 茶、咖啡包、吹風機、室內拖鞋、浴巾、寢具用品、盥洗用品、電話(撥外線額外付費)</string>
+    <string name="thanksFulfill">謝謝填寫 您已填完所有問卷!!</string>
+    <string name="pleaseFulfill">請填妥</string>
     <string-array name="equipmenttitle">
         <item>Grace 餐廳</item>
         <item>休閒娛樂中心</item>
