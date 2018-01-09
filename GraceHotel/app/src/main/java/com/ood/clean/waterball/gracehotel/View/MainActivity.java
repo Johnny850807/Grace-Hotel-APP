@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void onSignInSucessfully(User user) {
         textLoadingDecorator.setRunning(false);
-        user.setMoney(200000);
         Log.d(TAG,"User got " + user);
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("User", user);

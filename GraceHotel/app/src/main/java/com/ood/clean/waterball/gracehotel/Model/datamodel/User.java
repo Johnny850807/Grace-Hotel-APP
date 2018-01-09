@@ -2,7 +2,7 @@ package com.ood.clean.waterball.gracehotel.Model.datamodel;
 
 import com.ood.clean.waterball.gracehotel.Model.domain.TimeItemPool;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionGroup;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.BaseSpriteProxy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
-	public int getRewardAmount() {
+	public int getGraceAmount() {
 		return rewardAmount;
 	}
 

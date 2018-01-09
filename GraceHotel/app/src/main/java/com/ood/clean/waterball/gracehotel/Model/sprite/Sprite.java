@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.NullProxy;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.NullProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.SpriteProxy;
 
 public class Sprite implements Cloneable{
 	private int x;

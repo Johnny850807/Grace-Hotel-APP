@@ -1,5 +1,6 @@
 package com.ood.clean.waterball.gracehotel.View;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +15,10 @@ import com.ood.clean.waterball.gracehotel.R;
 
 public class QuestionnaireDialogFragment extends BaseDialogFragment {
     private static final String TAG = "QuestionnaireView";
-    private static final String QUESTIONS = "questions";
     private static final String USER = "user";
     private QuestionnairePresenter questionnairePresenter;
     private QuestionnairePanel myquestionnairepanel;
+    private OnUserUpdatedListener onUserUpdatedListener;
     private User user;
     private Button submitBtn;
 
@@ -31,6 +32,12 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment {
         bundle.putSerializable(USER, user);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        onUserUpdatedListener = (OnUserUpdatedListener) context;
     }
 
     @SuppressWarnings("unchecked")
@@ -48,7 +55,7 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment {
     protected View createView() {
         View mView = getActivity().getLayoutInflater().inflate(R.layout.dialog_questionnaire , null);
         submitBtn = mView.findViewById(R.id.dialog_questionnaire_btn);
-        myquestionnairepanel = new QuestionnairePanel(getActivity(), questionnairePresenter, this);
+        myquestionnairepanel = new QuestionnairePanel(getActivity(), questionnairePresenter, this, onUserUpdatedListener);
         LinearLayout parent = mView.findViewById(R.id.questionnaireContainer);
         parent.addView(myquestionnairepanel);
 
@@ -63,4 +70,9 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment {
         return mView;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        onUserUpdatedListener = null;
+    }
 }

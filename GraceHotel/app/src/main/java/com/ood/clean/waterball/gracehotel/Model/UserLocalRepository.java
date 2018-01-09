@@ -61,7 +61,7 @@ public class UserLocalRepository implements UserRepository{
 
     @Override
     public void addReward(User user) {
-        user.setRewardAmount(user.getRewardAmount() + 1);
+        user.setRewardAmount(user.getGraceAmount() + 1);
         updateUser(user);
     }
 

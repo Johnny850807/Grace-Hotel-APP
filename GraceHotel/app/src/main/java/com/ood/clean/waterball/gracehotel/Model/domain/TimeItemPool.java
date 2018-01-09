@@ -4,8 +4,8 @@ package com.ood.clean.waterball.gracehotel.Model.domain;
 import android.support.annotation.NonNull;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.BaseSpriteProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.SpriteProxy;
 
 import java.io.Serializable;
 import java.util.ArrayList;

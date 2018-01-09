@@ -2,9 +2,9 @@ package com.ood.clean.waterball.gracehotel.Model.domain;
 
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.MoneyProxy;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.TreasureProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.BaseSpriteProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.MoneyProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.TreasureProxy;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,8 +42,8 @@ public class NoPainNoGain implements ItemArranger{
     /**
      * each money is worth 10~20$
      */
-    private static final int MIN_MONEY_VALUE = 10; //each money is worth 10~20$
-    private static final int MAX_MONEY_VALUE = 20;
+    private static final int MIN_MONEY_VALUE = 4; //each money is worth 10~20$
+    private static final int MAX_MONEY_VALUE = 13;
 
     /**
      * the probability of the reward fragment occurring is 25% each treasure,
@@ -59,8 +59,8 @@ public class NoPainNoGain implements ItemArranger{
     static
     {
         DEFAULT_MAXIMUM_CONSTRAINTS_DAY = new HashMap<>();
-        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.MONEY, 200);  //TODO optimize the amount
-        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.TREASURE, 80);
+        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.MONEY, 170);
+        DEFAULT_MAXIMUM_CONSTRAINTS_DAY.put(SpriteName.TREASURE, 3);
 
         DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK = new HashMap<>();
         DEFAULT_MAXIMUM_CONSTRAINTS_BLOCK.put(SpriteName.MONEY, 8);

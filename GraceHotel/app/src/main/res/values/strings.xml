@@ -23,7 +23,7 @@
     <string name="openTreasureHaveToCostMoney">要開啟寶藏，需要花費50元，請問您要開啟嗎？</string>
     <string name="youFindTheTreasure">您找到了寶藏 !</string>
     <string name="moneyNotEnough" formatted="false">必須有%d元才能開啟寶箱！金錢可以從房間中的紙鈔或是直接填寫問卷來賺取唷！</string>
-    <string name="congratulationYouGotReward">恭喜你獲得了一枚葛瑞絲硬幣，蒐集四枚可以兌換獎勵唷！</string>
+    <string name="congratulationYouGotReward">恭喜你獲得了一枚葛瑞絲獎勵，蒐集四個可以兌換獎勵唷！</string>
     <string name="congragulation">恭喜</string>
     <string name="treasureIsEmpty">寶箱是空的</string>
     <string name="cheerUpTheRewardIsWaiting">再接再厲，硬幣就在下一個寶箱等你呢！</string>
@@ -31,7 +31,8 @@
     <string name="thanksFulfill">謝謝填寫 您已填完所有問卷!!</string>
     <string name="pleaseFulfill">請填妥</string>
     <string name="submit">提交</string>
-    <string name="eachFillingGetYouMoney">每填寫一張都有200元唷！</string>
+    <string name="eachFillingGetYouMoney">每填寫一張都有70元唷！</string>
+    <string name="unit">個</string>
     <string-array name="equipmenttitle">
         <item>Grace 餐廳</item>
         <item>休閒娛樂中心</item>
