@@ -19,8 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.GameActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateAlwaysVisible">
         </activity>
+
         <receiver android:name=".android.TreasureAlarmReceiver"/>
         <service android:name=".android.TreasureNotificationService"/>
     </application>

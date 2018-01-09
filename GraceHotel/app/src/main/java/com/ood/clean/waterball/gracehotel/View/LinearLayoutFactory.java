@@ -59,6 +59,11 @@ public class LinearLayoutFactory {
 
     public  EditText createFilling(QuestionModel questionModel){
         EditText editText = new EditText(context);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+
+
         FillingQuestion fillingQuestion = (FillingQuestion) questionModel;
         FillingAnswerBinding.bind(fillingQuestion,editText);
         return  editText;
