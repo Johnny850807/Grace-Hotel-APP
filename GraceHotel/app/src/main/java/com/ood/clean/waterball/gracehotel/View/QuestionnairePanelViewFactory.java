@@ -12,14 +12,14 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
 
-public class LinearLayoutFactory {
-    private static final String TAG = "LinearLayoutFactory";
+public class QuestionnairePanelViewFactory {
+    private static final String TAG = "QuestionnairePanelViewFactory";
     private Context context;
 
-    public LinearLayoutFactory(Context context){
+    public QuestionnairePanelViewFactory(Context context){
         this.context = context;
-
     }
+
     public LinearLayout createLinearLayout(QuestionModel questionModel){
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.VERTICAL);

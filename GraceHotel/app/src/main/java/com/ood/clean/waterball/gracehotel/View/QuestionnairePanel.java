@@ -1,9 +1,9 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
@@ -19,38 +19,68 @@ import com.ood.clean.waterball.gracehotel.R;
 import java.util.LinkedList;
 
 
-public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireView {
+public class QuestionnairePanel extends LinearLayout implements QuestionnaireView {
     private static final String TAG = "MyQuestionnairePanel";
     private QuestionnaireDialogFragment questionnaireDialogFragment;
     private QuestionnairePresenter questionnairePresenter;
     private Context context;
     private QuestionGroupModel questionGroupModel;
     private int commitSuccessfullyAmount = 0;
+    private ProgressBar progressBar;
 
-    public MyQuestionnairePanel(Context context, QuestionnairePresenter questionnairePresenter, QuestionnaireDialogFragment questionnaireDialogFragment) {
+    public QuestionnairePanel(Context context,
+                              QuestionnairePresenter questionnairePresenter,
+                              QuestionnaireDialogFragment questionnaireDialogFragment) {
         super(context);
         this.questionnaireDialogFragment = questionnaireDialogFragment;
         this.context = context;
         this.questionnairePresenter = questionnairePresenter;
         this.setOrientation(VERTICAL);
-
-        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        setLayoutParams(parms);
-
+        progressBar = createLoadingProgressBar();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        setLayoutParams(params);
+        addView(progressBar);
         questionnairePresenter.setQuestionnaireView(this);
         questionnairePresenter.loadQuestionnaire();
     }
 
-    private void initView(QuestionGroupModel questionGroupModel){
-        this.questionGroupModel = questionGroupModel;
-        LinearLayoutFactory linearLayoutFactory = new LinearLayoutFactory(context);
-        for (QuestionModel questionModel : questionGroupModel){
-            Log.d(TAG,questionModel.toString());
-            addView(linearLayoutFactory.createLinearLayout(questionModel));
-        }
+    private ProgressBar createLoadingProgressBar(){
+        ProgressBar progressBar = new ProgressBar(context);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        params.setMargins(6, 6, 6, 6);
+        progressBar.setLayoutParams(params);
+        progressBar.setVisibility(VISIBLE);
+        return progressBar;
     }
 
-    public boolean checkAndCommitRespone(){
+    @Override
+    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
+        questionnairePresenter.createModels(questionnaire);
+    }
+
+    @Override
+    public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
+        if(questionModelList.isEmpty()){
+            TextView textView = new TextView(context);
+            textView.setText(getResources().getString(R.string.thanksFulfill));
+            textView.setTextSize(30);
+            addView(textView);
+        }
+        else
+            initView(questionModelList.getFirst());
+    }
+
+    private void initView(QuestionGroupModel questionGroupModel){
+        this.questionGroupModel = questionGroupModel;
+        QuestionnairePanelViewFactory questionnairePanelViewFactory = new QuestionnairePanelViewFactory(context);
+        for (QuestionModel questionModel : questionGroupModel){
+            Log.d(TAG,questionModel.toString());
+            addView(questionnairePanelViewFactory.createLinearLayout(questionModel));
+        }
+        progressBar.setVisibility(GONE);
+    }
+
+    public boolean checkAndCommitResponse(){
         if(checkFulfill()){
             for(QuestionModel questionModel: questionGroupModel){
                 if(questionModel.getQuestionType() == QuestionType.RADIOGROUP)
@@ -84,9 +114,7 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
 
     private boolean checkFilling(FillingQuestion fillingQuestion){
         Log.d(TAG,"checkFilling Answer :" + fillingQuestion.getAnswer());
-        if(fillingQuestion.getAnswer().length() == 0)
-            return false;
-        return true;
+        return fillingQuestion.getAnswer() != null && fillingQuestion.getAnswer().length() != 0;
     }
 
     @Override
@@ -106,21 +134,5 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
         Log.e(TAG, "error occurs in my questionnaire panel.", err);
     }
 
-    @Override
-    public void onQuestionnaireLoaded(Questionnaire questionnaire) {
-        questionnairePresenter.createModels(questionnaire);
-    }
-
-    @Override
-    public void onQuestionModelsLoaded(LinkedList<QuestionGroupModel> questionModelList) {
-        if(questionModelList.isEmpty()){
-            TextView textView = new TextView(context);
-            textView.setText(getResources().getString(R.string.thanksFulfill));
-            textView.setTextSize(30);
-            addView(textView);
-        }
-        else
-            initView(questionModelList.getFirst());
-    }
 
 }

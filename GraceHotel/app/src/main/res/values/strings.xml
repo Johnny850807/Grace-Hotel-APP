@@ -10,7 +10,7 @@
     <string name="loadingCompleted">載入完畢</string>
     <string name="loading">載入中</string>
     <string name="roomNumber">房間號碼:</string>
-    <string name="dialog_questionnaire">填寫問卷</string>
+    <string name="dialog_questionnaire">填寫滿意度調查問卷</string>
     <string name="dialog_equipmentInformation">設備資訊</string>
     <string name="dialog_travelInformation">旅遊資訊</string>
     <string name="dialog_souvenir">附近伴手禮介紹</string>
@@ -30,6 +30,8 @@
     <string name="dialog_equipmentInformation_free">在房間中皆可使: 用冰箱、衣櫥、保險箱、瓶裝水 茶、咖啡包、吹風機、室內拖鞋、浴巾、寢具用品、盥洗用品、電話(撥外線額外付費)</string>
     <string name="thanksFulfill">謝謝填寫 您已填完所有問卷!!</string>
     <string name="pleaseFulfill">請填妥</string>
+    <string name="submit">提交</string>
+    <string name="eachFillingGetYouMoney">每填寫一張都有200元唷！</string>
     <string-array name="equipmenttitle">
         <item>Grace 餐廳</item>
         <item>休閒娛樂中心</item>

@@ -1,53 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:minHeight="250dp"
-    android:minWidth="300dp">
+    android:minWidth="300dp"
+    android:background="@color/colorPrimary">
 
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="7dp"
+            android:id="@+id/titleTxt"
+            android:background="@drawable/white_corner"
+            android:padding="8dp"
             android:text="@string/dialog_questionnaire"
             android:textColor="#000"
             android:textSize="30sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/filingHintTxt"
+            android:layout_below="@+id/titleTxt"
+            android:layout_toLeftOf="@+id/graceIconImg"
+            android:layout_toStartOf="@+id/graceIconImg"
+            android:textColor="#282828"
+            android:text="1~5 分別為不滿意到滿意唷！"
+            android:padding="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fillingGetYouMoneyTxt"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/filingHintTxt"
+            android:text="@string/eachFillingGetYouMoney"
+            android:layout_toStartOf="@+id/graceIconImg"
+            android:layout_toLeftOf="@+id/graceIconImg"
+            android:padding="4dp"/>
+
+
+        <ImageView
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/graceIconImg"
+            android:src="@drawable/grace_mid_icon"
+            android:layout_alignBottom="@+id/fillingGetYouMoneyTxt"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
         <LinearLayout
-            android:id="@+id/mylayout"
+            android:id="@+id/questionnaireContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/white_corner"
+            android:layout_marginTop="20dp"
             android:minWidth="300dp"
+            android:minHeight="200dp"
+            android:layout_below="@+id/fillingGetYouMoneyTxt"
+            android:layout_centerHorizontal="true"
+            android:padding="15dp"
             android:orientation="vertical">
-
-            <ProgressBar
-                android:id="@+id/loadingBar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:visibility="invisible" />
-
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/dialog_questionnaire_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/white_corner"
-        android:text="提交" />
-
-</RelativeLayout>
+        <Button
+            android:id="@+id/dialog_questionnaire_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/questionnaireContainer"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/white_corner"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="@string/submit" />
+    </RelativeLayout>
+</ScrollView>
