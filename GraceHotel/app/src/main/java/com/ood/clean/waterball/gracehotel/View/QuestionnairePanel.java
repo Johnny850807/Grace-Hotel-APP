@@ -72,8 +72,10 @@ public class QuestionnairePanel extends LinearLayout implements QuestionnaireVie
         if(questionModelList.isEmpty()){
             TextView textView = new TextView(context);
             textView.setText(getResources().getString(R.string.thanksFulfill));
-            textView.setTextSize(30);
+            textView.setTextSize(25);
+            textView.setTextColor(Color.BLACK);
             addView(textView);
+            progressBar.setVisibility(GONE);
         }
         else
             initView(questionModelList.getFirst());
