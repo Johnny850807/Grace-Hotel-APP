@@ -17,23 +17,49 @@ public class User implements Serializable{
 	private String roomNumber;
 	private String deviceId;
 	private String email;
-	private int rewardAmount = 0;
+	private boolean hasComeToGrace = false;
+	private String nation;
+	private int age;
+	private int graceAmount = 0;
 	private List<TimeItemPool> timeItemPools; // the item arrangement results of this current user.
 	private Collection<Permission> permissions = new ArrayList<>();  // app function permissions the user got
 	private Collection<Integer> hasFilledQuestionGroupIds = new HashSet<>();  // record all question group ids the user has filled.
 
-	public User(String roomNumber, String deviceId, String email) {
+	public User(String roomNumber, String deviceId) {
 		this.roomNumber = roomNumber;
 		this.deviceId = deviceId;
-		this.email = email;
+	}
+
+	public void setHasComeToGrace(boolean hasComeToGrace) {
+		this.hasComeToGrace = hasComeToGrace;
+	}
+
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public boolean isHasComeToGrace() {
+		return hasComeToGrace;
+	}
+
+	public String getNation() {
+		return nation;
+	}
+
+	public int getAge() {
+		return age;
 	}
 
 	public int getGraceAmount() {
-		return rewardAmount;
+		return graceAmount;
 	}
 
-	public void setRewardAmount(int rewardAmount) {
-		this.rewardAmount = rewardAmount;
+	public void setGraceAmount(int graceAmount) {
+		this.graceAmount = graceAmount;
 	}
 
 	public int getMoney() {

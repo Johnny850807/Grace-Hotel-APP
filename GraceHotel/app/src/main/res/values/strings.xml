@@ -33,6 +33,7 @@
     <string name="submit">提交</string>
     <string name="eachFillingGetYouMoney">每填寫一張都有70元唷！</string>
     <string name="unit">個</string>
+    <string name="send">送出</string>
     <string-array name="equipmenttitle">
         <item>Grace 餐廳</item>
         <item>休閒娛樂中心</item>

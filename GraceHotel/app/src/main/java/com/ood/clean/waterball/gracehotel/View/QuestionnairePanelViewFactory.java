@@ -1,7 +1,9 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.content.Context;
-import android.widget.EditText;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -11,6 +13,9 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
+import com.ood.clean.waterball.gracehotel.utils.ViewUtils;
+
+import static com.ood.clean.waterball.gracehotel.utils.ViewUtils.convertDpToPixel;
 
 public class QuestionnairePanelViewFactory {
     private static final String TAG = "QuestionnairePanelViewFactory";
@@ -57,16 +62,23 @@ public class QuestionnairePanelViewFactory {
         return radioGroup;
     }
 
-    public  EditText createFilling(QuestionModel questionModel){
-        EditText editText = new EditText(context);
-        editText.setFocusable(true);
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
-
+    public View createFilling(QuestionModel questionModel){
+        TextInputLayout textInputLayout = new TextInputLayout(context);
+        int padding = convertDpToPixel(6, context);
+        textInputLayout.setPadding(padding, padding, padding, padding);
+        TextInputEditText textInputEditText = new TextInputEditText(context);
+        textInputEditText.setMinWidth(convertDpToPixel(300, context));
+        textInputLayout.addView(textInputEditText);
+        textInputEditText.setHint(questionModel.getQuestion());
+        textInputEditText.setOnClickListener((v)->{
+            ViewUtils.simpleMessageEdittextDialog(context,
+                    questionModel.getQuestion(), textInputEditText::setText).show();
+        });
+        textInputEditText.requestFocus();
 
         FillingQuestion fillingQuestion = (FillingQuestion) questionModel;
-        FillingAnswerBinding.bind(fillingQuestion,editText);
-        return  editText;
+        FillingAnswerBinding.bind(fillingQuestion, textInputEditText);
+        return textInputLayout;
     }
 
 

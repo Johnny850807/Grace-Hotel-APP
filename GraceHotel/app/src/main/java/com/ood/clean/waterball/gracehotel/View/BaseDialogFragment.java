@@ -9,7 +9,7 @@ import android.view.View;
 public abstract class BaseDialogFragment extends DialogFragment {
     @Override
     public AlertDialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog dialog =  onBuilding(new AlertDialog.Builder(getActivity()).setView(createView())).create();
+        AlertDialog dialog = onBuilding(new AlertDialog.Builder(getActivity()).setView(createView())).create();
         return dialog;
     }
 
@@ -17,9 +17,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
         return builder;
     }
 
-    protected boolean shouldDisablePositiveButtonDefaultAction(){
-        return true;
-    }
 
     protected abstract View createView();
 }

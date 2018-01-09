@@ -2,7 +2,6 @@ package com.ood.clean.waterball.gracehotel.View;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.LinearLayout;
@@ -20,6 +19,8 @@ import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 import com.ood.clean.waterball.gracehotel.R;
 
 import java.util.LinkedList;
+
+import static com.ood.clean.waterball.gracehotel.utils.ViewUtils.convertDpToPixel;
 
 
 public class QuestionnairePanel extends LinearLayout implements QuestionnaireView {
@@ -95,7 +96,7 @@ public class QuestionnairePanel extends LinearLayout implements QuestionnaireVie
         questionGroupTitleTxt.setTextColor(Color.BLUE);
         questionGroupTitleTxt.setTextSize(20);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 0, convertDpToPixel(15));
+        params.setMargins(0, 0, 0, convertDpToPixel(15, context));
         params.gravity = Gravity.CENTER_HORIZONTAL;
         questionGroupTitleTxt.setLayoutParams(params);
         return questionGroupTitleTxt;
@@ -164,16 +165,5 @@ public class QuestionnairePanel extends LinearLayout implements QuestionnaireVie
         progressBar.setVisibility(GONE);
     }
 
-    public int convertPixelToDp(float px){
-        return (int) (px / getDensity());
-    }
 
-    public int convertDpToPixel(float dp){
-        return (int) (dp * getDensity());
-    }
-
-    public float getDensity(){
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return metrics.density;
-    }
 }
