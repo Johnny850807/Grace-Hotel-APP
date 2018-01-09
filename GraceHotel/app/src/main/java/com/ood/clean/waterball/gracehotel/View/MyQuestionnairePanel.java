@@ -19,18 +19,22 @@ import java.util.LinkedList;
 
 public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireView {
     private static final String TAG = "MyQuestionnairePanel";
+    private QuestionnaireDialogFragment questionnaireDialogFragment;
     private QuestionnairePresenter questionnairePresenter;
     private Context context;
     private QuestionGroupModel questionGroupModel;
+    private int commitSuccessfullyAmount = 0;
 
-    public MyQuestionnairePanel(Context context, QuestionnairePresenter questionnairePresenter) {
+    public MyQuestionnairePanel(Context context, QuestionnairePresenter questionnairePresenter, QuestionnaireDialogFragment questionnaireDialogFragment) {
         super(context);
+        this.questionnaireDialogFragment = questionnaireDialogFragment;
         this.context = context;
         this.questionnairePresenter = questionnairePresenter;
         this.setOrientation(VERTICAL);
 
         LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         setLayoutParams(parms);
+
         questionnairePresenter.setQuestionnaireView(this);
         questionnairePresenter.loadQuestionnaire();
     }
@@ -41,11 +45,11 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
         for (QuestionModel questionModel : questionGroupModel){
             Log.d(TAG,questionModel.toString());
             addView(linearLayoutFactory.createLinearLayout(questionModel));
-
         }
     }
+
     public boolean checkAndCommitRespone(){
-        if( checkFulfill() ){
+        if(checkFulfill()){
             for(QuestionModel questionModel: questionGroupModel){
                 if(questionModel.getQuestionType() == QuestionType.RADIOGROUP)
                     questionnairePresenter.commitResponse((RadioGroupQuestion) questionModel);
@@ -56,6 +60,7 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
         }
         return false;
     }
+
     private boolean checkFulfill(){
         boolean checkFulfill = false;
         for(QuestionModel questionModel: questionGroupModel){
@@ -66,22 +71,27 @@ public class MyQuestionnairePanel extends LinearLayout implements QuestionnaireV
         }
         return checkFulfill;
     }
+
     private boolean checkRadioGroup(RadioGroupQuestion radioGroupQuestion){
         for(RadioGroupQuestion.Option option : radioGroupQuestion){
-            if(option.getValue() == true)
+            if(option.getValue())
                 return true;
         }
     return false;
     }
+
     private boolean checkFilling(FillingQuestion fillingQuestion){
         Log.d(TAG,"checkFilling Answer :" + fillingQuestion.getAnswer());
         if(fillingQuestion.getAnswer().length() == 0)
             return false;
         return true;
     }
+
     @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
         Log.d(TAG,"Answer Committing Successfully : " + answer.toString());
+        if (++commitSuccessfullyAmount == questionGroupModel.getQuestionModels().size())
+            questionnaireDialogFragment.dismiss();
     }
 
     @Override

@@ -8,7 +8,6 @@ import android.view.View;
 
 
 public abstract class BaseDialogFragment extends DialogFragment {
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return onBuilding(new AlertDialog.Builder(getActivity())
@@ -16,7 +15,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
     }
 
     protected AlertDialog.Builder onBuilding(AlertDialog.Builder builder){
-        //HOOK METHOD
         return builder;
     }
 

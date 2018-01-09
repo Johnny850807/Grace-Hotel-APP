@@ -1,6 +1,7 @@
 package com.ood.clean.waterball.gracehotel.Model.sprite;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Background extends Sprite implements Iterable<Sprite>{
+	private static final String TAG = "Background";
 	private Collection<Sprite> gameItems = Collections.synchronizedList(new ArrayList<>());
 	private Mask mask;
 	private int screenWidth;
@@ -40,6 +42,7 @@ public class Background extends Sprite implements Iterable<Sprite>{
 		if (finalX <= 0 && finalX + getWidth() >= screenWidth &&
 				finalY <= 0 && finalY + getHeight() >= screenHeight)
 			move(dx,dy);
+		Log.d(TAG, "Background: ("+getX()+","+getY()+")");
 	}
 
 	@Override

@@ -50,41 +50,38 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment implements Q
 
         questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user, MyApplication.getUserRepository(),
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
-
     }
 
     @Override
     protected View createView() {
         View mView = getActivity().getLayoutInflater().inflate(R.layout.dialog_questionnaire , null);
         submitBtn = mView.findViewById(R.id.dialog_questionnaire_btn);
-        myquestionnairepanel = new MyQuestionnairePanel(mView.getContext(),questionnairePresenter);
+        myquestionnairepanel = new MyQuestionnairePanel(mView.getContext(), questionnairePresenter, this);
         LinearLayout parent = mView.findViewById(R.id.mylayout);
         parent.addView(myquestionnairepanel);
+        submitBtn.setOnClickListener(new OnclickSubmitListener());
+        return mView;  //TODO
+    }
 
-
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    if(myquestionnairepanel.checkAndCommitRespone()){
-                        dismiss();
-                    }
-                    else{
-                        Toast toast = Toast.makeText(getContext(),"請填妥",Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
+    private class OnclickSubmitListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            try{
+                if(myquestionnairepanel.checkAndCommitRespone()){
                     dismiss();
                 }
-
+                else
+                    Toast.makeText(getContext(),"請填妥",Toast.LENGTH_LONG).show();
+            }catch (Exception e){
+                e.printStackTrace();
+                dismiss();
             }
-        });
-        return mView;  //TODO
+        }
     }
 
     @Override
     public void onAnswerCommittingSuccessfully(Answer answer, QuestionModel question) {
+
     }
 
     @Override

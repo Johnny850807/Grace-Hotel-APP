@@ -1,8 +1,6 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -10,19 +8,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
-import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.RadioGroupQuestion;
-import com.ood.clean.waterball.gracehotel.Model.entity.Question;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionType;
-
-/**
- * Created by user on 2017/12/18.
- */
 
 public class LinearLayoutFactory {
     private static final String TAG = "LinearLayoutFactory";
     private Context context;
+
     public LinearLayoutFactory(Context context){
         this.context = context;
 
@@ -40,12 +33,14 @@ public class LinearLayoutFactory {
         }
         return linearLayout;
     }
+
     public  TextView createTextView(String text){
         TextView textView = new TextView(context);
         textView.setText(text);
         textView.setTextSize(15);
         return textView;
     }
+
     public  RadioGroup createRadioGroup(QuestionModel questionModel){
 
         RadioGroup radioGroup = new RadioGroup(context);
@@ -61,6 +56,7 @@ public class LinearLayoutFactory {
         }
         return radioGroup;
     }
+
     public  EditText createFilling(QuestionModel questionModel){
         EditText editText = new EditText(context);
         FillingQuestion fillingQuestion = (FillingQuestion) questionModel;
