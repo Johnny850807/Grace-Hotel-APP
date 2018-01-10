@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:text="介紹"
             android:textColor="#000"/>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -112,7 +113,6 @@ public class SouvenirDialogFragment extends BaseDialogFragment {
             TextView titleText = (TextView) view.findViewById(R.id.souvenirListViewItemTitle);
             TextView introductionText = (TextView) view.findViewById(R.id.souvenirListViewItemIntroduction);
             ImageView imageView = (ImageView) view.findViewById(R.id.souvenirListViewItemImage);
-
             titleText.setText(informationList.get(i).getTitle());
             introductionText.setText(informationList.get(i).getIntroduction());
             Glide.with(context).load(resource).into(imageView);

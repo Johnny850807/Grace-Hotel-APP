@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".View.GameActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateAlwaysVisible">
+            android:windowSoftInputMode="adjustPan">
         </activity>
 
         <receiver android:name=".android.TreasureAlarmReceiver"/>

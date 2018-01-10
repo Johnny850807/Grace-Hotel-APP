@@ -1,6 +1,7 @@
 package com.ood.clean.waterball.gracehotel.View;
 
 import android.content.Context;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -65,6 +66,7 @@ public class LinearLayoutFactory {
     }
     public  EditText createFilling(QuestionModel questionModel){
         EditText editText = new EditText(context);
+        editText.setText("幹到底是怎樣");
         editText.setFocusable(true);
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
