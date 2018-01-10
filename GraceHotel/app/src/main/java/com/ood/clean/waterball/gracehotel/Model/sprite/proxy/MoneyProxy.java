@@ -1,4 +1,4 @@
-package com.ood.clean.waterball.gracehotel.Model.sprite.event;
+package com.ood.clean.waterball.gracehotel.Model.sprite.proxy;
 
 
 import com.ood.clean.waterball.gracehotel.Model.UserRepository;
@@ -34,7 +34,7 @@ public class MoneyProxy extends BaseSpriteProxy {
         userRepository.addMoney(user, money);
         addFadingTextEffect(background, moneySprite);
         background.removeGameItem(moneySprite);
-        threadExecutor.executeOnMainThread(() -> gameView.onMoneyUpdated(moneySprite, user.getMoney()));
+        threadExecutor.executeOnMainThread(() -> gameView.onMoneyUpdated(user.getMoney()));
     }
 
     private void addFadingTextEffect(Background background, Sprite moneySprite){

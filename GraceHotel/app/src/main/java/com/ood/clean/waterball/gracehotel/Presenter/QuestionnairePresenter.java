@@ -16,6 +16,7 @@ import com.ood.clean.waterball.gracehotel.Model.entity.Question;
 import com.ood.clean.waterball.gracehotel.Model.entity.QuestionGroup;
 import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
+import com.ood.clean.waterball.gracehotel.View.OnUserUpdatedListener;
 import com.ood.clean.waterball.gracehotel.View.QuestionnaireView;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class QuestionnairePresenter {
     private String language;
     private UserRepository userRepository;
     private QuestionnaireRepository questionnaireRepository;
+    private OnUserUpdatedListener onUserUpdatedListener;
 
     public QuestionnairePresenter(ThreadExecutor threadExecutor,
                                   User user,
@@ -94,6 +96,10 @@ public class QuestionnairePresenter {
         this.questionnaireView = questionnaireView;
     }
 
+    public void setOnUserUpdatedListener(OnUserUpdatedListener onUserUpdatedListener) {
+        this.onUserUpdatedListener = onUserUpdatedListener;
+    }
+
     public void commitResponse(RadioGroupQuestion questionModel){
         Answer answer = QAModelFactory.createAnswerFeedback(user.getDeviceId(),
                                                             user.getRoomNumber(),
@@ -122,6 +128,13 @@ public class QuestionnairePresenter {
                 } catch (Exception e){
                     threadExecutor.executeOnMainThread(()->questionnaireView.onError(e));
                 }
+        });
+    }
+
+    public void earnMoneyFromFillingTheQuestionnaire(int money){
+        threadExecutor.execute(()->{
+            userRepository.addMoney(user, money);
+            threadExecutor.executeOnMainThread(()-> onUserUpdatedListener.onMoneyUpdated(user.getMoney()));
         });
     }
 }

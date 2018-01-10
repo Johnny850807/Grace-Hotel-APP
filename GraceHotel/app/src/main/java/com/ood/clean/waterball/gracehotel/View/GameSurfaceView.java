@@ -13,8 +13,7 @@ import android.widget.Toast;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
-import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.TreasureProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.TreasureProxy;
 import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.GamePresenter;
 import com.ood.clean.waterball.gracehotel.R;
@@ -122,8 +121,13 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Override
-    public void onMoneyUpdated(Sprite sprite, int money) {
-        gameParentView.onMoneyUpdated(sprite, money);
+    public void onMoneyUpdated(int money) {
+        gameParentView.onMoneyUpdated(money);
+    }
+
+    @Override
+    public void onGraceUpdated(int grace) {
+        gameParentView.onGraceUpdated(grace);
     }
 
     @Override

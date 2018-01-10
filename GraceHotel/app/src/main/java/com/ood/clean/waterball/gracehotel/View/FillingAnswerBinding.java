@@ -1,17 +1,12 @@
 package com.ood.clean.waterball.gracehotel.View;
 
-import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.FillingQuestion;
 
-/**
- * Created by user on 2017/12/28.
- */
 
 public class FillingAnswerBinding {
     private static final String TAG = "FillingAnswerBinding";
@@ -25,10 +20,8 @@ public class FillingAnswerBinding {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 Log.d(TAG,editText.getText().toString());
                 fillingQuestion.setAnswer(editText.getText().toString());
-
             }
 
             @Override

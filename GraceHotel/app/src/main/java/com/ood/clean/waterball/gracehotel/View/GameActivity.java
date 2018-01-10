@@ -3,6 +3,7 @@ package com.ood.clean.waterball.gracehotel.View;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,12 +12,10 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.domain.Permissions;
-import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
 import com.ood.clean.waterball.gracehotel.R;
 
 import butterknife.BindView;
@@ -33,6 +32,7 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     @BindView(R.id.container) RelativeLayout container;
     @BindView(R.id.roomNumberTxt) TextView roomNumberTxt;
     @BindView(R.id.moneyTxt) TextView moneyTxt;
+    @BindView(R.id.graceTxt) TextView graceTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
         Log.d(TAG, "GameSurfaceView added");
     }
 
+
     private void init(){
         user = (User) getIntent().getSerializableExtra("User");
     }
@@ -56,6 +57,7 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
         setupIconButtons();
         roomNumberTxt.setText(user.getRoomNumber());  // spaces for margin left
         moneyTxt.setText(String.valueOf(user.getMoney()) + "$");
+        graceTxt.setText(String.valueOf(user.getGraceAmount()) + getString(R.string.unit));
     }
 
     private void initAndAddGameSurfaceView(){
@@ -88,7 +90,11 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     }
 
     public void onQuestionnaireOnClick(View view) {
-        showAlertDialogFragment(QuestionnaireDialogFragment.newInstance(user));
+        if(user.getEmail().equals("")){
+            showAlertDialog(new MyAlertDialog(this,user));
+        }
+        else
+            showAlertDialogFragment(QuestionnaireDialogFragment.newInstance(user));
     }
     public void onEquipmentOnClick(View view){
         showAlertDialogFragment(EquipmentInformationDialogFragment.newInstance(user));
@@ -99,14 +105,21 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     public void onSouvenirOnClick(View view){
         showAlertDialogFragment(SouvenirDialogFragment.newInstance(user));
     }
-
+    public void showAlertDialog(AlertDialog alertDialog){
+        alertDialog.show();
+    }
     public void showAlertDialogFragment(DialogFragment dialogFragment) {
         dialogFragment.show(getSupportFragmentManager(), "dialog");
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onMoneyUpdated(Sprite sprite, int money) {
+    public void onMoneyUpdated(int money) {
         moneyTxt.setText(String.valueOf(user.getMoney()) + "$");
+    }
+
+    @Override
+    public void onGraceUpdated(int grace) {
+        graceTxt.setText(String.valueOf(user.getGraceAmount()) + getString(R.string.unit));
     }
 }

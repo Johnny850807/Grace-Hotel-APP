@@ -1,33 +1,25 @@
 package com.ood.clean.waterball.gracehotel.View;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionGroupModel;
-import com.ood.clean.waterball.gracehotel.Model.datamodel.QuestionModel;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
-import com.ood.clean.waterball.gracehotel.Model.entity.Answer;
-import com.ood.clean.waterball.gracehotel.Model.entity.Questionnaire;
 import com.ood.clean.waterball.gracehotel.MyApplication;
 import com.ood.clean.waterball.gracehotel.Presenter.QuestionnairePresenter;
 import com.ood.clean.waterball.gracehotel.R;
 
-import java.util.LinkedList;
-
 
 public class QuestionnaireDialogFragment extends BaseDialogFragment {
     private static final String TAG = "QuestionnaireView";
-    private static final String QUESTIONS = "questions";
     private static final String USER = "user";
     private QuestionnairePresenter questionnairePresenter;
-    private MyQuestionnairePanel myquestionnairepanel;
+    private QuestionnairePanel myquestionnairepanel;
+    private OnUserUpdatedListener onUserUpdatedListener;
     private User user;
-    private ProgressBar loadingBar;
     private Button submitBtn;
 
 
@@ -42,6 +34,12 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment {
         return fragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        onUserUpdatedListener = (OnUserUpdatedListener) context;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,46 +47,32 @@ public class QuestionnaireDialogFragment extends BaseDialogFragment {
         Bundle bundle = getArguments();
         user = (User) bundle.getSerializable(USER);
 
-
         questionnairePresenter = new QuestionnairePresenter(MyApplication.getThreadExecutor(), user, MyApplication.getUserRepository(),
                 MyApplication.getQuestionnaireRepository(), MyApplication.getLanguage());
-
     }
 
     @Override
     protected View createView() {
         View mView = getActivity().getLayoutInflater().inflate(R.layout.dialog_questionnaire , null);
         submitBtn = mView.findViewById(R.id.dialog_questionnaire_btn);
-        myquestionnairepanel = new MyQuestionnairePanel(mView.getContext(),questionnairePresenter);
-        LinearLayout parent = mView.findViewById(R.id.mylayout);
+        myquestionnairepanel = new QuestionnairePanel(getActivity(), questionnairePresenter, this, onUserUpdatedListener);
+        LinearLayout parent = mView.findViewById(R.id.questionnaireContainer);
         parent.addView(myquestionnairepanel);
 
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    if(myquestionnairepanel.checkAndCommitRespone()){
-                        dismiss();
-                    }
-                    else{
-                        Toast toast = Toast.makeText(getContext(),getResources().getString(R.string.pleaseFulfill),Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
+        submitBtn.setOnClickListener((v)-> {
+                if(myquestionnairepanel.checkAndCommitResponse())
                     dismiss();
-                }
-
+                else
+                    Toast.makeText(getActivity(), getString(R.string.pleaseFulfill), Toast.LENGTH_LONG).show();
             }
-        });
-        return mView;  //TODO
-
+        );
+        return mView;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+    public void onDetach() {
+        super.onDetach();
+        onUserUpdatedListener = null;
     }
 }

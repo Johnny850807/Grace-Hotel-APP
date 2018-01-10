@@ -3,7 +3,7 @@ package com.ood.clean.waterball.gracehotel.View;
 
 import com.ood.clean.waterball.gracehotel.Model.datamodel.User;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.TreasureProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.TreasureProxy;
 
 public interface GameView extends GameParentView{
 

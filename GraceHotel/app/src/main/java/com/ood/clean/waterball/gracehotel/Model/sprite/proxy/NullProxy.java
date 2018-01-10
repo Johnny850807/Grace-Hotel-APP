@@ -1,4 +1,4 @@
-package com.ood.clean.waterball.gracehotel.Model.sprite.event;
+package com.ood.clean.waterball.gracehotel.Model.sprite.proxy;
 
 import com.ood.clean.waterball.gracehotel.Model.UserRepository;
 import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;

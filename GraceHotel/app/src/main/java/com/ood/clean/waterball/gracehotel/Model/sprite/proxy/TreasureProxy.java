@@ -1,4 +1,4 @@
-package com.ood.clean.waterball.gracehotel.Model.sprite.event;
+package com.ood.clean.waterball.gracehotel.Model.sprite.proxy;
 
 
 import com.ood.clean.waterball.gracehotel.Model.UserRepository;
@@ -83,9 +83,12 @@ public class TreasureProxy extends BaseSpriteProxy  {
                     background.removeGameItem(sprite);
                     addFadingTextEffect(background, sprite);
                     if (hasReward)
+                    {
                         userRepository.addReward(user);
+                        threadExecutor.executeOnMainThread(()->gameView.onGraceUpdated(user.getGraceAmount()));
+                    }
                     threadExecutor.executeOnMainThread(()->{
-                        gameView.onMoneyUpdated(sprite, user.getMoney());
+                        gameView.onMoneyUpdated(user.getMoney());
                         gameView.onShowingRewardInTreasure(hasReward);
                     });
                 }catch (Exception err){

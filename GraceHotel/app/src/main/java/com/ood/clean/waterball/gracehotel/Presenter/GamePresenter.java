@@ -9,7 +9,7 @@ import com.ood.clean.waterball.gracehotel.Model.domain.TimeItemPool;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Background;
 import com.ood.clean.waterball.gracehotel.Model.sprite.Sprite;
 import com.ood.clean.waterball.gracehotel.Model.sprite.SpritePrototypeFactory;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.SpriteProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.SpriteProxy;
 import com.ood.clean.waterball.gracehotel.Threading.ThreadExecutor;
 import com.ood.clean.waterball.gracehotel.View.GameView;
 
@@ -65,32 +65,6 @@ public class GamePresenter {
 		return sprites;
 	}
 
-	private void testGameItem(){
-		Sprite money1 = prototypeFactory.createSprite(SpriteName.MONEY);
-		money1.setX(150);
-		money1.setY(200);
-		Sprite money2 = prototypeFactory.createSprite(SpriteName.MONEY);
-		money2.setX(3250);
-		money2.setY(1000);
-		Sprite money3 = prototypeFactory.createSprite(SpriteName.MONEY);
-		money3.setX(2000);
-		money3.setY(300);
-		Sprite money4 = prototypeFactory.createSprite(SpriteName.MONEY);
-		money3.setX(-4500);
-		money3.setY(150);
-		Sprite money5 = prototypeFactory.createSprite(SpriteName.MONEY);
-		money3.setX(-2200);
-		money3.setY(850);
-		Sprite treasure = prototypeFactory.createSprite(SpriteName.TREASURE);
-		treasure.setX(-4200);
-		treasure.setY(540);
-		background.addGameItem(money1);
-		background.addGameItem(money3);
-		background.addGameItem(money2);
-		background.addGameItem(money4);
-		background.addGameItem(money5);
-		background.addGameItem(treasure);
-	}
 
 	private Thread gameCycleThread = new Thread(){
 		@Override

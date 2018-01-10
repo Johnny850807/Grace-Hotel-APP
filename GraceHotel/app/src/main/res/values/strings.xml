@@ -10,7 +10,7 @@
     <string name="loadingCompleted">載入完畢</string>
     <string name="loading">載入中</string>
     <string name="roomNumber">房間號碼:</string>
-    <string name="dialog_questionnaire">填寫問卷</string>
+    <string name="dialog_questionnaire">填寫滿意度調查問卷</string>
     <string name="dialog_equipmentInformation">設備資訊</string>
     <string name="dialog_travelInformation">旅遊資訊</string>
     <string name="dialog_souvenir">附近伴手禮介紹</string>
@@ -23,13 +23,25 @@
     <string name="openTreasureHaveToCostMoney">要開啟寶藏，需要花費50元，請問您要開啟嗎？</string>
     <string name="youFindTheTreasure">您找到了寶藏 !</string>
     <string name="moneyNotEnough" formatted="false">必須有%d元才能開啟寶箱！金錢可以從房間中的紙鈔或是直接填寫問卷來賺取唷！</string>
-    <string name="congratulationYouGotReward">恭喜你獲得了一枚葛瑞絲硬幣，蒐集四枚可以兌換獎勵唷！</string>
+    <string name="congratulationYouGotReward">恭喜你獲得了一枚葛瑞絲獎勵，蒐集四個可以兌換獎勵唷！</string>
     <string name="congragulation">恭喜</string>
     <string name="treasureIsEmpty">寶箱是空的</string>
     <string name="cheerUpTheRewardIsWaiting">再接再厲，硬幣就在下一個寶箱等你呢！</string>
     <string name="dialog_equipmentInformation_free">在房間中皆可使: 用冰箱、衣櫥、保險箱、瓶裝水 茶、咖啡包、吹風機、室內拖鞋、浴巾、寢具用品、盥洗用品、電話(撥外線額外付費)</string>
     <string name="thanksFulfill">謝謝填寫 您已填完所有問卷!!</string>
     <string name="pleaseFulfill">請填妥</string>
+    <string name="submit">提交</string>
+    <string name="eachFillingGetYouMoney">每填寫一張都有70元唷！</string>
+    <string name="unit">個</string>
+    <string name="send">送出</string>
+    <string name="dialog_UserInputInformation">請先填寫以下資訊</string>
+    <string name="dialog_Thanks">謝謝您的填寫</string>
+    <string name="dialog_Message">填完後就會出現問卷能過獲得金錢</string>
+    <string name="dialog_Email">Email : </string>
+    <string name="dialog_Name">姓名 : </string>
+    <string name="dialog_VisitTimes">這是第幾次造訪 : </string>
+    <string name="dialog_Age">年齡 : </string>
+    <string name="dialog_Nationality">國籍 : </string>
     <string-array name="equipmenttitle">
         <item>Grace 餐廳</item>
         <item>休閒娛樂中心</item>

@@ -7,7 +7,7 @@ import com.ood.clean.waterball.gracehotel.Model.datamodel.SpriteName;
 import com.ood.clean.waterball.gracehotel.Model.domain.NoPainNoGain;
 import com.ood.clean.waterball.gracehotel.Model.domain.TimeBlock;
 import com.ood.clean.waterball.gracehotel.Model.domain.TimeItemPool;
-import com.ood.clean.waterball.gracehotel.Model.sprite.event.BaseSpriteProxy;
+import com.ood.clean.waterball.gracehotel.Model.sprite.proxy.BaseSpriteProxy;
 
 import org.junit.Before;
 import org.junit.Test;
