@@ -17,7 +17,6 @@ import com.ood.clean.waterball.gracehotel.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by user on 2017/12/31.
@@ -25,7 +24,6 @@ import java.util.zip.Inflater;
 
 public class TravelInformationDialogFragment extends BaseDialogFragment {
     private static final String USER = "user";
-    private User user;
     private MyAdapter myAdapter;
     private List<Information> informationList;
     private String[] travelTitle = {"石碇湖","石碇老街(午餐)","手信坊創意和菓子(和菓子DIY)","樂華夜市"};
@@ -53,14 +51,7 @@ public class TravelInformationDialogFragment extends BaseDialogFragment {
         return fragment;
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        user = (User) bundle.getSerializable(USER);
 
-    }
 
     @Override
     protected View createView() {

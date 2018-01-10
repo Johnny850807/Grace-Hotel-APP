@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,7 +24,6 @@ import java.util.List;
 
 public class SouvenirDialogFragment extends BaseDialogFragment {
     private static final String USER = "user";
-    private User user;
     private MyAdapter myAdapter;
     private List<Information> souvenirInformationList ;
     private String[] titleArray = {"老天祿滷味","芳堤納克菓子工房","大黑松小倆口-牛軋糖博物館","來春嬤柴燒麥芽糖"};
@@ -56,13 +54,7 @@ public class SouvenirDialogFragment extends BaseDialogFragment {
         return fragment;
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        user = (User) bundle.getSerializable(USER);
-    }
+
 
     @Override
     protected View createView() {

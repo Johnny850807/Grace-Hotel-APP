@@ -24,7 +24,6 @@ import java.util.List;
 
 public class EquipmentInformationDialogFragment extends BaseDialogFragment{
     private static final String USER = "user";
-    private User user;
     private MyAdapter myAdapter;
     private List<Information> equimpmentInformationList ;
     private String[] titleArray = {"Grace 餐廳","休閒娛樂中心","自助洗衣室","商務中心"};
@@ -49,15 +48,6 @@ public class EquipmentInformationDialogFragment extends BaseDialogFragment{
         bundle.putSerializable(USER, user);
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        user = (User) bundle.getSerializable(USER);
-
     }
 
     @Override
