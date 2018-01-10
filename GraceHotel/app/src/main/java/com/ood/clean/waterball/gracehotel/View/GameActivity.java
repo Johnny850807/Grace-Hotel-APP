@@ -90,7 +90,7 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     }
 
     public void onQuestionnaireOnClick(View view) {
-        if(user.getEmail().equals("")){
+        if(!user.isHasComeToGrace()){
             showAlertDialog(new MyAlertDialog(this,user));
         }
         else
