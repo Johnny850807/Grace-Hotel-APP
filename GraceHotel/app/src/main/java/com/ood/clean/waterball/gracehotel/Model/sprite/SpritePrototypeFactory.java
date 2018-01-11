@@ -44,7 +44,7 @@ public class SpritePrototypeFactory {
 		background.setY(-904);
 		addPrototype(SpriteName.BACKGROUND, background);
 
-		Bitmap moneyBitmap = getBitmap(R.drawable.money);
+		Bitmap moneyBitmap = getBitmap(R.drawable.coins);
 		addPrototype(SpriteName.MONEY, new GameItem(moneyBitmap.getWidth(), moneyBitmap.getHeight(),
 				createImageSequence(moneyBitmap), SpriteName.MONEY));
 
