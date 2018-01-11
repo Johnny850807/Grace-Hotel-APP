@@ -43,12 +43,6 @@
                 android:background="@android:color/transparent"
                 android:onClick="onSouvenirOnClick"/>
 
-            <ImageButton
-                android:layout_width="@dimen/iconSize"
-                android:layout_height="@dimen/iconSize"
-                android:layout_margin="12dp"
-                android:id="@+id/icon4"
-                android:background="@android:color/transparent"/>
 
         </LinearLayout>
 
@@ -58,7 +52,7 @@
             android:scaleType="fitCenter"
             android:id="@+id/surveyBtn"
             android:layout_margin="7dp"
-            android:src="@drawable/survey"
+            android:src="@drawable/questionnireicon"
             android:background="@android:color/transparent"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"

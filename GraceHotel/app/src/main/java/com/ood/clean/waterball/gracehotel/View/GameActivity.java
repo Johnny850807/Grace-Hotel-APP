@@ -27,7 +27,6 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     @BindView(R.id.icon1) ImageButton icon1Btn;
     @BindView(R.id.icon2) ImageButton icon2Btn;
     @BindView(R.id.icon3) ImageButton icon3Btn;
-    @BindView(R.id.icon4) ImageButton icon4Btn;
     @BindView(R.id.surveyBtn) ImageButton surveyBtn;
     @BindView(R.id.container) RelativeLayout container;
     @BindView(R.id.roomNumberTxt) TextView roomNumberTxt;
@@ -68,13 +67,10 @@ public class GameActivity extends AppCompatActivity implements GameParentView{
     }
 
     private void setupIconButtons(){
-        //icon3Btn.setEnabled(user.hasPermission(Permissions.WATCH_WEATHER));
-        icon4Btn.setEnabled(user.hasPermission(Permissions.TRAVEL_INFO));
 
-        Glide.with(this).load(R.drawable.icon1).fitCenter().into(icon1Btn);
-        Glide.with(this).load(R.drawable.icon2).fitCenter().into(icon2Btn);
-        Glide.with(this).load(R.drawable.icon3).fitCenter().into(icon3Btn);
-        Glide.with(this).load(R.drawable.icon4).fitCenter().into(icon4Btn);
+        Glide.with(this).load(R.drawable.equipmenticon).fitCenter().into(icon1Btn);
+        Glide.with(this).load(R.drawable.souveniricon).fitCenter().into(icon2Btn);
+        Glide.with(this).load(R.drawable.travelicon).fitCenter().into(icon3Btn);
     }
 
     @Override
