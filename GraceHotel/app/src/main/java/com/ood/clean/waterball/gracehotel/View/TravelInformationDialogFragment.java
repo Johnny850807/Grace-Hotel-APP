@@ -65,8 +65,7 @@ public class TravelInformationDialogFragment extends BaseDialogFragment {
     private void initInformation(){
         informationList = new ArrayList<Information>();
         for(int i = 0 ; i < 4; i++){
-            Information information = new Information(travelTitle[i],travelIntroduction[i],travelImageSrc[i]);
-            informationList.add(information);
+            informationList.add(new Information(travelTitle[i],travelIntroduction[i],travelImageSrc[i]));
         }
     }
     private class MyAdapter extends BaseAdapter{

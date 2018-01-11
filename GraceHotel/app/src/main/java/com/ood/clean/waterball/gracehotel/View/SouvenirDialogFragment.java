@@ -68,8 +68,7 @@ public class SouvenirDialogFragment extends BaseDialogFragment {
     private void initInformation(){
         souvenirInformationList = new ArrayList<Information>();
         for(int i = 0 ; i < 4; i++){
-            Information information = new Information(titleArray[i],introductionArray[i],imageSrcArray[i]);
-            souvenirInformationList.add(information);
+            souvenirInformationList.add(new Information(titleArray[i],introductionArray[i],imageSrcArray[i]));
         }
     }
 

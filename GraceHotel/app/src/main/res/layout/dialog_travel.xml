@@ -20,6 +20,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:dividerHeight="10dp"
         android:id="@+id/dialog_travel_listview">
     </ListView>
 </LinearLayout>

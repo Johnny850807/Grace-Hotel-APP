@@ -2,6 +2,7 @@ package com.ood.clean.waterball.gracehotel.View;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +64,7 @@ public class EquipmentInformationDialogFragment extends BaseDialogFragment{
     private void initInformation(){
         equimpmentInformationList = new ArrayList<Information>();
         for (int i = 0 ; i < 4 ; i++){
-            Information equimpmentInformation = new Information(titleArray[i],introductionArray[i],imageSrcArray[i]);
-            equimpmentInformationList.add(equimpmentInformation);
+            equimpmentInformationList.add(new Information(titleArray[i],introductionArray[i],imageSrcArray[i]));
         }
     }
     private class MyAdapter extends BaseAdapter{
