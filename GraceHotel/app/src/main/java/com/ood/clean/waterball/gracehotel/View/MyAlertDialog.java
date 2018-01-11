@@ -18,7 +18,6 @@ import com.ood.clean.waterball.gracehotel.R;
 public class MyAlertDialog extends AlertDialog implements View.OnClickListener{
     private Context context;
     private View view;
-    private EditText edtName;
     private EditText edtAge;
     private EditText edtVisitTimes;
     private EditText edtEmail;
@@ -35,7 +34,6 @@ public class MyAlertDialog extends AlertDialog implements View.OnClickListener{
         initView();
     }
     private void initView(){
-        edtName = (EditText) view.findViewById(R.id.UserName);
         edtAge = (EditText) view.findViewById(R.id.UserAge);
         edtVisitTimes = (EditText) view.findViewById(R.id.UserVisitTimes);
         edtEmail = (EditText) view.findViewById(R.id.UserEmail);
@@ -47,10 +45,9 @@ public class MyAlertDialog extends AlertDialog implements View.OnClickListener{
     public void onClick(View view) {
         boolean edtEmailAvailable = edtEmail.getText().toString().length() > 0;
         boolean edtAgeAvailable = edtAge.getText().toString().length() > 0;
-        boolean edtNameAvailable = edtName.getText().toString().length() > 0;
         boolean edtNationalityAvailable = edtNationality.getText().toString().length() > 0;
         boolean edtVisitTimesAvailable = edtVisitTimes.getText().toString().length() > 0;
-        boolean result = edtAgeAvailable && edtEmailAvailable && edtNameAvailable && edtNationalityAvailable && edtVisitTimesAvailable;
+        boolean result = edtAgeAvailable && edtEmailAvailable  && edtNationalityAvailable && edtVisitTimesAvailable;
         if(result){
             user.setAge(Integer.valueOf(edtAge.getText().toString()));
             user.setEmail(edtEmail.getText().toString());
